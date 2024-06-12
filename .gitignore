@@ -5,35 +5,34 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
-/.bundle
+/cybercrm/.bundle
 
 # Ignore all environment files (except templates).
-/.env*
-!/.env*.erb
+/cybercrm/.env*
+!/cybercrm/.env*.erb
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+/cybercrm/log/*
+/cybercrm/tmp/*
+!/cybercrm/log/.keep
+!/cybercrm/tmp/.keep
 
 # Ignore pidfiles, but keep the directory.
-/tmp/pids/*
-!/tmp/pids/
-!/tmp/pids/.keep
+/cybercrm/tmp/pids/*
+!/cybercrm/tmp/pids/
+!/cybercrm/tmp/pids/.keep
 
 # Ignore storage (uploaded files in development and any SQLite databases).
-/storage/*
-!/storage/.keep
-/tmp/storage/*
-!/tmp/storage/
-!/tmp/storage/.keep
-!/tmp/cache/bootsnap/*
+/cybercrm/storage/*
+!/cybercrm/storage/.keep
+/cybercrm/tmp/storage/*
+!/cybercrm/tmp/storage/
+!/cybercrm/tmp/storage/.keep
 
-/public/assets
+/cybercrm/public/assets
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
+/cybercrm/config/master.key
 
-/app/assets/builds/*
-!/app/assets/builds/.keep
+/cybercrm/app/assets/builds/*
+!/cybercrm/app/assets/builds/.keep
