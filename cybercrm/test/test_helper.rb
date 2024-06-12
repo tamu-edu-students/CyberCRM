@@ -1,3 +1,7 @@
+require 'simplecov'
+SimpleCov.start
+
+# Previous content of test helper now starts here
 # frozen_string_literal: true
 
 ENV['RAILS_ENV'] ||= 'test'
