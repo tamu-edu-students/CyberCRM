@@ -28,4 +28,7 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  hello:      "Hello world"
+  signed_in:  "Signed in!"
+  failure:    "Failure!"
+  signed_out: "Signed out!"

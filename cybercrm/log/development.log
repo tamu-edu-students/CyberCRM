@@ -499,3 +499,128 @@ Processing by HomeController#index as HTML
 Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms | Allocations: 542)
 
 
+[dotenv] Set [36mGOOGLE_CLIENT_ID[0m and [36mGOOGLE_CLIENT_SECRET[0m
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for 127.0.0.1 at 2024-06-12 16:10:34 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (2.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb
+  Rendered home/index.html.erb (Duration: 3.2ms | Allocations: 684)
+Completed 200 OK in 29ms (Views: 11.9ms | ActiveRecord: 0.0ms | Allocations: 7138)
+
+
+Started POST "/auth/google_oauth2" for 127.0.0.1 at 2024-06-12 16:10:35 -0500
+Started GET "/auth/google_oauth2/callback?state=064a37506206d1f9fe5c1f20839b0d63a73babc7f5e84399&code=4/0ATx3LY7DvH-5ay4Fcq50Kt78Dd-rs6W-DkHOP7Z3IXJMAmcPCfOQKmmYUejjpVvlPBZKAw&scope=email%20profile%20openid%20https://www.googleapis.com/auth/userinfo.profile%20https://www.googleapis.com/auth/userinfo.email&authuser=1&hd=tamu.edu&prompt=consent" for 127.0.0.1 at 2024-06-12 16:10:40 -0500
+Processing by SessionsController#create as HTML
+  Parameters: {"state"=>"064a37506206d1f9fe5c1f20839b0d63a73babc7f5e84399", "code"=>"4/0ATx3LY7DvH-5ay4Fcq50Kt78Dd-rs6W-DkHOP7Z3IXJMAmcPCfOQKmmYUejjpVvlPBZKAw", "scope"=>"email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email", "authuser"=>"1", "hd"=>"tamu.edu", "prompt"=>"consent", "provider"=>"google_oauth2"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."provider" = $1 AND "users"."uid" = $2 ORDER BY "users"."id" ASC LIMIT $3[0m  [["provider", "google_oauth2"], ["uid", "112853003163125119677"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:10:in `from_omniauth'
+Completed 500 Internal Server Error in 134ms (ActiveRecord: 32.0ms | Allocations: 26823)
+
+
+  
+NameError (undefined local variable or method `signed_in' for an instance of SessionsController):
+  
+app/controllers/sessions_controller.rb:13:in `create'
+[dotenv] Set [36mGOOGLE_CLIENT_ID[0m and [36mGOOGLE_CLIENT_SECRET[0m
+[dotenv] Loaded [33m.env[0m
+Started GET "/auth/google_oauth2/callback?state=064a37506206d1f9fe5c1f20839b0d63a73babc7f5e84399&code=4/0ATx3LY7DvH-5ay4Fcq50Kt78Dd-rs6W-DkHOP7Z3IXJMAmcPCfOQKmmYUejjpVvlPBZKAw&scope=email%20profile%20openid%20https://www.googleapis.com/auth/userinfo.profile%20https://www.googleapis.com/auth/userinfo.email&authuser=1&hd=tamu.edu&prompt=consent" for 127.0.0.1 at 2024-06-12 16:16:54 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+OAuth2::Error (invalid_grant: Bad Request
+{
+  "error": "invalid_grant",
+  "error_description": "Bad Request"
+}):
+  
+oauth2 (2.0.9) lib/oauth2/client.rb:139:in `request'
+oauth2 (2.0.9) lib/oauth2/client.rb:183:in `get_token'
+oauth2 (2.0.9) lib/oauth2/strategy/auth_code.rb:37:in `get_token'
+omniauth-google-oauth2 (1.1.2) lib/omniauth/strategies/google_oauth2.rb:149:in `client_get_token'
+omniauth-google-oauth2 (1.1.2) lib/omniauth/strategies/google_oauth2.rb:127:in `get_access_token'
+omniauth-google-oauth2 (1.1.2) lib/omniauth/strategies/google_oauth2.rb:102:in `custom_build_access_token'
+omniauth-oauth2 (1.8.0) lib/omniauth/strategies/oauth2.rb:91:in `callback_phase'
+omniauth (2.1.2) lib/omniauth/strategy.rb:272:in `callback_call'
+omniauth (2.1.2) lib/omniauth/strategy.rb:194:in `call!'
+omniauth (2.1.2) lib/omniauth/strategy.rb:169:in `call'
+omniauth (2.1.2) lib/omniauth/builder.rb:44:in `call'
+rack (3.1.2) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.1.2) lib/rack/etag.rb:29:in `call'
+rack (3.1.2) lib/rack/conditional_get.rb:31:in `call'
+rack (3.1.2) lib/rack/head.rb:15:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (7.1.3.4) lib/active_record/migration.rb:655:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.3.4) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.3.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.3.4) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.3.4) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.3.4) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.3.4) lib/active_support/broadcast_logger.rb:240:in `method_missing'
+railties (7.1.3.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.5.1) lib/sprockets/rails/quiet_assets.rb:17:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.1.2) lib/rack/method_override.rb:28:in `call'
+rack (3.1.2) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.1.2) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.3.4) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.3.4) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2024-06-12 16:17:01 -0500
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb
+  Rendered home/index.html.erb (Duration: 1.0ms | Allocations: 531)
+Completed 200 OK in 5ms (Views: 2.0ms | ActiveRecord: 0.0ms | Allocations: 2455)
+
+
+Started GET "/" for 127.0.0.1 at 2024-06-12 16:17:01 -0500
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb
+  Rendered home/index.html.erb (Duration: 0.4ms | Allocations: 288)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms | Allocations: 563)
+
+
+Started POST "/auth/google_oauth2" for 127.0.0.1 at 2024-06-12 16:17:05 -0500
+Started GET "/auth/google_oauth2/callback?state=03630c4645d275a2ef350e6606ef89b974437b9a548aefba&code=4/0ATx3LY5_kVlAuAHN1k4cbHMgZ5u4filFMX4C6ECeNtfgZcAZXTIESfqRXEXUwlFjwtMEDQ&scope=email%20profile%20openid%20https://www.googleapis.com/auth/userinfo.profile%20https://www.googleapis.com/auth/userinfo.email&authuser=1&hd=tamu.edu&prompt=consent" for 127.0.0.1 at 2024-06-12 16:17:10 -0500
+Processing by SessionsController#create as HTML
+  Parameters: {"state"=>"03630c4645d275a2ef350e6606ef89b974437b9a548aefba", "code"=>"4/0ATx3LY5_kVlAuAHN1k4cbHMgZ5u4filFMX4C6ECeNtfgZcAZXTIESfqRXEXUwlFjwtMEDQ", "scope"=>"email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email", "authuser"=>"1", "hd"=>"tamu.edu", "prompt"=>"consent", "provider"=>"google_oauth2"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."provider" = $1 AND "users"."uid" = $2 ORDER BY "users"."id" ASC LIMIT $3[0m  [["provider", "google_oauth2"], ["uid", "112853003163125119677"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:10:in `from_omniauth'
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 55ms (ActiveRecord: 12.6ms | Allocations: 22987)
+
+
+Started GET "/" for 127.0.0.1 at 2024-06-12 16:17:10 -0500
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb
+  Rendered home/index.html.erb (Duration: 0.5ms | Allocations: 233)
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.0ms | Allocations: 504)
+
+
