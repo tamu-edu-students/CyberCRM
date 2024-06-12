@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/home/noam/CyberCRM/cybercrm/config/environment.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/config/environment.rb": {
         "lines": [
           null,
           null,
@@ -12,7 +12,7 @@
           1
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/config/application.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/config/application.rb": {
         "lines": [
           null,
           null,
@@ -45,17 +45,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/config/boot.rb": {
-        "lines": [
-          null,
-          null,
-          1,
-          null,
-          1,
-          1
-        ]
-      },
-      "/home/noam/CyberCRM/cybercrm/config/environments/test.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/config/environments/test.rb": {
         "lines": [
           null,
           null,
@@ -125,7 +115,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/config/initializers/assets.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/config/initializers/assets.rb": {
         "lines": [
           null,
           null,
@@ -143,7 +133,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/config/initializers/content_security_policy.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/config/initializers/content_security_policy.rb": {
         "lines": [
           null,
           null,
@@ -174,7 +164,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/config/initializers/filter_parameter_logging.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/config/initializers/filter_parameter_logging.rb": {
         "lines": [
           null,
           null,
@@ -188,7 +178,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/config/initializers/inflections.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/config/initializers/inflections.rb": {
         "lines": [
           null,
           null,
@@ -210,7 +200,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/config/initializers/omniauth.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/config/initializers/omniauth.rb": {
         "lines": [
           null,
           null,
@@ -224,7 +214,7 @@
           1
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/config/initializers/permissions_policy.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/config/initializers/permissions_policy.rb": {
         "lines": [
           null,
           null,
@@ -243,7 +233,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/config/routes.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/config/routes.rb": {
         "lines": [
           null,
           null,
@@ -260,10 +250,45 @@
           null,
           null,
           null,
+          null
+        ]
+      },
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/app/models/user.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/app/models/application_record.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
           null
         ]
       }
     },
-    "timestamp": 1718228461
+    "timestamp": 1718233240
   }
 }

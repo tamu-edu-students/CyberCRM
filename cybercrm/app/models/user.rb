@@ -2,7 +2,12 @@
 
 class User < ApplicationRecord
   # Validations
+  # https://guides.rubyonrails.org/testing.html
+
+  # presence ensures that it is not nil
   validates :provider, :uid, :name, :email, presence: true
+
+  # uniqueness ensures that it is unique across users
   validates :email, uniqueness: true
 
   # Method to find or create a user from OmniAuth data
