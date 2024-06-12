@@ -8,7 +8,7 @@
 /cybercrm/.bundle
 
 # Ignore all environment files (except templates).
-/cybercrm/.env*
+# /cybercrm/.env*
 !/cybercrm/.env*.erb
 
 # Ignore all logfiles and tempfiles.
