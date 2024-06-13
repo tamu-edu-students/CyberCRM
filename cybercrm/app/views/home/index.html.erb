@@ -1,0 +1,5 @@
+<% if session[:user_id] %>
+    <%= link_to 'Sign out', logout_path %>
+<% else %>
+    <%= button_to 'Sign in with Google', '/auth/google_oauth2', data: { turbo: "false" } %>
+<% end %>
