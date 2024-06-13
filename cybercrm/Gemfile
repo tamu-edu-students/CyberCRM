@@ -13,6 +13,11 @@ gem 'rubocop-capybara', require: false
 gem 'rubocop-rails', require: false
 gem 'simplecov', require: false, group: :test
 
+# Run against this stable release
+group :development, :test do
+  gem 'rspec-rails', '~> 6.1.0'
+end
+
 group :test do
   gem 'cucumber-rails', require: false
   # database_cleaner is not required, but highly recommended
