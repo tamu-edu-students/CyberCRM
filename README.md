@@ -2,6 +2,8 @@
 
 CRM (Customer Relationship Management) system to use for tracking cybersecurity students.
 
+Website: https://cybercrm-7ccb791b98d3.herokuapp.com/
+
 Below are guidelines on how contributions to the GitHub repository should be made.
 
 ## Branching
@@ -65,3 +67,7 @@ When creating a pull request, it is best to do so on GitHub rather than in the c
 3. Click on the contribute dropdown and select `Open pull request`.
 
 4. Notify another team member or the project manager of the pull request for review.
+
+## How to run Rails
+
+`bin/rails server`
