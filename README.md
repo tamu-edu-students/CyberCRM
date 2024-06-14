@@ -4,6 +4,8 @@ CRM (Customer Relationship Management) system to use for tracking cybersecurity 
 
 Website: https://cybercrm-7ccb791b98d3.herokuapp.com/
 
+Code Climate report: Pending
+
 Below are guidelines on how contributions to the GitHub repository should be made.
 
 ## Branching
