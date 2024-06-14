@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This is session controller
 class SessionsController < ApplicationController
   def create
     auth = request.env['omniauth.auth']
