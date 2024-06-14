@@ -2,6 +2,7 @@
 
 require 'test_helper'
 
+# This is user test
 class UserTest < ActiveSupport::TestCase
   test 'user should not save without info' do
     user = User.new

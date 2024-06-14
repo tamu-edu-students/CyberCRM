@@ -2,6 +2,7 @@
 
 require 'test_helper'
 
+# This is home controller test
 class HomeControllerTest < ActionDispatch::IntegrationTest
   test 'should get index' do
     get home_index_url
