@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <title>Login Page</title>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-100">
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-sm">
+    <h1 class="text-2xl mb-4">LOGIN</h1>
+    <% if session[:user_id] %>
+        <%= link_to 'Sign out', logout_path %>
+    <% else %>
+        <%= button_to 'Sign in with Google', '/auth/google_oauth2', data: { turbo: "false" } %>
+    <% end %>
+  </div>
+</body>
+</html>
