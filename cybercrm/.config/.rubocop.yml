@@ -2312,6 +2312,7 @@ Lint/SafeNavigationChain:
     - try
     - try!
     - in?
+    - empty?
 
 Lint/SafeNavigationConsistency:
   Description: >-
@@ -2327,6 +2328,7 @@ Lint/SafeNavigationConsistency:
     - presence
     - try
     - try!
+    - empty?
 
 Lint/SafeNavigationWithEmpty:
   Description: 'Avoid `foo&.empty?` in conditionals.'
@@ -2659,7 +2661,7 @@ Metrics/MethodLength:
   VersionAdded: '0.25'
   VersionChanged: '1.5'
   CountComments: false  # count full line comments?
-  Max: 20
+  Max: 10
   CountAsOne: ['array', 'heredoc', 'method_call']
   AllowedMethods: []
   AllowedPatterns: []
@@ -5205,6 +5207,7 @@ Style/SafeNavigation:
     - presence
     - try
     - try!
+    - empty?
   SafeAutoCorrect: false
   # Maximum length of method chains for register an offense.
   MaxChainLength: 2

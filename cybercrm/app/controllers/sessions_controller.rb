@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This is session controller
 class SessionsController < ApplicationController
   def create
     auth = request.env['omniauth.auth']
@@ -13,7 +14,7 @@ class SessionsController < ApplicationController
     end
 
     session[:user_id] = user.id
-    redirect_to root_path, notice: I18n.t('signed_in')
+    redirect_to pages_home_path, notice: I18n.t('signed_in')
   end
 
   def destroy

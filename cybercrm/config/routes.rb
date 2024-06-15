@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'home/index'
-  root 'home#index'
+  root 'pages#login'
+  get 'pages/home'
+  get 'pages/login'
+  get 'pages/spreadsheet'
+  get 'pages/student_detail'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: redirect('/')
