@@ -1,6 +1,10 @@
 # CyberCRM
 
-CRM (Customer Relationship Management) system to use for tracking cybersecurity students.
+Client: John Romero, Texas A&M Cybersecurity Center
+
+This is a CRM (Customer Relationship Management) system to use for tracking cybersecurity students so information could be easily accesible to program directors. The primary objective is the ability to pull up a profile page with information on any given student while also having the ability to add or update information on the student. The seconday objective is being able to run reports on given people or organizations with filters. This could include a list of all the students who have taken a certian certification or in a certain cybersecurity organization.
+
+There will be Role-based access control (RBAC) and have three primary roles: Super User, Program Director, Student Worker. Program Directors could be assigned super user access and student workers have the least permissions with only the ability to add or read in certian specified areas. Program directors by defualt will only be able to view there program information with their students information.
 
 Website: https://cybercrm-7ccb791b98d3.herokuapp.com/
 
