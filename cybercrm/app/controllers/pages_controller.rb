@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controls the pages
 class PagesController < ApplicationController
   def login; end
   def home; end
