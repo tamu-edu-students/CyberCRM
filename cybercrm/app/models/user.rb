@@ -6,7 +6,7 @@ class User < ApplicationRecord
   # https://guides.rubyonrails.org/testing.html
 
   # presence ensures that it is not nil
-  validates :provider, :uid, :name, :email, presence: true
+  validates :provider, :uid, :name, :email, :role, presence: true
 
   # uniqueness ensures that it is unique across users
   validates :email, uniqueness: true
@@ -17,6 +17,7 @@ class User < ApplicationRecord
       user.name = auth.info.name
       user.email = auth.info.email
       user.image = auth.info.image
+      user.role = 'student_worker'
       user.save
     end
   end
