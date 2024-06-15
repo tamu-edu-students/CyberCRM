@@ -6,4 +6,5 @@ class PagesController < ApplicationController
   def home; end
   def spreadsheet; end
   def student_detail; end
+  def failure; end
 end
