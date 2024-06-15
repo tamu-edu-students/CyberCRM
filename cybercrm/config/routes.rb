@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'pages/login'
+  root 'pages#login'
   get 'pages/home'
   get 'pages/login'
   get 'pages/spreadsheet'
