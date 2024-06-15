@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'pages/login'
   get 'pages/spreadsheet'
   get 'pages/student_detail'
+  get 'pages/failure'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: redirect('/')
