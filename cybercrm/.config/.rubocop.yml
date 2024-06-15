@@ -3,6 +3,8 @@
 require:
   - rubocop-rails
   - rubocop-capybara
+  - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
   RubyInterpreters:
