@@ -1,6 +1,6 @@
 # CyberCRM
 
-Client: John Romero
+Client: John Romero, Texas A&M Cybersecurity Center
 
 This is a CRM (Customer Relationship Management) system to use for tracking cybersecurity students so information could be easily accesible to program directors. The primary objective is the ability to pull up a profile page with information on any given student while also having the ability to add or update information on the student. The seconday objective is being able to run reports on given people or organizations with filters. This could include a list of all the students who have taken a certian certification or in a certain cybersecurity organization.
 
