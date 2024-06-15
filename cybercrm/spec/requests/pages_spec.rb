@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Pages', type: :request do
+RSpec.describe 'Pages' do
   describe 'GET /index' do
     pending "add some examples (or delete) #{__FILE__}"
   end

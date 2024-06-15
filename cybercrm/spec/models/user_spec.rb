@@ -1,18 +1,19 @@
 # frozen_string_literal: true
+
 # generated with ChatGPT
 # prompt can you make an rspec
 # user model code
 
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   describe 'validations' do
-    it { should validate_presence_of(:provider) }
-    it { should validate_presence_of(:uid) }
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:email) }
-    it { should validate_uniqueness_of(:email) }
-    it { should validate_presence_of(:role) }
+    it { is_expected.to validate_presence_of(:provider) }
+    it { is_expected.to validate_presence_of(:uid) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_uniqueness_of(:email) }
+    it { is_expected.to validate_presence_of(:role) }
   end
 
   describe '.from_omniauth' do
@@ -29,11 +30,11 @@ RSpec.describe User, type: :model do
     end
 
     it 'creates a new user if one does not exist' do
-      expect {
-        User.from_omniauth(auth)
-      }.to change(User, :count).by(1)
+      expect do
+        described_class.from_omniauth(auth)
+      end.to change(described_class, :count).by(1)
 
-      user = User.last
+      user = described_class.last
       expect(user.provider).to eq('google')
       expect(user.uid).to eq('123545')
       expect(user.name).to eq('John Doe')
@@ -43,7 +44,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'finds an existing user if one already exists' do
-      existing_user = User.create!(
+      existing_user = described_class.create!(
         provider: 'google',
         uid: '123545',
         name: 'Existing User',
@@ -51,11 +52,11 @@ RSpec.describe User, type: :model do
         role: 'student_worker'
       )
 
-      expect {
-        User.from_omniauth(auth)
-      }.not_to change(User, :count)
+      expect do
+        described_class.from_omniauth(auth)
+      end.not_to change(described_class, :count)
 
-      user = User.last
+      user = described_class.last
       expect(user).to eq(existing_user)
       expect(user.name).to eq('Existing User')
       expect(user.email).to eq('existing.user@example.com')
