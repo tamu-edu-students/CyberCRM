@@ -74,6 +74,38 @@ When creating a pull request, it is best to do so on GitHub rather than in the c
 
 4. Notify another team member or the project manager of the pull request for review.
 
+## Cloning
+
+If your on Windows you should use WSL (Windows Subsystem for Linux) and then you can do all the instructions.
+
+It's best to use SSH to clone the repository.
+
+To get an SSH key use this command: `ssh-keygen -t ed25519`
+
+Use the default file name if you don't already have a default key. Passphrase is optional.
+
+Once you have an SSH key this is how you link it to your GitHub:
+
+1. Log in to https://github.com.
+
+2. Go to https://github.com/settings/profile.
+
+3. Select `SSH and GPG keys`.
+
+4. Select `New SSH key`.
+
+5. Add a title, select the `Authentication Key` type, and paste the PUBLIC key (not PRIVATE key) from the public-private key pair.
+
+Once you have the SSH key linked:
+
+1. `git clone git@github.com:tamu-edu-students/CyberCRM.git`
+
+2. `cd CyberCRM`
+
+If you have multiple keys this is how to use a key other than the default one:
+
+`GIT_SSH_COMMAND="ssh -i ~/.ssh/<key_name>" git clone git@github.com:tamuctf/tamuctf-2025`
+
 ## How to run Rails
 
 `bin/rails server`
