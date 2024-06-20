@@ -104,8 +104,35 @@ Once you have the SSH key linked:
 
 If you have multiple keys this is how to use a key other than the default one:
 
-`GIT_SSH_COMMAND="ssh -i ~/.ssh/<key_name>" git clone git@github.com:tamuctf/tamuctf-2025`
+`GIT_SSH_COMMAND="ssh -i ~/.ssh/<key_name>" git clone git@github.com:tamu-edu-students/CyberCRM.git`
+
+## Ruby Install and Setup Instructions
+
+Note: From Ruby homework.
+
+#### Mac
+[Install Ruby with Chruby](ruby_version_control_on_mac.md).
+
+#### Windows
+1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
+2. Follow the instructions for Ubuntu.
+
+#### Ubuntu
+
+0. Be in home directory: `cd ~`
+1. Install rbenv with ruby-build: `curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash`
+3. Update bash profile to initialize rbenv: `echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bashrc`
+4. Reload profile: `source ~/.bashrc`
+5. Install ruby 3.3.1: `rbenv install 3.3.1`
+   * Be patient, this can take several minutes
+6. Be in the directory for this assignment, e.g. `cd /path/to/hw-ruby-intro` 
+7. Set ruby 3.3.1 as the local default version: `rbenv local 3.3.1`
+8. Install bundler: `gem install bundler`
+   * If it says that a new release of RubyGems is available, follw the instructions on screen to update, e.g. Run `gem update --system 3.5.10` to update your installation.
+9. Install dependencies: `bundle install`
 
 ## How to run Rails
+
+This is with WSL.
 
 `bin/rails server`
