@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :students do
+    collection do
+      get :export_csv
+    end
+  end
   root 'pages#login'
   get 'pages/home'
   get 'pages/login'

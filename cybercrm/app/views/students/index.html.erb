@@ -1,0 +1,57 @@
+<div class="w-full">
+  
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Students" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Students</h1>
+    <div>
+      <%= link_to "Home", pages_home_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to "Export CSV", export_csv_students_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to "New student", new_student_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    </div>
+  </div>
+
+  <div id="students" class="min-w-full mt-4">
+    <table class="min-w-full border-collapse border border-gray-300">
+      <thead>
+        <tr>
+          <th class="border border-gray-300 px-4 py-2">Name</th>
+          <th class="border border-gray-300 px-4 py-2">Age</th>
+          <th class="border border-gray-300 px-4 py-2">Grade</th>
+          <th class="border border-gray-300 px-4 py-2">UIN</th>
+          <th class="border border-gray-300 px-4 py-2">GPA</th>
+          <th class="border border-gray-300 px-4 py-2">Gender</th>
+          <th class="border border-gray-300 px-4 py-2">Ethnicity</th>
+          <th class="border border-gray-300 px-4 py-2">Nationality</th>
+          <th class="border border-gray-300 px-4 py-2">Expected Graduation</th>
+          <th class="border border-gray-300 px-4 py-2">University Classification</th>
+          <th class="border border-gray-300 px-4 py-2" colspan="2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @students.each do |student| %>
+          <tr>
+            <td class="border border-gray-300 px-4 py-2"><%= student.name %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.age %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.grade %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.uin %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.gpa %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.gender %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.ethnicity %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.nationality %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.expected_graduation %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.university_classification %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= link_to "Show", student, class: "text-blue-500 hover:underline" %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= link_to "Edit", edit_student_path(student), class: "text-blue-500 hover:underline" %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= link_to "Delete", student, method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500 hover:underline" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>

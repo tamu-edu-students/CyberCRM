@@ -8,13 +8,11 @@
 </head>
 <body>
   <header class="bg-gray-800 text-white p-4 flex justify-between items-center">
-    <h1 class="text-xl">Navigation</h1>
     <nav class="flex space-x-4">
-      <%= link_to 'Spreadsheet', pages_spreadsheet_path, class: 'text-white hover:bg-gray-700 p-2 rounded' %>
+      <%= link_to 'Students', students_path, class: 'text-white hover:bg-gray-700 p-2 rounded' %>
       <% if session[:user_id] %>
         <%= link_to 'Sign out', logout_path, class: 'text-white hover:bg-gray-700 p-2 rounded' %>
       <% end %>
-      <%= link_to 'Student View', pages_student_detail_path, class: 'text-white hover:bg-gray-700 p-2 rounded' %>
     </nav>
     <input type="text" placeholder="Search" class="p-2 rounded bg-gray-700 text-white">
   </header>
