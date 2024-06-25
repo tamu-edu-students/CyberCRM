@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :students do
+    collection do
+      get :export_csv
+    end
+  end
   root 'pages#login'
   get 'pages/home'
   get 'pages/login'
   get 'pages/spreadsheet'
   get 'pages/student_detail'
+  get 'pages/failure'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: redirect('/')

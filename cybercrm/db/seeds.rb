@@ -9,3 +9,42 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Student.create([
+                 {
+                   name: 'George Sullivan',
+                   age: 20,
+                   grade: 'A',
+                   uin: 123_456_789,
+                   gpa: 3.5,
+                   gender: 'Male',
+                   ethnicity: 'Caucasian',
+                   nationality: 'American',
+                   expected_graduation: '2025-05-15',
+                   university_classification: 'Sophomore'
+                 },
+                 {
+                   name: 'Maya Chen',
+                   age: 22,
+                   grade: 'B',
+                   uin: 987_654_321,
+                   gpa: 3.8,
+                   gender: 'Female',
+                   ethnicity: 'Asian',
+                   nationality: 'Canadian',
+                   expected_graduation: '2024-12-20',
+                   university_classification: 'Senior'
+                 },
+                 {
+                   name: 'Imani Williams',
+                   age: 21,
+                   grade: 'A',
+                   uin: 123_123_123,
+                   gpa: 3.9,
+                   gender: 'Female',
+                   ethnicity: 'African American',
+                   nationality: 'British',
+                   expected_graduation: '2025-07-30',
+                   university_classification: 'Junior'
+                 }
+               ])

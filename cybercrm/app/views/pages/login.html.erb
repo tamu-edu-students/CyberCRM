@@ -9,6 +9,7 @@
 <body class="flex items-center justify-center h-screen bg-gray-100">
   <div class="bg-white p-8 rounded shadow-md w-full max-w-sm">
     <h1 class="text-2xl mb-4">LOGIN</h1>
+    <%= link_to "Home", pages_home_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <% if session[:user_id] %>
         <%= link_to 'Sign out', logout_path, class: 'text-blue-500 hover:underline' %>
     <% else %>

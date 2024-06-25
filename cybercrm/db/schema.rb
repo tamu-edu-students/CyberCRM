@@ -12,9 +12,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_612_040_755) do
+ActiveRecord::Schema[7.1].define(version: 20_240_624_020_955) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
+
+  create_table 'students', force: :cascade do |t|
+    t.string 'name'
+    t.integer 'age'
+    t.string 'grade'
+    t.integer 'uin'
+    t.decimal 'gpa'
+    t.string 'gender'
+    t.string 'ethnicity'
+    t.string 'nationality'
+    t.date 'expected_graduation'
+    t.string 'university_classification'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
 
   create_table 'users', force: :cascade do |t|
     t.string 'provider'
@@ -24,5 +39,6 @@ ActiveRecord::Schema[7.1].define(version: 20_240_612_040_755) do
     t.string 'image'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.string 'role'
   end
 end

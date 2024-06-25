@@ -9,8 +9,16 @@ class SessionsController < ApplicationController
              'pcannell512@tamu.edu', 'matthewatanas@tamu.edu', 'chrisvmuniz@tamu.edu']
 
     unless array.any? { |token| user.email.include?(token) }
-      redirect_to root_path, alert: I18n.t('failure')
+      redirect_to pages_failure_path, alert: I18n.t('failure')
       return
+    end
+
+    if ['noamgariani@tamu.edu', 'pcr@tamu.edu', 'willtaaa@tamu.edu'].include?(user.email)
+      user.update(role: 'super_user')
+    elsif ['john.romero@tamu.edu', 'pcannell512@tamu.edu', 'chrisvmuniz@tamu.edu'].include?(user.email)
+      user.update(role: 'program_director')
+    else
+      user.update(role: 'student_worker')
     end
 
     session[:user_id] = user.id

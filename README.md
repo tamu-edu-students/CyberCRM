@@ -2,9 +2,9 @@
 
 Client: John Romero, Texas A&M Cybersecurity Center
 
-This is a CRM (Customer Relationship Management) system to use for tracking cybersecurity students so information could be easily accesible to program directors. The primary objective is the ability to pull up a profile page with information on any given student while also having the ability to add or update information on the student. The seconday objective is being able to run reports on given people or organizations with filters. This could include a list of all the students who have taken a certian certification or in a certain cybersecurity organization.
+This is a CRM (Customer Relationship Management) system to use for tracking cybersecurity students so information could be easily accessible to program directors. The primary objective is the ability to pull up a profile page with information on any given student while also having the ability to add or update information on the student. The secondary objective is to be able to run reports on given people or organizations with filters. This could include a list of all the students who have taken a certain certification or in a certain cybersecurity organization. 
 
-There will be Role-based access control (RBAC) and have three primary roles: Super User, Program Director, Student Worker. Program Directors could be assigned super user access and student workers have the least permissions with only the ability to add or read in certian specified areas. Program directors by defualt will only be able to view there program information with their students information.
+There will be Role-based access control (RBAC) and have three primary roles: Super User, Program Director, Student Worker. Program Directors could be assigned super user access and student workers have the least permissions with only the ability to add or read in certain specified areas. Program directors by default will only be able to view their program information with their student's information. 
 
 Website: https://cybercrm-7ccb791b98d3.herokuapp.com/
 
@@ -74,6 +74,65 @@ When creating a pull request, it is best to do so on GitHub rather than in the c
 
 4. Notify another team member or the project manager of the pull request for review.
 
+## Cloning
+
+If your on Windows you should use WSL (Windows Subsystem for Linux) and then you can do all the instructions.
+
+It's best to use SSH to clone the repository.
+
+To get an SSH key use this command: `ssh-keygen -t ed25519`
+
+Use the default file name if you don't already have a default key. Passphrase is optional.
+
+Once you have an SSH key this is how you link it to your GitHub:
+
+1. Log in to https://github.com.
+
+2. Go to https://github.com/settings/profile.
+
+3. Select `SSH and GPG keys`.
+
+4. Select `New SSH key`.
+
+5. Add a title, select the `Authentication Key` type, and paste the PUBLIC key (not PRIVATE key) from the public-private key pair.
+
+Once you have the SSH key linked:
+
+1. `git clone git@github.com:tamu-edu-students/CyberCRM.git`
+
+2. `cd CyberCRM`
+
+If you have multiple keys this is how to use a key other than the default one:
+
+`GIT_SSH_COMMAND="ssh -i ~/.ssh/<key_name>" git clone git@github.com:tamu-edu-students/CyberCRM.git`
+
+## Ruby Install and Setup Instructions
+
+Note: From Ruby homework.
+
+#### Mac
+[Install Ruby with Chruby](ruby_version_control_on_mac.md).
+
+#### Windows
+1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
+2. Follow the instructions for Ubuntu.
+
+#### Ubuntu
+
+0. Be in home directory: `cd ~`
+1. Install rbenv with ruby-build: `curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash`
+3. Update bash profile to initialize rbenv: `echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bashrc`
+4. Reload profile: `source ~/.bashrc`
+5. Install ruby 3.3.1: `rbenv install 3.3.1`
+   * Be patient, this can take several minutes
+6. Be in the directory for this assignment, e.g. `cd /path/to/hw-ruby-intro` 
+7. Set ruby 3.3.1 as the local default version: `rbenv local 3.3.1`
+8. Install bundler: `gem install bundler`
+   * If it says that a new release of RubyGems is available, follw the instructions on screen to update, e.g. Run `gem update --system 3.5.10` to update your installation.
+9. Install dependencies: `bundle install`
+
 ## How to run Rails
+
+This is with WSL.
 
 `bin/rails server`
