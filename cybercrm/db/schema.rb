@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_005457) do
 
   create_table "students", force: :cascade do |t|
     t.string "name"
-    t.string "uin"
+    t.integer "uin"
     t.decimal "gpa"
     t.string "gender"
     t.string "ethnicity"
