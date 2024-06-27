@@ -22,12 +22,12 @@ require 'faker'
                       nationality: Faker::Nation.nationality,
                       expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23'),
                       university_classification: ['Freshman', 'Sophmore', 'Junior', 'Senior'].sample,
-                      status: 'Student',
-                      sexual_orientation: 'Heterosexual',
+                      status: 'Active',
+                      sexual_orientation: ['Heterosexual', 'Homosexual'].sample,
                       date_of_birth: Faker::Date.between(from: '1990-01-01', to: '2001-01-01'),
-                      internships: 'Yes',
-                      corps: 'Yes',
-                      security_clearance: 'Yes'
+                      internships: ['Yes', 'No'].sample,
+                      corps: ['Yes', 'No'].sample,
+                      security_clearance: ['Yes', 'No'].sample
                     }
                   ])
 end
