@@ -10,41 +10,26 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Student.create([
-                 {
-                   name: 'George Sullivan',
-                   age: 20,
-                   grade: 'A',
-                   uin: 123_456_789,
-                   gpa: 3.5,
-                   gender: 'Male',
-                   ethnicity: 'Caucasian',
-                   nationality: 'American',
-                   expected_graduation: '2025-05-15',
-                   university_classification: 'Sophomore'
-                 },
-                 {
-                   name: 'Maya Chen',
-                   age: 22,
-                   grade: 'B',
-                   uin: 987_654_321,
-                   gpa: 3.8,
-                   gender: 'Female',
-                   ethnicity: 'Asian',
-                   nationality: 'Canadian',
-                   expected_graduation: '2024-12-20',
-                   university_classification: 'Senior'
-                 },
-                 {
-                   name: 'Imani Williams',
-                   age: 21,
-                   grade: 'A',
-                   uin: 123_123_123,
-                   gpa: 3.9,
-                   gender: 'Female',
-                   ethnicity: 'African American',
-                   nationality: 'British',
-                   expected_graduation: '2025-07-30',
-                   university_classification: 'Junior'
-                 }
-               ])
+require "faker"
+for i in 0 ... 1
+    Student.create!([
+        {
+        name: Faker::Name.male_first_name + " " + Faker::Name.last_name,	
+        uin:  Faker::Alphanumeric.alphanumeric(number: 8),
+        gpa: Faker::Number.between(from: 2.50, to: 4.00) , #2.00, 4.00
+        grade_ryg: "G",
+        gender: "Male",
+        ethnicity: Faker::Demographic.race ,
+        nationality: Faker::Nation.nationality ,
+        expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23') ,
+        university_classification: "Senior" ,
+        status: "Student" ,
+        sexual_orientation: "Heterosexual" ,
+        date_of_birth: Faker::Date.between(from: '1990-01-01', to: '2002-01-01') ,
+        internships: "Yes" ,
+        corps: "Yes" ,
+        security_clearance: "Yes" 
+        }
+    ])
+end
+p "There are #{Student.count} students"
