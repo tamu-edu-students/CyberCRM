@@ -21,12 +21,18 @@
         <tr>
           <th class="border border-gray-300 px-4 py-2">Name</th>
           <th class="border border-gray-300 px-4 py-2">UIN</th>
-          <th class="border border-gray-300 px-4 py-2">GPA</th>
+          <th class="border border-gray-300 px-4 py-2">Grade</th>
           <th class="border border-gray-300 px-4 py-2">Gender</th>
           <th class="border border-gray-300 px-4 py-2">Ethnicity</th>
           <th class="border border-gray-300 px-4 py-2">Nationality</th>
           <th class="border border-gray-300 px-4 py-2">Expected Graduation</th>
           <th class="border border-gray-300 px-4 py-2">University Classification</th>
+          <th class="border border-gray-300 px-4 py-2">Status</th>
+          <th class="border border-gray-300 px-4 py-2">Sexual Orientation</th>
+          <th class="border border-gray-300 px-4 py-2">Date Of Birth</th>
+          <th class="border border-gray-300 px-4 py-2">Internships</th>
+          <th class="border border-gray-300 px-4 py-2">Corps</th>
+          <th class="border border-gray-300 px-4 py-2">Security Clearance</th>
           <th class="border border-gray-300 px-4 py-2" colspan="2">Actions</th>
         </tr>
       </thead>
@@ -35,12 +41,18 @@
           <tr>
             <td class="border border-gray-300 px-4 py-2"><%= student.name %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.uin %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.gpa %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.grade_ryg %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.gender %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.ethnicity %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.nationality %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.expected_graduation %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.university_classification %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.status %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.sexual_orientation %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.date_of_birth %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.internships %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.corps %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.security_clearance %></td>
             <td class="border border-gray-300 px-4 py-2"><%= link_to "Show", student, class: "text-blue-500 hover:underline" %></td>
             <td class="border border-gray-300 px-4 py-2"><%= link_to "Edit", edit_student_path(student), class: "text-blue-500 hover:underline" %></td>
             <td class="border border-gray-300 px-4 py-2"><%= link_to "Delete", student, method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500 hover:underline" %></td>
