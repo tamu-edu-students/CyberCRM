@@ -10,25 +10,25 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-require "faker"
-for i in 0 ... 1
-    Student.create!([
-        {
-            name: Faker::Name.male_first_name + " " + Faker::Name.last_name,	
-            uin:  Faker::Number.number(digits: 8),
-            grade_ryg: "G",
-            gender: "Male",
-            ethnicity: Faker::Demographic.race ,
-            nationality: Faker::Nation.nationality ,
-            expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23') ,
-            university_classification: "Senior" ,
-            status: "Student" ,
-            sexual_orientation: "Heterosexual" ,
-            date_of_birth: Faker::Date.between(from: '1990-01-01', to: '2002-01-01') ,
-            internships: "Yes" ,
-            corps: "Yes" ,
-            security_clearance: "Yes" 
-        }
-    ])
+require 'faker'
+(0...1).each do |_|
+  Student.create!([
+                    {
+                      name: "#{Faker::Name.male_first_name} #{Faker::Name.last_name}",
+                      uin: Faker::Number.number(digits: 8),
+                      grade_ryg: 'G',
+                      gender: 'Male',
+                      ethnicity: Faker::Demographic.race,
+                      nationality: Faker::Nation.nationality,
+                      expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23'),
+                      university_classification: 'Senior',
+                      status: 'Student',
+                      sexual_orientation: 'Heterosexual',
+                      date_of_birth: Faker::Date.between(from: '1990-01-01', to: '2002-01-01'),
+                      internships: 'Yes',
+                      corps: 'Yes',
+                      security_clearance: 'Yes'
+                    }
+                  ])
 end
 p "There are #{Student.count} students"
