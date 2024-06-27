@@ -11,20 +11,20 @@
 #   end
 
 require 'faker'
-(0...1).each do |_|
+(0...10).each do |_|
   Student.create!([
                     {
                       name: "#{Faker::Name.male_first_name} #{Faker::Name.last_name}",
                       uin: Faker::Number.number(digits: 8),
-                      grade_ryg: 'G',
-                      gender: 'Male',
+                      grade_ryg: ['R', 'Y', 'G'].sample,
+                      gender: ['Male', 'Female'].sample,
                       ethnicity: Faker::Demographic.race,
                       nationality: Faker::Nation.nationality,
                       expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23'),
-                      university_classification: 'Senior',
+                      university_classification: ['Freshman', 'Sophmore', 'Junior', 'Senior'].sample,
                       status: 'Student',
                       sexual_orientation: 'Heterosexual',
-                      date_of_birth: Faker::Date.between(from: '1990-01-01', to: '2002-01-01'),
+                      date_of_birth: Faker::Date.between(from: '1990-01-01', to: '2001-01-01'),
                       internships: 'Yes',
                       corps: 'Yes',
                       security_clearance: 'Yes'
