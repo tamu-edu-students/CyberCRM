@@ -4,10 +4,10 @@
 class SessionsController < ApplicationController
   def create
     auth = request.env['omniauth.auth']
-    Rails.logger.debug("OmniAuth data: #{auth.inspect}")
+    Rails.logger.debug { "OmniAuth data: #{auth.inspect}" }
 
     unless auth
-      redirect_to pages_failure_path, alert: "Authentication failed. Please try again."
+      redirect_to pages_failure_path, alert: 'Authentication failed. Please try again.'
       return
     end
 
