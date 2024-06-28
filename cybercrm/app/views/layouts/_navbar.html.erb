@@ -5,7 +5,7 @@
   </div>
   <nav class="flex space-x-6">
     <% if session[:user_id] %>
-      <%= link_to 'Home', home_path, class: 'text-white hover:underline' %> <!-- Home link -->
+      <%= link_to 'Home', pages_home_path, class: 'text-white hover:underline' %> <!-- Home link -->
       <%= link_to 'Students', students_path, class: 'text-white hover:underline' %>
       <%= link_to 'Sign out', logout_path, class: 'text-white hover:underline' %>
     <% else %>
