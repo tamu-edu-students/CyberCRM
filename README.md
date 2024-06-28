@@ -16,7 +16,7 @@ Below are guidelines on how contributions to the GitHub repository should be mad
 
 When developing locally, a new branch should be created so that you will able to develop without disturbing the main branch. 
 
-Please use Snake Case for the naming convention of the branches (Ex: branch_name). Also, try to make the branch name descriptive as to what change is being made. 
+Please use Kebob Case for the naming convention of the branches (Ex: branch-name). Also, try to make the branch name descriptive as to what change is being made. 
 
 Commands:
 

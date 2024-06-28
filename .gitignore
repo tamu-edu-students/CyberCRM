@@ -38,3 +38,5 @@
 
 /cybercrm/app/assets/builds/*
 !/cybercrm/app/assets/builds/.keep
+
+/cybercrm/.env
