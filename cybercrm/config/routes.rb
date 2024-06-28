@@ -6,20 +6,24 @@ Rails.application.routes.draw do
       get :export_csv
     end
   end
-  root 'pages#login'
-  get 'pages/home'
-  get 'pages/login'
-  get 'pages/spreadsheet'
-  get 'pages/student_detail'
-  get 'pages/failure'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  get '/auth/:provider/callback', to: 'sessions#create'
-  get '/auth/failure', to: redirect('/')
-  get '/logout', to: 'sessions#destroy'
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get 'up' => 'rails/health#show', as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Set the root path to the login page
+  root 'pages#login'
+
+  # Define the pages routes with named helpers
+  get 'home', to: 'pages#home', as: 'home'
+  get 'login', to: 'pages#login', as: 'login'
+  get 'spreadsheet', to: 'pages#spreadsheet', as: 'spreadsheet'
+  get 'student_detail', to: 'pages#student_detail', as: 'student_detail'
+  get 'failure', to: 'pages#failure', as: 'failure'
+
+  # OmniAuth callback routes
+  match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  get '/auth/failure', to: redirect('/')
+
+  # Logout route
+  delete '/logout', to: 'sessions#destroy', as: 'logout'
+
+  # Health check route
+  get 'up' => 'rails/health#show', as: :rails_health_check
 end

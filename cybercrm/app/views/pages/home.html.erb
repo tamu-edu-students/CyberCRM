@@ -6,16 +6,7 @@
   <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
   <title>Home Page</title>
 </head>
-<body>
-  <header class="bg-gray-800 text-white p-4 flex justify-between items-center">
-    <nav class="flex space-x-4">
-      <%= link_to 'Students', students_path, class: 'text-white hover:bg-gray-700 p-2 rounded' %>
-      <% if session[:user_id] %>
-        <%= link_to 'Sign out', logout_path, class: 'text-white hover:bg-gray-700 p-2 rounded' %>
-      <% end %>
-    </nav>
-    <input type="text" placeholder="Search" class="p-2 rounded bg-gray-700 text-white">
-  </header>
+<body class="bg-gray-100 min-h-screen">
   <main class="p-8">
     <section>
       <h2 class="text-2xl mb-4">Info: Most Recent Students</h2>
@@ -37,7 +28,7 @@
     </section>
 
     <br>
-    <% if current_user.role == 'student_worker' || 'program_director' || 'super_user' %>
+    <% if current_user && (current_user.role == 'student_worker' || current_user.role == 'program_director' || current_user.role == 'super_user') %>
       <section>
         <h2 class="text-2xl mb-4">Student Worker Access</h2>
         <p>Content for student workers.</p>
@@ -45,7 +36,7 @@
     <% end %>
 
     <br>
-    <% if current_user.role == 'program_director' || 'super_user' %>
+    <% if current_user && (current_user.role == 'program_director' || current_user.role == 'super_user') %>
       <section>
         <h2 class="text-2xl mb-4">Program Director Access</h2>
         <p>Content for program directors.</p>
@@ -53,13 +44,12 @@
     <% end %>
 
     <br>
-    <% if current_user.role == 'super_user' %>
+    <% if current_user && current_user.role == 'super_user' %>
       <section>
         <h2 class="text-2xl mb-4">Super User Access</h2>
         <p>Content for super users.</p>
       </section>
     <% end %>
-
   </main>
 </body>
 </html>

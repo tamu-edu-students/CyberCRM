@@ -1,0 +1,15 @@
+<header class="bg-maroon-800 text-white py-4 px-8 flex justify-between items-center fixed top-0 left-0 w-full z-10">
+  <div class="flex items-center">
+    <img src="https://cybersecurity.tamu.edu/wp-content/uploads/2022/09/cropped-720x140_TEES_CyberCenter_white_horiz.png" alt="Texas A&M Logo" class="h-10 mr-4">
+    <h1 class="text-2xl font-bold">Texas A&M CyberCRM</h1>
+  </div>
+  <nav class="flex space-x-6">
+    <% if session[:user_id] %>
+      <%= link_to 'Home', home_path, class: 'text-white hover:underline' %> <!-- Home link -->
+      <%= link_to 'Students', students_path, class: 'text-white hover:underline' %>
+      <%= link_to 'Sign out', logout_path, class: 'text-white hover:underline' %>
+    <% else %>
+      <%= link_to 'Login', login_path, class: 'text-white hover:underline' %> <!-- Login link -->
+    <% end %>
+  </nav>
+</header>
