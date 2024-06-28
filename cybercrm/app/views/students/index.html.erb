@@ -1,5 +1,5 @@
 <div class="w-full">
-  
+  <%= render 'layouts/navbar' %>
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
@@ -9,7 +9,6 @@
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Students</h1>
     <div>
-      <%= link_to "Home", pages_home_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       <%= link_to "Export CSV", export_csv_students_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       <%= link_to "New student", new_student_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     </div>

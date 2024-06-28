@@ -9,6 +9,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        maroon: {
+          800: '#500000', // Texas A&M maroon color hex
+        },
+      },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
