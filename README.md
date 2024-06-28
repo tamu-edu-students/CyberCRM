@@ -8,7 +8,7 @@ There will be Role-based access control (RBAC) and have three primary roles: Sup
 
 Website: https://cybercrm-7ccb791b98d3.herokuapp.com/
 
-Code Climate report: Pending
+Code Climate report: https://codeclimate.com/github/tamu-edu-students/CyberCRM
 
 Below are guidelines on how contributions to the GitHub repository should be made.
 
@@ -16,7 +16,7 @@ Below are guidelines on how contributions to the GitHub repository should be mad
 
 When developing locally, a new branch should be created so that you will able to develop without disturbing the main branch. 
 
-Please use Snake Case for the naming convention of the branches (Ex: branch_name). Also, try to make the branch name descriptive as to what change is being made. 
+Please use Kebab Case for the naming convention of the branches (Ex: branch-name). Also, try to make the branch name descriptive as to what change is being made. 
 
 Commands:
 
