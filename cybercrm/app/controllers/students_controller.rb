@@ -71,7 +71,7 @@ class StudentsController < ApplicationController
   def generate_csv(students)
     CSV.generate(headers: true) do |csv|
       csv << ['Name', 'UIN', 'Grade', 'Gender', 'Ethnicity', 'Nationality', 'Expected Graduation',
-              'University Classification', 'Status', 'Sexual Orientation', 'Date of Brirth', 
+              'University Classification', 'Status', 'Sexual Orientation', 'Date of Brirth',
               'Internships', 'Corps', 'Security Clearance']
 
       students.each do |student|
