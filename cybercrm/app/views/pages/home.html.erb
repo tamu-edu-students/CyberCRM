@@ -37,7 +37,7 @@
     </section>
 
     <br>
-    <% if current_user.role == 'student_worker' || current_user.role ==  'program_director' || current_user.role == 'super_user' %>
+    <% if current_user.role == 'student_worker' || 'program_director' || 'super_user' %>
       <section>
         <h2 class="text-2xl mb-4">Student Worker Access</h2>
         <p>Content for student workers.</p>
@@ -45,7 +45,7 @@
     <% end %>
 
     <br>
-    <% if current_user.role == 'program_director' || current_user.role == 'super_user' %>
+    <% if current_user.role == 'program_director' || 'super_user' %>
       <section>
         <h2 class="text-2xl mb-4">Program Director Access</h2>
         <p>Content for program directors.</p>
