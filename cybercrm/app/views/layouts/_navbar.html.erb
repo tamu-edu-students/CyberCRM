@@ -4,12 +4,10 @@
     <h1 class="text-2xl font-bold">Texas A&M CyberCRM</h1>
   </div>
   <nav class="flex space-x-6">
+    <%= link_to 'Home', home_path, class: 'text-white hover:underline' %> <!-- Home link -->
+    <%= link_to 'Students', students_path, class: 'text-white hover:underline' %>
     <% if session[:user_id] %>
-      <%= link_to 'Home', pages_home_path, class: 'text-white hover:underline' %> <!-- Home link -->
-      <%= link_to 'Students', students_path, class: 'text-white hover:underline' %>
       <%= link_to 'Sign out', logout_path, class: 'text-white hover:underline' %>
-    <% else %>
-      <%= link_to 'Login', login_path, class: 'text-white hover:underline' %> <!-- Login link -->
     <% end %>
   </nav>
 </header>

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   get '/auth/failure', to: redirect('/')
 
   # Logout route
-  delete '/logout', to: 'sessions#destroy', as: 'logout'
+  get '/logout', to: 'sessions#destroy', as: 'logout'
 
   # Health check route
   get 'up' => 'rails/health#show', as: :rails_health_check
