@@ -74,8 +74,10 @@ class StudentsController < ApplicationController
               'University Classification']
 
       students.each do |student|
-        csv << [student.name, student.age, student.grade, student.uin, student.gpa, student.gender, student.ethnicity,
-                student.nationality, student.expected_graduation, student.university_classification]
+        csv << [student.name, student.uin, student.grade_ryg, student.gender, student.ethnicity,
+                student.nationality, student.expected_graduation, student.university_classification,
+                student.status, student.sexual_orientation, student.date_of_birth, student.internships,
+                student.corps, student.security_clearance]
       end
     end
   end
