@@ -8,7 +8,7 @@ There will be Role-based access control (RBAC) and have three primary roles: Sup
 
 Website: https://cybercrm-7ccb791b98d3.herokuapp.com/
 
-Code Climate report: Pending
+Code Climate report: https://codeclimate.com/github/tamu-edu-students/CyberCRM
 
 Below are guidelines on how contributions to the GitHub repository should be made.
 
