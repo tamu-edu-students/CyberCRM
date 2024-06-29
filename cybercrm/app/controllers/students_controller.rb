@@ -5,6 +5,23 @@ require 'csv'
 # Student Controller
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[show edit update destroy]
+  def search
+    @students = if params[:student_search].present?
+                  Student.where('LOWER(name) LIKE LOWER(?)', "%#{params[:student_search]}%").limit(10)
+                else
+                  []
+                end
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update(
+          'search_results',
+          partial: 'students/search_results',
+          locals: { students: @students }
+        )
+      end
+    end
+  end
 
   # GET /students or /students.json
   def index

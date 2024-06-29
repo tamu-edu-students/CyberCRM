@@ -1,0 +1,23 @@
+<%= turbo_frame_tag "modal" do %>
+  <div data-controller="modals" data-action="keydown.esc->modals#close" class="fixed inset-0 z-40">
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40" data-controller="modals" data-action="click->modals#close keydown.esc->modals#close"></div>
+    <div id="anim" class="z-50 fixed left-1/2 top-1/4 overflow-auto drop-shadow-md animate-expand -ml-36 -mt-24">
+      <%= form_with url: search_students_path, method: :post, data: { turbo_frame: 'search_results' } do |form| %>
+        <div class="relative w-full mb-1">
+          <%= form.search_field :student_search,
+              id: "text-entry",
+              oninput: "this.form.requestSubmit()",
+              class: "w-full rounded-full mb-2 bg-gray-100 focus:ring-0 border-none",
+              placeholder: "Search for students",
+              autocomplete: "off"
+          %>
+          <span class="absolute inset-y-0 right-0 pr-3 pb-2 flex items-center pointer-events-none">
+            <i class="fas fa-search text-gray-400"></i>
+          </span>
+        </div>
+      <% end %>
+
+      <div id="search_results"></div>
+    </div>
+  </div>
+<% end %>
