@@ -28,7 +28,10 @@
 #       enabled: "ON"
 
 en:
-  hello:      "Hello world"
-  signed_in:  "Signed in!"
-  failure:    "Failure!"
-  signed_out: "Signed out!"
+  hello:           "Hello world"
+  signed_in:       "Signed in!"
+  failure:         "Failure!"
+  signed_out:      "Signed out!"
+  student_created: "Student was successfully created."
+  student_updated: "Student was successfully updated."
+  student_deleted: "Student was successfully deleted."
