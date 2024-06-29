@@ -1,26 +1,31 @@
 <!-- app/views/layouts/_navbar.html.erb -->
 <header class="bg-maroon-800 text-white py-4 px-8 flex justify-between items-center fixed top-0 left-0 w-full z-10">
   <div class="flex items-center">
-    <img src="https://cybersecurity.tamu.edu/wp-content/uploads/2022/09/cropped-720x140_TEES_CyberCenter_white_horiz.png" alt="Texas A&M Logo" class="h-10 mr-4">
-    <h1 class="text-2xl font-bold">Texas A&M CyberCRM</h1>
+    <a href="https://cybersecurity.tamu.edu/" target="_blank">
+      <%= image_tag('cyber_center.png', alt: 'Cyber Center', class: 'h-10 mr-4 filter invert brightness-0 cursor-pointer') %>
+    </a>
   </div>
-
-  <% if Rails.env.test? %>
-    <%= link_to pages_form_path, id: "search-link", data: { turbo_frame: "modal" }, class: 'text-white' do %>
-        <i class="fas fa-search"></i>
-      <% end %>
-  <% end %>
-
-  <nav class="flex space-x-6">
-    <% if session[:user_id] %>
+  <div class="flex-1 flex justify-center">
+    
+    <% if Rails.env.test? %>
       <%= link_to pages_form_path, id: "search-link", data: { turbo_frame: "modal" }, class: 'text-white' do %>
-        <i class="fas fa-search"></i>
-      <% end %>
-      <%= link_to 'Home', pages_home_path, class: 'text-white hover:underline' %>
-      <%= link_to 'Students', students_path, class: 'text-white hover:underline' %>
-      <%= link_to 'Sign out', logout_path, class: 'text-white hover:underline' %>
-    <% else %>
-      <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:underline' %>
+          <i class="fas fa-search"></i>
+        <% end %>
     <% end %>
-  </nav>
+    
+    <nav class="flex space-x-6">
+      <% if session[:user_id] %>  
+        <%= link_to 'Home', pages_home_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %> 
+        <%= link_to 'Students', students_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+        <%= link_to 'Sign out', logout_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+      <% else %>
+        <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+      <% end %>
+    </nav>
+  </div>
+  <div>
+    <%= link_to pages_home_path do %>
+      <%= image_tag('logo.png', alt: 'Cyber CRM', class: 'h-10 mr-4') %>
+    <% end %>
+  </div>
 </header>
