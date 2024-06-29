@@ -1,16 +1,20 @@
 <!-- app/views/shared/_navbar.html.erb -->
 <header class="bg-maroon-800 text-white py-4 px-8 flex justify-between items-center fixed top-0 left-0 w-full z-10">
   <div class="flex items-center">
-    <img src="https://cybersecurity.tamu.edu/wp-content/uploads/2022/09/cropped-720x140_TEES_CyberCenter_white_horiz.png" alt="Texas A&M Logo" class="h-10 mr-4">
-    <h1 class="text-2xl font-bold">Texas A&M CyberCRM</h1>
+    <a href="https://cybersecurity.tamu.edu/" target="_blank">
+      <%= image_tag('cyber_center.png', alt: 'Cyber Center', class: 'h-10 mr-4 filter invert brightness-0 cursor-pointer') %>
+    </a>
   </div>
   <nav class="flex space-x-6">
-    <% if session[:user_id] %>
-      <%= link_to 'Home', pages_home_path, class: 'text-white hover:underline' %> <!-- Home link -->
-      <%= link_to 'Students', students_path, class: 'text-white hover:underline' %>
-      <%= link_to 'Sign out', logout_path, class: 'text-white hover:underline' %>
+    <% if session[:user_id] %>  
+      <%= link_to 'Home', pages_home_path, class: 'text-white hover:text-orange-300' %> 
+      <%= link_to 'Students', students_path, class: 'text-white hover:text-orange-300' %>
+      <%= link_to 'Sign out', logout_path, class: 'text-white hover:text-orange-300' %>
     <% else %>
-      <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:underline' %> <!-- Login link -->
+      <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:text-orange-300' %>
+    <% end %>
+    <%= link_to pages_home_path do %>
+      <%= image_tag('logo.png', alt: 'Cyber CRM', class: 'h-10 mr-4') %>
     <% end %>
   </nav>
 </header>
