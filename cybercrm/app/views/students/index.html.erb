@@ -29,9 +29,6 @@
           <th class="border border-gray-300 px-4 py-2">Status</th>
           <th class="border border-gray-300 px-4 py-2">Sexual Orientation</th>
           <th class="border border-gray-300 px-4 py-2">Date Of Birth</th>
-          <th class="border border-gray-300 px-4 py-2">Internships</th>
-          <th class="border border-gray-300 px-4 py-2">Corps</th>
-          <th class="border border-gray-300 px-4 py-2">Security Clearance</th>
           <th class="border border-gray-300 px-4 py-2" colspan="2">Actions</th>
         </tr>
       </thead>
@@ -49,9 +46,6 @@
             <td class="border border-gray-300 px-4 py-2"><%= student.status %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.sexual_orientation %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.date_of_birth %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.internships %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.corps %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.security_clearance %></td>
             <td class="border border-gray-300 px-4 py-2"><%= link_to "Show", student, class: "text-blue-500 hover:underline" %></td>
             <td class="border border-gray-300 px-4 py-2"><%= link_to "Edit", edit_student_path(student), class: "text-blue-500 hover:underline" %></td>
             <td class="border border-gray-300 px-4 py-2"><%= link_to "Delete", student, method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500 hover:underline" %></td>

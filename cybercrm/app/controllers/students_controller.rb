@@ -6,17 +6,17 @@ require 'csv'
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[show edit update destroy]
   def search
-    if params[:student_search].present?
-      @students = Student.where("LOWER(name) LIKE LOWER(?)", "%#{params[:student_search]}%").limit(10)
-    else
-      @students = []
-    end
+    @students = if params[:student_search].present?
+                  Student.where('LOWER(name) LIKE LOWER(?)', "%#{params[:student_search]}%").limit(10)
+                else
+                  []
+                end
 
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: turbo_stream.update(
-          "search_results",
-          partial: "students/search_results",
+          'search_results',
+          partial: 'students/search_results',
           locals: { students: @students }
         )
       end
