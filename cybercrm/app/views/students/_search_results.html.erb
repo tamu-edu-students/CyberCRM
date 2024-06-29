@@ -1,9 +1,11 @@
-<% if students.any? %>
-  <ul>
-    <% students.each do |student| %>
-      <li><%= student.name %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No students found.</p>
-<% end %>
+<div class="border border-black bg-gray-100 mb-8 rounded-xl">
+  <% if students.any? %>
+      <% students.each do |student| %>
+        <%= link_to student, data: { controller: "modals", action: "modals#close" }, class: "flex pl-3 pb-1 pt-1 hover:bg-gray-300 rounded-xl" do %>
+          <%= student.name %>
+        <% end %>
+      <% end %>
+  <% else %>
+    <p class="pl-3">No students found</p>
+  <% end %>
+</div>

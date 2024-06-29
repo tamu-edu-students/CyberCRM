@@ -13,7 +13,7 @@
     <% if session[:user_id] %>
         <%= link_to 'Sign out', logout_path, class: 'text-blue-500 hover:underline' %>
     <% else %>
-        <%= button_to 'Sign in with Google', '/auth/google_oauth2', class: 'bg-blue-500 text-white py-2 px-4 rounded' %>
+        <%= button_to 'Sign in with Google', '/auth/google_oauth2', data: { turbo: "false" }, class: 'bg-blue-500 text-white py-2 px-4 rounded' %>
     <% end %>
   </div>
 </body>
