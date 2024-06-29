@@ -5,6 +5,8 @@ require 'csv'
 # Student Controller
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[show edit update destroy]
+  helper_method :sort_column, :sort_direction
+
   def search
     @students = if params[:student_search].present?
                   Student.where('LOWER(name) LIKE LOWER(?)', "%#{params[:student_search]}%").limit(10)
@@ -25,7 +27,11 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    @students = Student.all
+    if sort_column && sort_direction
+      @students = Student.order("#{sort_column} #{sort_direction}")
+    else
+      @students = Student.all
+    end
   end
 
   # GET /students/1 or /students/1.json
@@ -111,5 +117,13 @@ class StudentsController < ApplicationController
   def student_params
     params.require(:student).permit(:name, :age, :grade, :uin, :gpa, :gender, :ethnicity, :nationality,
                                     :expected_graduation, :university_classification)
+  end
+
+  def sort_column
+    Student.column_names.include?(params[:sort]) ? params[:sort] : nil
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : nil
   end
 end
