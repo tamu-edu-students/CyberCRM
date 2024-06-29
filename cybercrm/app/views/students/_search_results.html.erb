@@ -1,4 +1,4 @@
-<div class="border border-black bg-gray-100 mb-8 rounded-xl">
+<div id="search_results" class="border border-black bg-gray-100 mb-8 rounded-xl">
   <% if students.any? %>
       <% students.each do |student| %>
         <%= link_to student, data: { controller: "modals", action: "modals#close" }, class: "flex pl-3 pb-1 pt-1 hover:bg-gray-300 rounded-xl" do %>

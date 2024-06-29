@@ -6,9 +6,9 @@
 # heavily edited down because testing oauth is really hard
 
 Given('I am on the login page') do
-  visit root_path
+  visit pages_login_path
 end
 
-Then('I should see {string}') do |text|
+Then('On the login page, I should see {string}') do |text|
   expect(page).to have_content(text)
 end

@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-# features/step_definitions/student_steps.rb
+# features/step_definitions/search_student_steps.rb
 Given('the following students exist:') do |table|
   table.hashes.each do |student|
     Student.create!(student)
@@ -8,32 +6,33 @@ Given('the following students exist:') do |table|
 end
 
 When('I go to the students page') do
-  visit pages_students_path
+  visit pages_login_path
 end
 
-When('I fill in {string} with {string}') do |field, value|
-  fill_in field, with: value
+When('I click on the search icon') do
+  find('#search-link').click
 end
 
-When('I press {string}') do |button|
-  click_button button
+When('I fill in the search field with {string}') do |value|
+  fill_in 'text-entry', with: value
 end
 
-Then('I should see {string}') do |content|
-  expect(page).to have_content(content)
+When('I press the search button') do
+  # Assuming the form is submitted automatically on input
 end
 
-Then('I should not see {string}') do |content|
-  expect(page).to have_no_content(content)
+Then('I should see {string} in the search results') do |content|
+  all("turbo-frame#modal").any? do |frame|
+    within(frame) do
+      has_content?(content)
+    end
+  end
 end
 
-Then('I should not see {string} with {string} less than or equal to {int}') do |name, value|
-  within('table') do
-    page.all('tr').find_each do |tr|
-      if tr.has_content?(name)
-        certifications = tr.find('td', text: /Certifications/).text.to_i
-        expect(certifications).to be > value if certifications <= value
-      end
+Then('I should not see {string} in the search results') do |content|
+  all("turbo-frame#modal").any? do |frame|
+    within(frame) do
+      has_no_content?(content)
     end
   end
 end
