@@ -17,18 +17,42 @@
     <table class="min-w-full border-collapse border border-gray-300">
       <thead>
         <tr>
-          <th class="border border-gray-300 px-4 py-2">Name</th>
-          <th class="border border-gray-300 px-4 py-2">UIN</th>
-          <th class="border border-gray-300 px-4 py-2">Grade</th>
-          <th class="border border-gray-300 px-4 py-2">Gender</th>
-          <th class="border border-gray-300 px-4 py-2">Ethnicity</th>
-          <th class="border border-gray-300 px-4 py-2">Nationality</th>
-          <th class="border border-gray-300 px-4 py-2">Expected Graduation</th>
-          <th class="border border-gray-300 px-4 py-2">University Classification</th>
-          <th class="border border-gray-300 px-4 py-2">Status</th>
-          <th class="border border-gray-300 px-4 py-2">Sexual Orientation</th>
-          <th class="border border-gray-300 px-4 py-2">Date of Birth</th>
-          <th class="border border-gray-300 px-4 py-2">Email</th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "name", "Name" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "uin", "UIN" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "grade_ryg", "Grade" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "gender", "Gender" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "ethnicity", "Ethnicity" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "nationality", "Nationality" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "expected_graduation", "Expected Graduation" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "university_classification", "University Classification" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "status", "Status" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "sexual_orientation", "Sexual Orientation" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "date_of_birth", "Date of Birth" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "email", "Email" %>
+          </th>
           <th class="border border-gray-300 px-4 py-2" colspan="2">Actions</th>
         </tr>
       </thead>
