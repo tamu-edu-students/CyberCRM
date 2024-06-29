@@ -11,60 +11,63 @@
 #   end
 
 require 'faker'
+
 puts 'Student table reset'
 Student.destroy_all
+
+# rubocop:disable Metrics/BlockLength
 (0...10).each do |i|
-  Name_First = Faker::Name.male_first_name
-  Name_Last = Faker::Name.last_name
-  Name_Full = "#{Name_First} #{Name_Last}".freeze
-  UIN = Faker::Number.number(digits: 8).to_s
-  GPA = Faker::Number.between(from: 2.50, to: 4.00).round(2)
-  GRADE_RYG = 'R'
-  if GPA >= 3.30 && GPA <= 4.00
-    GRADE_RYG = 'G'
-  elsif GPA >= 2.80 && GPA < 3.20
-    GRADE_RYG = 'Y'
+  name_first = Faker::Name.male_first_name
+  name_last = Faker::Name.last_name
+  name_full = "#{name_first} #{name_last}".freeze
+  uin = Faker::Number.number(digits: 8).to_s
+  gpa = Faker::Number.between(from: 2.50, to: 4.00).round(2)
+  grade_ryg = 'R'
+
+  if gpa >= 3.30 && gpa <= 4.00
+    grade_ryg = 'G'
+  elsif gpa >= 2.80 && gpa < 3.20
+    grade_ryg = 'Y'
   end
 
-  Nationality = Faker::Nation.nationality
-  Nationality = Nationality.chop if Nationality[-1] == 's'
-  CLASSIFICATION = 'Senior'
-  if (i % 4).zero?
-    CLASSIFICATION = 'Graduate'
-  elsif i % 4 == 1
-    CLASSIFICATION = 'Senior'
-  elsif i % 4 == 2
-    CLASSIFICATION = 'Junior'
-  elsif i % 4 == 3
-    CLASSIFICATION = 'Sophmore'
+  nationality = Faker::Nation.nationality
+  nationality.chop! if nationality[-1] == 's'
+
+  classification = 'Senior'
+
+  case i % 4
+  when 0
+    classification = 'Graduate'
+  when 1
+    classification = 'Senior'
+  when 2
+    classification = 'Junior'
+  when 3
+    classification = 'Sophomore'
   end
-  STATUS = if (i % 5).zero?
-             'Inactive'
-           else
-             'Active'
-           end
-  Sexual_Orientation = if i % 9 == 1
-                         'Homosexual'
-                       else
-                         'Heterosexual'
-                       end
-  Email = "#{Name_First[0].downcase}#{Name_Last.downcase}@tamu.edu".freeze
-  Student.create!([
-                    {
-                      name: Name_Full,
-                      uin: UIN,
-                      gpa: GPA,
-                      grade_ryg: GRADE_RYG,
-                      gender: 'Male',
-                      ethnicity: Faker::Demographic.race,
-                      nationality: Nationality,
-                      expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23'),
-                      university_classification: CLASSIFICATION,
-                      status: STATUS,
-                      sexual_orientation: Sexual_Orientation,
-                      date_of_birth: Faker::Date.between(from: '1995-01-01', to: '2005-01-01'),
-                      email: Email
-                    }
-                  ])
+
+  status = (i % 5).zero? ? 'Inactive' : 'Active'
+
+  sexual_orientation = i % 9 == 1 ? 'Homosexual' : 'Heterosexual'
+
+  email = "#{name_first[0].downcase}#{name_last.downcase}@tamu.edu".freeze
+
+  Student.create!(
+    name: name_full,
+    uin:,
+    gpa:,
+    grade_ryg:,
+    gender: 'Male',
+    ethnicity: Faker::Demographic.race,
+    nationality:,
+    expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23'),
+    university_classification: classification,
+    status:,
+    sexual_orientation:,
+    date_of_birth: Faker::Date.between(from: '1995-01-01', to: '2005-01-01'),
+    email:
+  )
 end
+# rubocop:enable Metrics/BlockLength
+
 puts "There are #{Student.count} students"
