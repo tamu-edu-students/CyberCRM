@@ -19,26 +19,26 @@ Student.destroy_all
   Name_Full = "#{Name_First} #{Name_Last}".freeze
   UIN = Faker::Number.number(digits: 8).to_s
   GPA = Faker::Number.between(from: 2.50, to: 4.00).round(2)
-  Grade_ryg = 'R'
+  GRADE_RYG = 'R'
   if GPA >= 3.30 && GPA <= 4.00
-    Grade_ryg = 'G'
+    GRADE_RYG = 'G'
   elsif GPA >= 2.80 && GPA < 3.20
-    Grade_ryg = 'Y'
+    GRADE_RYG = 'Y'
   end
 
   Nationality = Faker::Nation.nationality
   Nationality = Nationality.chop if Nationality[-1] == 's'
-  Classification = 'Senior'
+  CLASSIFICATION = 'Senior'
   if (i % 4).zero?
-    Classification = 'Graduate'
+    CLASSIFICATION = 'Graduate'
   elsif i % 4 == 1
-    Classification = 'Senior'
+    CLASSIFICATION = 'Senior'
   elsif i % 4 == 2
-    Classification = 'Junior'
+    CLASSIFICATION = 'Junior'
   elsif i % 4 == 3
-    Classification = 'Sophmore'
+    CLASSIFICATION = 'Sophmore'
   end
-  Status = if (i % 5).zero?
+  STATUS = if (i % 5).zero?
              'Inactive'
            else
              'Active'
@@ -54,13 +54,13 @@ Student.destroy_all
                       name: Name_Full,
                       uin: UIN,
                       gpa: GPA,
-                      grade_ryg: Grade_ryg,
+                      grade_ryg: GRADE_RYG,
                       gender: 'Male',
                       ethnicity: Faker::Demographic.race,
                       nationality: Nationality,
                       expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23'),
-                      university_classification: Classification,
-                      status: Status,
+                      university_classification: CLASSIFICATION,
+                      status: STATUS,
                       sexual_orientation: Sexual_Orientation,
                       date_of_birth: Faker::Date.between(from: '1995-01-01', to: '2005-01-01'),
                       email: Email
