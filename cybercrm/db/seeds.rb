@@ -14,56 +14,56 @@ require 'faker'
 puts 'Student table reset'
 Student.destroy_all
 (0...10).each do |i|
-  tNameFirst = Faker::Name.male_first_name
-  tNameLast = Faker::Name.last_name
-  tNameFull = "#{tNameFirst} #{tNameLast}"
-  tUin = Faker::Number.number(digits: 8).to_s
-  tGpa = Faker::Number.between(from: 2.50, to: 4.00).round(2)
-  tGrade_ryg = 'R'
-  if tGpa >= 3.30 && tGpa <= 4.00
-    tGrade_ryg = 'G'
-  elsif tGpa >= 2.80 && tGpa < 3.20
-    tGrade_ryg = 'Y'
+  Name_First = Faker::Name.male_first_name
+  Name_Last = Faker::Name.last_name
+  Name_Full = "#{Name_First} #{Name_Last}".freeze
+  UIN = Faker::Number.number(digits: 8).to_s
+  GPA = Faker::Number.between(from: 2.50, to: 4.00).round(2)
+  Grade_ryg = 'R'
+  if GPA >= 3.30 && GPA <= 4.00
+    Grade_ryg = 'G'
+  elsif GPA >= 2.80 && GPA < 3.20
+    Grade_ryg = 'Y'
   end
 
-  tNationality = Faker::Nation.nationality
-  tNationality = tNationality.chop if tNationality[-1] == 's'
-  tClassification = 'Senior'
+  Nationality = Faker::Nation.nationality
+  Nationality = Nationality.chop if Nationality[-1] == 's'
+  Classification = 'Senior'
   if (i % 4).zero?
-    tClassification = 'Graduate'
+    Classification = 'Graduate'
   elsif i % 4 == 1
-    tClassification = 'Senior'
+    Classification = 'Senior'
   elsif i % 4 == 2
-    tClassification = 'Junior'
+    Classification = 'Junior'
   elsif i % 4 == 3
-    tClassification = 'Sophmore'
+    Classification = 'Sophmore'
   end
-  tStatus = if (i % 5).zero?
-              'Inactive'
-            else
-              'Active'
-            end
-  tSexualOrientation = if i % 9 == 1
+  Status = if (i % 5).zero?
+             'Inactive'
+           else
+             'Active'
+           end
+  Sexual_Orientation = if i % 9 == 1
                          'Homosexual'
                        else
                          'Heterosexual'
                        end
-  tEmail = "#{tNameFirst[0].downcase}#{tNameLast.downcase}@tamu.edu"
+  Email = "#{Name_First[0].downcase}#{Name_Last.downcase}@tamu.edu".freeze
   Student.create!([
                     {
-                      name: tNameFull,
-                      uin: tUin,
-                      gpa: tGpa,
-                      grade_ryg: tGrade_ryg,
+                      name: Name_Full,
+                      uin: UIN,
+                      gpa: GPA,
+                      grade_ryg: Grade_ryg,
                       gender: 'Male',
                       ethnicity: Faker::Demographic.race,
-                      nationality: tNationality,
+                      nationality: Nationality,
                       expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23'),
-                      university_classification: tClassification,
-                      status: tStatus,
-                      sexual_orientation: tSexualOrientation,
+                      university_classification: Classification,
+                      status: Status,
+                      sexual_orientation: Sexual_Orientation,
                       date_of_birth: Faker::Date.between(from: '1995-01-01', to: '2005-01-01'),
-                      email: tEmail
+                      email: Email
                     }
                   ])
 end
