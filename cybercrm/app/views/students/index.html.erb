@@ -4,6 +4,14 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
+<%= turbo_frame_tag "search_results" do %>
+  <%= form_with url: search_students_path, data-turbo="true", method: :post do |form| %>
+    <%= form.search_field :student_search, oninput: "this.form.requestSubmit()", class:"w-full" %>
+  <% end %>
+  <div id="search_results">
+    Search Results
+  </div>
+
   <% content_for :title, "Students" %>
 
   <div class="flex justify-between items-center">

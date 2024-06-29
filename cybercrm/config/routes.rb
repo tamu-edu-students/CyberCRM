@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   resources :students do
     collection do
+      post :search
       get :export_csv
     end
   end
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: redirect('/')
   get '/logout', to: 'sessions#destroy'
+  post 'search_students', to: 'students#search'
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check

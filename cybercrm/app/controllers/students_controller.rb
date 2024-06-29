@@ -4,8 +4,25 @@ require 'csv'
 
 # Student Controller
 class StudentsController < ApplicationController
-  before_action :set_student, only: %i[show edit update destroy]
+  def search
+    if params[:student_search].present?
+      @students = Student.where("name LIKE ?", "%#{params[:student_search]}%")
+    else
+      @students = []
+    end
 
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update(
+          "search_results",
+          partial: "students/_search_results",
+          locals: { students: @students },
+        )
+      end
+    end
+  end
+
+  before_action :set_student, only: %i[show edit update destroy]
   # GET /students or /students.json
   def index
     @students = Student.all
