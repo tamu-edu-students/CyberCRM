@@ -1,5 +1,5 @@
 <div class="w-full">
-  
+  <%= render 'layouts/navbar' %>
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
@@ -9,7 +9,6 @@
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Students</h1>
     <div>
-      <%= link_to "Home", pages_home_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       <%= link_to "Export CSV", export_csv_students_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       <%= link_to "New student", new_student_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     </div>
@@ -20,7 +19,7 @@
         <tr>
           <th class="border border-gray-300 px-4 py-2">Name</th>
           <th class="border border-gray-300 px-4 py-2">UIN</th>
-          <th class="border border-gray-300 px-4 py-2">Grade RYG</th>
+          <th class="border border-gray-300 px-4 py-2">Grade</th>
           <th class="border border-gray-300 px-4 py-2">Gender</th>
           <th class="border border-gray-300 px-4 py-2">Ethnicity</th>
           <th class="border border-gray-300 px-4 py-2">Nationality</th>
@@ -30,7 +29,6 @@
           <th class="border border-gray-300 px-4 py-2">Sexual Orientation</th>
           <th class="border border-gray-300 px-4 py-2">Date of Birth</th>
           <th class="border border-gray-300 px-4 py-2">Email</th>
-          
           <th class="border border-gray-300 px-4 py-2" colspan="2">Actions</th>
         </tr>
       </thead>
@@ -49,7 +47,6 @@
             <td class="border border-gray-300 px-4 py-2"><%= student.sexual_orientation %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.date_of_birth %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.email %></td>
-
             <td class="border border-gray-300 px-4 py-2"><%= link_to "Show", student, class: "text-blue-500 hover:underline" %></td>
             <td class="border border-gray-300 px-4 py-2"><%= link_to "Edit", edit_student_path(student), class: "text-blue-500 hover:underline" %></td>
             <td class="border border-gray-300 px-4 py-2"><%= link_to "Delete", student, method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500 hover:underline" %></td>
