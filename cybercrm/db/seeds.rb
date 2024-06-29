@@ -27,7 +27,6 @@ Student.destroy_all
   end
 
   tNationality = Faker::Nation.nationality
-  _
   tNationality = tNationality.chop if tNationality[-1] == 's'
   tClassification = 'Senior'
   if (i % 4).zero?
