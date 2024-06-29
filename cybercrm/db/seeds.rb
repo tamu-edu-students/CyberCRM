@@ -13,20 +13,18 @@
 require "faker"
 puts "Student table reset"
 Student.destroy_all
-for i in 0 ... 50
+for i in 0 ... 10
     
     tNameFirst = Faker::Name.male_first_name
     tNameLast = Faker::Name.last_name
     tNameFull = tNameFirst + " " + tNameLast
     tUin = Faker::Number.number(digits: 8).to_s
     tGpa = Faker::Number.between(from: 2.50, to: 4.00).round(2)
-    tGrade_ryg = 'tmp'
+    tGrade_ryg = 'R'
     if( tGpa >= 3.30 && tGpa <= 4.00)
         tGrade_ryg = 'G'
     elsif ( tGpa >= 2.80 &&  tGpa < 3.20) 
         tGrade_ryg = 'Y'
-    else
-        tGrade_ryg = 'R'
     end
 
     tNationality = Faker::Nation.nationality 
