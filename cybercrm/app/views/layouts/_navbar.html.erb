@@ -14,7 +14,10 @@
     <% end %>
     
     <nav class="flex space-x-6">
-      <% if session[:user_id] %>  
+      <% if session[:user_id] %>
+        <%= link_to pages_form_path, id: "search-link", data: { turbo_frame: "modal" }, class: 'text-white hover:opacity-80 text-2xl' do %>
+          <i class="fas fa-search"></i>
+        <% end %>
         <%= link_to 'Home', pages_home_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %> 
         <%= link_to 'Students', students_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
         <%= link_to 'Sign out', logout_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
