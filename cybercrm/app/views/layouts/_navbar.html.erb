@@ -5,16 +5,20 @@
       <%= image_tag('cyber_center.png', alt: 'Cyber Center', class: 'h-10 mr-4 filter invert brightness-0 cursor-pointer') %>
     </a>
   </div>
-  <nav class="flex space-x-6">
-    <% if session[:user_id] %>  
-      <%= link_to 'Home', pages_home_path, class: 'text-white hover:text-orange-300' %> 
-      <%= link_to 'Students', students_path, class: 'text-white hover:text-orange-300' %>
-      <%= link_to 'Sign out', logout_path, class: 'text-white hover:text-orange-300' %>
-    <% else %>
-      <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:text-orange-300' %>
-    <% end %>
+  <div class="flex-1 flex justify-center">
+    <nav class="flex space-x-6">
+      <% if session[:user_id] %>  
+        <%= link_to 'Home', pages_home_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %> 
+        <%= link_to 'Students', students_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+        <%= link_to 'Sign out', logout_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+      <% else %>
+        <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+      <% end %>
+    </nav>
+  </div>
+  <div>
     <%= link_to pages_home_path do %>
       <%= image_tag('logo.png', alt: 'Cyber CRM', class: 'h-10 mr-4') %>
     <% end %>
-  </nav>
+  </div>
 </header>
