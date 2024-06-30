@@ -49,7 +49,7 @@ jobs:
         run: bin/rails db:test:prepare
         working-directory: ./cybercrm 
       - name: Run tests
-        run: bin/rake
+        run: rspec
         working-directory: ./cybercrm 
 
   lint:
