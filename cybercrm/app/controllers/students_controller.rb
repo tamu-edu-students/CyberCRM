@@ -91,22 +91,18 @@ class StudentsController < ApplicationController
 
   private
 
-  # rubocop:disable Metrics/AbcSize
   def generate_csv(students)
     CSV.generate(headers: true) do |csv|
       csv << ['Name', 'UIN', 'Grade', 'Gender', 'Ethnicity', 'Nationality', 'Expected Graduation',
-              'University Classification', 'Status', 'Sexual Orientation', 'Date of Brirth',
-              'Internships', 'Corps', 'Security Clearance']
+              'University Classification', 'Status', 'Sexual Orientation', 'Date of Brirth']
 
       students.each do |student|
         csv << [student.name, student.uin, student.grade_ryg, student.gender, student.ethnicity,
                 student.nationality, student.expected_graduation, student.university_classification,
-                student.status, student.sexual_orientation, student.date_of_birth, student.internships,
-                student.corps, student.security_clearance]
+                student.status, student.sexual_orientation, student.date_of_birth]
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # Use callbacks to share common setup or constraints between actions.
   def set_student
