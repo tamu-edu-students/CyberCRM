@@ -39,3 +39,25 @@ input[type="search"] {
     -ms-appearance: none;
     appearance: none;
 }
+
+.sortable {
+    text-decoration: none;
+    color: inherit;
+}
+
+.sortable:hover {
+    text-decoration: underline;
+}
+
+.sortable:after {
+    content: " ";
+}
+
+.sortable.asc:after {
+    content: "↑";
+}
+
+.sortable.desc:after {
+    content: "↓";
+}
+  

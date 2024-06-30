@@ -18,16 +18,16 @@
         <%= link_to pages_form_path, id: "search-link", data: { turbo_frame: "modal" }, class: 'text-white hover:opacity-80 text-2xl' do %>
           <i class="fas fa-search"></i>
         <% end %>
-        <%= link_to 'Home', pages_home_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %> 
-        <%= link_to 'Students', students_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
-        <%= link_to 'Sign out', logout_path, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+        <%= link_to 'Home', pages_home_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %> 
+        <%= link_to 'Students', students_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+        <%= link_to 'Sign out', logout_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
       <% else %>
         <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
       <% end %>
     </nav>
   </div>
   <div>
-    <%= link_to pages_home_path do %>
+    <%= link_to pages_home_path, data: { turbo: false } do %>
       <%= image_tag('logo.png', alt: 'Cyber CRM', class: 'h-10 mr-4') %>
     <% end %>
   </div>
