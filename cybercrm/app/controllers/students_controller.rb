@@ -27,11 +27,11 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    if sort_column && sort_direction
-      @students = Student.order("#{sort_column} #{sort_direction}")
-    else
-      @students = Student.all
-    end
+    @students = if sort_column && sort_direction
+                  Student.order("#{sort_column} #{sort_direction}")
+                else
+                  Student.all
+                end
   end
 
   # GET /students/1 or /students/1.json

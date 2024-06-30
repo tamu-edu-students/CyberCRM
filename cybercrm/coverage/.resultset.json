@@ -298,7 +298,7 @@
   },
   "Cucumber Features": {
     "coverage": {
-      "/home/noam/CyberCRM/cybercrm/features/step_definitions/crud_student.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/features/step_definitions/crud_student.rb": {
         "lines": [
           null,
           null,
@@ -382,19 +382,36 @@
           null,
           null,
           1,
-          0,
-          null,
-          null,
-          1,
-          0,
-          null,
-          null,
-          1,
-          0,
+          11,
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/features/step_definitions/search_student_steps.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/features/step_definitions/filtering_columns_steps.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          33,
+          null,
+          null,
+          1,
+          11,
+          11,
+          null,
+          null,
+          1,
+          11,
+          11,
+          null,
+          null,
+          1,
+          11,
+          11,
+          11,
+          null
+        ]
+      },
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/features/step_definitions/search_student_steps.rb": {
         "lines": [
           null,
           null,
@@ -438,7 +455,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/features/step_definitions/user_authentication_steps.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/features/step_definitions/user_authentication_steps.rb": {
         "lines": [
           null,
           null,
@@ -456,7 +473,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/app/controllers/students_controller.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/app/controllers/students_controller.rb": {
         "lines": [
           null,
           null,
@@ -466,6 +483,8 @@
           1,
           1,
           1,
+          null,
+          1,
           0,
           0,
           null,
@@ -485,7 +504,11 @@
           null,
           null,
           1,
-          1,
+          45,
+          22,
+          null,
+          23,
+          null,
           null,
           null,
           null,
@@ -572,10 +595,18 @@
           2,
           null,
           null,
+          null,
+          1,
+          67,
+          null,
+          null,
+          1,
+          55,
+          null,
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/app/controllers/application_controller.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/app/controllers/application_controller.rb": {
         "lines": [
           null,
           null,
@@ -591,7 +622,32 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/app/helpers/application_helper.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/app/helpers/application_helper.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          1,
+          1,
+          540,
+          540,
+          540,
+          518,
+          11,
+          null,
+          null,
+          540,
+          11,
+          11,
+          518,
+          null,
+          null,
+          540,
+          null,
+          null
+        ]
+      },
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/app/helpers/pages_helper.rb": {
         "lines": [
           null,
           null,
@@ -600,7 +656,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/app/helpers/pages_helper.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/app/helpers/sessions_helper.rb": {
         "lines": [
           null,
           null,
@@ -609,7 +665,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/app/helpers/sessions_helper.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/app/helpers/students_helper.rb": {
         "lines": [
           null,
           null,
@@ -618,16 +674,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/app/helpers/students_helper.rb": {
-        "lines": [
-          null,
-          null,
-          null,
-          1,
-          null
-        ]
-      },
-      "/home/noam/CyberCRM/cybercrm/app/models/student.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/app/models/student.rb": {
         "lines": [
           null,
           null,
@@ -637,7 +684,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/app/models/application_record.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/app/models/application_record.rb": {
         "lines": [
           null,
           null,
@@ -647,7 +694,7 @@
           null
         ]
       },
-      "/home/noam/CyberCRM/cybercrm/app/controllers/pages_controller.rb": {
+      "/home/willt/classes/csce606/CyberCRM/cybercrm/app/controllers/pages_controller.rb": {
         "lines": [
           null,
           null,
@@ -663,6 +710,6 @@
         ]
       }
     },
-    "timestamp": 1719707561
+    "timestamp": 1719711516
   }
 }
