@@ -2,6 +2,7 @@
 
 # This is the application helper
 module ApplicationHelper
+  # rubocop:disable Metrics/MethodLength
   def sortable(column, title = nil)
     title ||= column.titleize
     current_direction = params[:sort] == column ? params[:direction] : nil
@@ -16,6 +17,7 @@ module ApplicationHelper
             else ''
             end
 
-    link_to "#{title} #{arrow}".html_safe, { sort: column, direction: new_direction }, class: 'sortable'
+    link_to "#{title} #{arrow}", { sort: column, direction: new_direction }, class: 'sortable'
   end
+  # rubocop:enable Metrics/MethodLength
 end

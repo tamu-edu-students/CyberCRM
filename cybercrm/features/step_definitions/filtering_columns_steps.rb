@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 When('I click the {string} column header') do |column_name|
-  click_link column_name
+  click_on column_name
 end
 
 Then('I should see students sorted by {string} in ascending order') do |column_name|

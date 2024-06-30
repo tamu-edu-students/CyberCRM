@@ -7,6 +7,8 @@
 require 'rails_helper'
 
 RSpec.describe User do
+  # rubocop:disable RSpec/MultipleExpectations
+  # rubocop:disable RSpec/ExampleLength
   describe 'validations' do
     it { is_expected.to validate_presence_of(:provider) }
     it { is_expected.to validate_presence_of(:uid) }
@@ -63,4 +65,6 @@ RSpec.describe User do
       expect(user.role).to eq('student_worker')
     end
   end
+  # rubocop:enable RSpec/MultipleExpectations
+  # rubocop:enable RSpec/ExampleLength
 end

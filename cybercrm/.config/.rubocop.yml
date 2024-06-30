@@ -2664,7 +2664,7 @@ Metrics/MethodLength:
   VersionChanged: '1.5'
   CountComments: false  # count full line comments?
   Max: 10
-  CountAsOne: ['array', 'heredoc', 'method_call']
+  CountAsOne: ['array', 'heredoc', 'method_call', 'hash']
   AllowedMethods: []
   AllowedPatterns: []
 
