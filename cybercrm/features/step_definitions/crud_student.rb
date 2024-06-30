@@ -82,11 +82,3 @@ end
 Given('I am on the students index page') do
   visit students_path
 end
-
-When('I click the New Student button') do
-  click_link 'New student'
-end
-
-Then('I should be on the new student page') do
-  expect(page).to have_current_path(new_student_path)
-end
