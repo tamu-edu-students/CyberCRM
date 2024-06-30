@@ -16,10 +16,10 @@ puts 'Student table reset'
 Student.destroy_all
 
 # rubocop:disable Metrics/BlockLength
-(0...10).each do |i|
+(0...50).each do |i|
   name_first = Faker::Name.male_first_name
   name_last = Faker::Name.last_name
-  name_full = "#{name_first} #{name_last}".freeze
+  name_full = "#{name_first} #{name_last}"
   uin = Faker::Number.number(digits: 8).to_s
   gpa = Faker::Number.between(from: 2.50, to: 4.00).round(2)
   grade_ryg = 'R'
@@ -31,7 +31,7 @@ Student.destroy_all
   end
 
   nationality = Faker::Nation.nationality
-  nationality.chop! if nationality[-1] == 's'
+  nationality = nationality.chop if nationality[-1] == 's'
 
   classification = 'Senior'
 

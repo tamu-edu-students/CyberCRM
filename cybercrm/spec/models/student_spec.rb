@@ -3,20 +3,22 @@
 require 'rails_helper'
 
 RSpec.describe Student do
-  # pending "add some examples to (or delete) #{__FILE__}"
-  it 'Student model is valid with required attributes name and uin' do
-    student = Student.new( name: 'John Doe', uin: 12345678 )
+  # rubocop:disable RSpec/MultipleExpectations
+  it 'Student is valid with name and uin' do
+    student = described_class.new(name: 'John Doe', uin: 12_345_678)
     expect(student).to be_valid
   end
 
-  it 'Student model is not valid without a name' do
-    student = Student.new(uin: 12345678)
-    expect(student).to_not be_valid
+  it 'Student invalid without name' do
+    student = described_class.new(uin: 12_345_678)
+    expect(student).not_to be_valid
     expect(student.errors[:name]).to include("can't be blank")
   end
-  it 'Student model is not valid without a uin' do
-    student = Student.new(name: 'John Doe')
-    expect(student).to_not be_valid
+
+  it 'Student invalid without uin' do
+    student = described_class.new(name: 'John Doe')
+    expect(student).not_to be_valid
     expect(student.errors[:uin]).to include("can't be blank")
   end
+  # rubocop:enable RSpec/MultipleExpectations
 end
