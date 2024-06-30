@@ -5,7 +5,7 @@ Given('I am on the students page') do
 end
 
 When('I click the {string} link') do |link|
-  click_link(link)
+  click_on link
 end
 
 Then('I should receive a file ending in .csv') do

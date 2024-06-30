@@ -2,6 +2,7 @@
 
 # Create Student
 class CreateStudents < ActiveRecord::Migration[7.1]
+  # rubocop:disable Metrics/MethodLength
   def change
     create_table :students do |t|
       t.string :name
@@ -18,4 +19,5 @@ class CreateStudents < ActiveRecord::Migration[7.1]
       t.timestamps
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end
