@@ -33,22 +33,27 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1.2 # Specify the Ruby version here
+          ruby-version: 3.3.2
           bundler-cache: true
       - name: Install dependencies
         run: |
           gem install bundler
           bundle install
+        working-directory: ./cybercrm
       - name: Install Yarn
         run: npm install --global yarn
       - name: Install JavaScript dependencies
         run: yarn install
+        working-directory: ./cybercrm
       - name: Set up database
         run: bin/rails db:setup
+        working-directory: ./cybercrm 
       - name: Set up database schema
         run: bin/rails db:schema:load
+        working-directory: ./cybercrm
       - name: Run tests
         run: bin/rake
+        working-directory: ./cybercrm
 
   lint:
     runs-on: ubuntu-latest
@@ -58,19 +63,24 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1.2 # Specify the Ruby version here
+          ruby-version: 3.3.2
           bundler-cache: true
       - name: Install dependencies
         run: |
           gem install bundler
           bundle install
+        working-directory: ./cybercrm
       - name: Install Yarn
         run: npm install --global yarn
       - name: Install JavaScript dependencies
         run: yarn install
+        working-directory: ./cybercrm 
       - name: Security audit dependencies
         run: bin/bundler-audit --update
+        working-directory: ./cybercrm 
       - name: Security audit application code
         run: bin/brakeman -q -w2
+        working-directory: ./cybercrm 
       - name: Lint Ruby files
         run: bin/rubocop --parallel
+        working-directory: ./cybercrm 
