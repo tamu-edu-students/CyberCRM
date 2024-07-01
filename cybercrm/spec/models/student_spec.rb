@@ -8,6 +8,7 @@ RSpec.describe Student do
     expect(student).to be_valid
   end
 
+  # rubocop:disable RSpec/MultipleExpectations
   it 'Student invalid without name' do
     student = described_class.new(uin: 12_345_678)
     expect(student).not_to be_valid
@@ -19,4 +20,5 @@ RSpec.describe Student do
     expect(student).not_to be_valid
     expect(student.errors[:uin]).to include("can't be blank")
   end
+  # rubocop:enable RSpec/MultipleExpectations
 end

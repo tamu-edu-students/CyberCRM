@@ -51,18 +51,18 @@ Student.destroy_all
 
   Student.create!(
     name: name_full,
-    uin: uin,
-    gpa: gpa,
-    grade_ryg: grade_ryg,
+    uin:,
+    gpa:,
+    grade_ryg:,
     gender: 'Male',
     ethnicity: Faker::Demographic.race,
-    nationality: nationality,
+    nationality:,
     expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23'),
     university_classification: classification,
-    status: status,
-    sexual_orientation: sexual_orientation,
+    status:,
+    sexual_orientation:,
     date_of_birth: Faker::Date.between(from: '1995-01-01', to: '2005-01-01'),
-    email: email
+    email:
   )
 end
 # rubocop:enable Metrics/BlockLength
