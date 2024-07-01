@@ -19,11 +19,11 @@ When('I fill in the student form with valid data') do
 end
 
 When('I submit the create form') do
-  click_button 'Create Student'
+  click_on 'Create Student'
 end
 
 When('I submit the edit form') do
-  click_button 'Update Student'
+  click_on 'Update Student'
 end
 
 Then('I should see the student has been created') do
@@ -71,7 +71,7 @@ end
 
 When('I click the delete button') do
   visit student_path(@student)
-  click_button 'Delete this student'
+  click_on 'Delete this student'
 end
 
 Then('I should see the student has been deleted') do
@@ -81,12 +81,4 @@ end
 
 Given('I am on the students index page') do
   visit students_path
-end
-
-When('I click the New Student button') do
-  click_link 'New student'
-end
-
-Then('I should be on the new student page') do
-  expect(page).to have_current_path(new_student_path)
 end

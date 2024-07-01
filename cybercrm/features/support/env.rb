@@ -8,8 +8,20 @@
 
 require 'cucumber/rails'
 require 'simplecov'
+require 'capybara/rails'
+require 'capybara/cucumber'
 
 SimpleCov.start
+
+Capybara.save_path = Rails.root.join('tmp/downloads')
+
+Before do
+  FileUtils.mkdir_p(Capybara.save_path)
+end
+
+After do
+  FileUtils.rm_rf(Dir.glob("#{Capybara.save_path}/*"))
+end
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how
