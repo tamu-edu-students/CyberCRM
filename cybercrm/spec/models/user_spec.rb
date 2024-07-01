@@ -31,6 +31,7 @@ RSpec.describe User do
       )
     end
 
+    # rubocop:disable RSpec/MultipleExpectations
     it 'creates a new user if one does not exist' do
       expect do
         described_class.from_omniauth(auth)

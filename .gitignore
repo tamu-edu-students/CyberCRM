@@ -40,3 +40,6 @@
 !/cybercrm/app/assets/builds/.keep
 
 /cybercrm/.env
+
+/cybercrm/coverage/
+/cybercrm/coverage/*
