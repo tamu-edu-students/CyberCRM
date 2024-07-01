@@ -5,10 +5,7 @@
 # user model code
 
 require 'rails_helper'
-
 RSpec.describe User do
-  # rubocop:disable RSpec/MultipleExpectations
-  # rubocop:disable RSpec/ExampleLength
   describe 'validations' do
     it { is_expected.to validate_presence_of(:provider) }
     it { is_expected.to validate_presence_of(:uid) }
@@ -32,6 +29,7 @@ RSpec.describe User do
     end
 
     # rubocop:disable RSpec/MultipleExpectations
+    # rubocop:disable RSpec/ExampleLength
     it 'creates a new user if one does not exist' do
       expect do
         described_class.from_omniauth(auth)

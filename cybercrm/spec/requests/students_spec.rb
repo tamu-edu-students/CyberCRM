@@ -14,6 +14,7 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe '/students' do
   # This should return the minimal set of attributes required to create a valid
   # Student. As you add validations to Student, be sure to
@@ -130,3 +131,4 @@ RSpec.describe '/students' do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
