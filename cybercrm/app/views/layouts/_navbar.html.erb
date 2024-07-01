@@ -20,7 +20,17 @@
         <% end %>
         <%= link_to 'Home', pages_home_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %> 
         <%= link_to 'Students', students_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
-        <%= link_to 'Sign out', logout_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+
+        <% if current_user.role == 'super_user' %>
+        <%= link_to 'Sign out (logged in as a Super User)', logout_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+        <% end %>
+        <% if current_user.role == 'program_director' %>
+        <%= link_to 'Sign out (logged in as a Program Director', logout_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+        <% end %>
+        <% if current_user.role == 'student_worker' %>
+        <%= link_to 'Sign out (logged in as a Student Worker)', logout_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+        <% end %>
+        
       <% else %>
         <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
       <% end %>
