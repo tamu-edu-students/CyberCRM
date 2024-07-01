@@ -42,7 +42,7 @@ m = Module.new do
   # this is because the Heroku buildpack does not recognize present?
   # ruby-monorepo is the buildpack
 
-  # rubocop:disable Rails/Present, Layout/LineLength
+  # rubocop:disable Layout/LineLength
   def gemfile
     gemfile = ENV.fetch('BUNDLE_GEMFILE', nil)
     return gemfile if gemfile && !gemfile.empty?
@@ -107,7 +107,7 @@ m = Module.new do
   end
 
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
-  # rubocop:enable Rails/Present, Layout/LineLength
+  # rubocop:enable Layout/LineLength
 
   def activation_error_handling
     yield
