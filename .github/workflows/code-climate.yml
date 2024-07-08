@@ -23,9 +23,11 @@ jobs:
 
     - name: Install dependencies
       run: bundle install
+      working-directory: ./cybercrm
 
     - name: Run tests
       run: bundle exec rspec
+      working-directory: ./cybercrm
 
     - name: Upload coverage to Code Climate
       uses: paambaati/codeclimate-action@v8.0.0
@@ -33,3 +35,4 @@ jobs:
         coverageCommand: bundle exec rspec
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      working-directory: ./cybercrm
