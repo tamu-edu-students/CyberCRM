@@ -7,11 +7,9 @@
 # files.
 
 require 'cucumber/rails'
-require 'simplecov'
 require 'capybara/rails'
 require 'capybara/cucumber'
-
-SimpleCov.start
+require_relative '../../spec/simplecov_setup'
 
 Capybara.save_path = Rails.root.join('tmp/downloads')
 
