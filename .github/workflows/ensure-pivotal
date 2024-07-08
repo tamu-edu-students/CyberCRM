@@ -1,0 +1,23 @@
+name: Commit Message Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-commit-message:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Make script executable
+      run: chmod +x .github/scripts/check-commit-message.sh
+
+    - name: Run commit message check
+      run: .github/scripts/check-commit-message.sh
