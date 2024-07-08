@@ -19,7 +19,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.0' # specify your ruby version
+        ruby-version: '3.3.2'
 
     - name: Install dependencies
       run: bundle install
@@ -35,4 +35,3 @@ jobs:
         coverageCommand: bundle exec rspec
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      working-directory: ./cybercrm
