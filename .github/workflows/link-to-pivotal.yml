@@ -1,0 +1,30 @@
+name: Link Commit to Pivotal Tracker
+
+on:
+  push:
+    branches:
+      - main
+      - 'release/*'
+      - 'feature/*'
+
+jobs:
+  link_commit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Link Commit to Pivotal Tracker
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install axios
+
+    - name: Run script
+      env:
+        PIVOTAL_API_TOKEN: ${{ secrets.PIVOTAL_API_TOKEN }}
+      run: |
+        node .github/scripts/link-commit-to-pivotal.js
