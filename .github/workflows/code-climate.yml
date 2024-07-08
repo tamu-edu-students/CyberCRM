@@ -58,6 +58,7 @@ jobs:
         bundle exec rspec
       env:
         RAILS_ENV: test
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       working-directory: ./cybercrm
 
     - name: Run Cucumber tests
@@ -66,6 +67,7 @@ jobs:
         bundle exec cucumber
       env:
         RAILS_ENV: test
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       working-directory: ./cybercrm
 
     - name: Install Code Climate Test Reporter
