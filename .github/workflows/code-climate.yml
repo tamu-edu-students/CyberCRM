@@ -55,7 +55,7 @@ jobs:
     - name: Run RSpec tests
       run: |
         mkdir -p coverage
-        SIMPLECOV_RESULT_PATH=coverage/.resultset_rspec.json bundle exec rspec
+        bundle exec rspec
       env:
         RAILS_ENV: test
       working-directory: ./cybercrm
@@ -63,7 +63,7 @@ jobs:
     - name: Run Cucumber tests
       run: |
         mkdir -p coverage
-        SIMPLECOV_RESULT_PATH=coverage/.resultset_cucumber.json bundle exec cucumber
+        bundle exec cucumber
       env:
         RAILS_ENV: test
       working-directory: ./cybercrm
@@ -74,11 +74,11 @@ jobs:
         chmod +x ./cc-test-reporter
       working-directory: ./cybercrm
 
-    - name: Format and Upload Coverage to CodeClimate
+    - name: Upload Coverage to CodeClimate
       run: |
         ./cc-test-reporter before-build
-        ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.backend.json
-        ./cc-test-reporter upload-coverage
+        ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.json
+        ./cc-test-reporter upload-coverage --input coverage/codeclimate.json
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       working-directory: ./cybercrm
