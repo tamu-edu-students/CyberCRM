@@ -9,8 +9,8 @@ const commitMessages = execSync('git log --format=%B -n 1').toString().trim().sp
 
 // Check each commit message
 commitMessages.forEach(message => {
-  if (!message.match(/^#none|^\d+/)) {
-    console.error(`Commit message must start with #none or a Pivotal Tracker ID.`);
+  if (!message.match(/^#none|^\d+/) && !message.startsWith('Merge')) {
+    console.error(`Commit message must start with #none, a Pivotal Tracker ID, or be a merge commit.`);
     console.error(`Invalid commit message: ${message}`);
     process.exit(1);
   }
@@ -19,8 +19,8 @@ commitMessages.forEach(message => {
 // Process commit messages to link to Pivotal Tracker stories
 const pivotalStoryPattern = /#(\d+)/g;
 commitMessages.forEach(message => {
-  if (message.startsWith('#none')) {
-    console.log(`Commit message starts with #none, skipping linking: ${message}`);
+  if (message.startsWith('#none') || message.startsWith('Merge')) {
+    console.log(`Commit message starts with #none or is a merge commit, skipping linking: ${message}`);
     return;
   }
   let match;
