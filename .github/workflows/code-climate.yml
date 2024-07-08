@@ -12,6 +12,21 @@ jobs:
   test_and_analyze:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:13
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: cybercrm_test
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -25,8 +40,23 @@ jobs:
       run: bundle install
       working-directory: ./cybercrm
 
+    - name: Set up database configuration
+      run: |
+        cp config/database.yml.ci config/database.yml
+      working-directory: ./cybercrm
+
+    - name: Create and migrate the database
+      run: |
+        bundle exec rails db:create
+        bundle exec rails db:schema:load
+      env:
+        RAILS_ENV: test
+      working-directory: ./cybercrm
+
     - name: Run tests
       run: bundle exec rspec
+      env:
+        RAILS_ENV: test
       working-directory: ./cybercrm
 
     - name: Upload coverage to Code Climate
@@ -35,3 +65,4 @@ jobs:
         coverageCommand: bundle exec rspec
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        RAILS_ENV: test
