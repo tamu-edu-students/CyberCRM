@@ -58,12 +58,12 @@ jobs:
         chmod +x ./cc-test-reporter
       working-directory: ./cybercrm
 
-    - name: Upload Coverage to CodeClimate
+    - name: Run tests and upload coverage
       run: |
         ./cc-test-reporter before-build
         bundle exec rspec
         bundle exec cucumber
-        ./cc-test-reporter upload-coverage --input coverage/coverage.json
+        ./cc-test-reporter after-build --exit-code $?
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       working-directory: ./cybercrm
