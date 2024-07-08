@@ -51,6 +51,7 @@ commitMessages.forEach(message => {
     }
   } else {
     console.log(`Valid commit message but no Pivotal Tracker story ID found: ${message}`);
+    console.log("If you meant to also add this to Pivotal Tracker then ammend your commit messages with the id.");
   }
 });
 
