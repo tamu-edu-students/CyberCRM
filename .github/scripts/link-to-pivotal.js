@@ -19,6 +19,10 @@ commitMessages.forEach(message => {
 // Process commit messages to link to Pivotal Tracker stories
 const pivotalStoryPattern = /#(\d+)/g;
 commitMessages.forEach(message => {
+  if (message.startsWith('#none')) {
+    console.log(`Commit message starts with #none, skipping linking: ${message}`);
+    return;
+  }
   let match;
   while ((match = pivotalStoryPattern.exec(message)) !== null) {
     const storyId = match[1];
