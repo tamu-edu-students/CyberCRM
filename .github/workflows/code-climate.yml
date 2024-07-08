@@ -41,8 +41,7 @@ jobs:
       working-directory: ./cybercrm
 
     - name: Set up database configuration
-      run: |
-        cp config/database.yml.ci config/database.yml
+      run: cp .github/config/database.yml.ci .github/config/database.yml
       working-directory: ./cybercrm
 
     - name: Create and migrate the database
