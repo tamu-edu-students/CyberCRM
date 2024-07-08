@@ -8,6 +8,7 @@ const pivotalApiToken = process.env.PIVOTAL_API_TOKEN;
 const commitMessages = execSync('git log --format=%B -n 1').toString().trim().split('\n');
 
 // Check each commit message
+let allMessagesValid = true;
 commitMessages.forEach(message => {
   if (!message) {
     console.log("Empty commit message detected, likely a merge commit. Skipping.");
@@ -17,9 +18,21 @@ commitMessages.forEach(message => {
   if (!message.match(/^#none|^\d+/) && !message.startsWith('Merge')) {
     console.error(`Commit message must start with #none, a Pivotal Tracker ID, or be a merge commit.`);
     console.error(`Invalid commit message: ${message}`);
-    process.exit(1);
+    allMessagesValid = false;
   }
 });
+
+if (!allMessagesValid) {
+  console.error("Some commit messages are invalid. Please fix the commit messages using the following command:");
+  console.error("git rebase -i HEAD~<number_of_commits>");
+  console.error("In the interactive rebase editor, change pick to reword or edit for the commits you need to modify. Save and exit the editor.");
+  console.error("Git will prompt you to edit the commit messages one by one. Update them to meet the required format.");
+  console.error("Once you have updated the commit messages, continue the rebase process");
+  console.error("git rebase --continue");
+  console.error("After fixing, you can force push the changes using:");
+  console.error("git push --force-with-lease");
+  process.exit(1);
+}
 
 // Process commit messages to link to Pivotal Tracker stories
 const pivotalStoryPattern = /(?:finishes|fixes|delivers) #(\d+)/g;
