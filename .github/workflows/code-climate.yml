@@ -52,24 +52,6 @@ jobs:
         RAILS_ENV: test
       working-directory: ./cybercrm
 
-    - name: Run RSpec tests
-      run: |
-        mkdir -p coverage
-        bundle exec rspec
-      env:
-        RAILS_ENV: test
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      working-directory: ./cybercrm
-
-    - name: Run Cucumber tests
-      run: |
-        mkdir -p coverage
-        bundle exec cucumber
-      env:
-        RAILS_ENV: test
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      working-directory: ./cybercrm
-
     - name: Install Code Climate Test Reporter
       run: |
         curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -79,7 +61,8 @@ jobs:
     - name: Upload Coverage to CodeClimate
       run: |
         ./cc-test-reporter before-build
-        ./cc-test-reporter format-coverage -t simplecov -o coverage/coverage.json
+        bundle exec rspec
+        bundle exec cucumber
         ./cc-test-reporter upload-coverage --input coverage/coverage.json
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
