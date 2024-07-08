@@ -82,5 +82,5 @@ jobs:
         run: bundle exec brakeman -q -w2
         working-directory: ./cybercrm 
       - name: Lint Ruby files
-        run: bundle exec rubocop -a --parallel
+        run: bundle exec rubocop -A --parallel
         working-directory: ./cybercrm
