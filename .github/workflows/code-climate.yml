@@ -61,9 +61,9 @@ jobs:
     - name: Run tests and upload coverage
       run: |
         ./cc-test-reporter before-build
-        bundle exec rspec
-        bundle exec cucumber
-        ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.json coverage/.resultset.json
+        CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} bundle exec rspec
+        CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} bundle exec cucumber
+        ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.json
         ./cc-test-reporter upload-coverage --input coverage/codeclimate.json
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
