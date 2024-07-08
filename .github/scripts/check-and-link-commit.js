@@ -8,6 +8,7 @@ const pivotalApiToken = process.env.PIVOTAL_API_TOKEN;
 const commitMessages = execSync('git log --format=%B -n 1').toString().trim().split('\n');
 
 // Check each commit message
+let allMessagesValid = true;
 commitMessages.forEach(message => {
   if (!message) {
     console.log("Empty commit message detected, likely a merge commit. Skipping.");
@@ -17,9 +18,13 @@ commitMessages.forEach(message => {
   if (!message.match(/^#none|^\d+/) && !message.startsWith('Merge')) {
     console.error(`Commit message must start with #none, a Pivotal Tracker ID, or be a merge commit.`);
     console.error(`Invalid commit message: ${message}`);
-    process.exit(1);
+    allMessagesValid = false;
   }
 });
+
+if (!allMessagesValid) {
+  process.exit(1);
+}
 
 // Process commit messages to link to Pivotal Tracker stories
 const pivotalStoryPattern = /(?:finishes|fixes|delivers) #(\d+)/g;
@@ -56,4 +61,4 @@ commitMessages.forEach(message => {
   }
 });
 
-console.log("All commit messages are valid and processed for Pivotal Tracker!");
+console.log("All commit messages are valid and processed for Pivotal Tracker.");
