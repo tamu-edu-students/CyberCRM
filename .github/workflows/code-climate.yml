@@ -79,8 +79,8 @@ jobs:
     - name: Upload Coverage to CodeClimate
       run: |
         ./cc-test-reporter before-build
-        ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.json
-        ./cc-test-reporter upload-coverage --input coverage/codeclimate.json
+        ./cc-test-reporter format-coverage -t simplecov -o coverage/coverage.json
+        ./cc-test-reporter upload-coverage --input coverage/coverage.json
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       working-directory: ./cybercrm
