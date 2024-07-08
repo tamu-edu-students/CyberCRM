@@ -53,33 +53,23 @@ jobs:
       working-directory: ./cybercrm
 
     - name: Run RSpec tests
-      run: |
-        mkdir -p coverage
-        SIMPLECOV_RESULT_PATH=coverage/.resultset_rspec.json bundle exec rspec
+      run: bundle exec rspec
       env:
         RAILS_ENV: test
       working-directory: ./cybercrm
 
     - name: Run Cucumber tests
-      run: |
-        mkdir -p coverage
-        SIMPLECOV_RESULT_PATH=coverage/.resultset_cucumber.json bundle exec cucumber
+      run: bundle exec cucumber
       env:
         RAILS_ENV: test
       working-directory: ./cybercrm
 
-    - name: Combine Coverage Reports
-      run: bundle exec rake coverage:report
-      working-directory: ./cybercrm
-
-    - name: CodeClimate Coverage Action
-      uses: paambaati/codeclimate-action@v8.0.0
-      with:
-        coverageCommand: echo "Running CodeClimate coverage report"
-        coverageLocations: coverage/.resultset.json
-        debug: false
-        verifyDownload: true
-        verifyEnvironment: true
+    - name: Upload Coverage to CodeClimate
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+        ./cc-test-reporter before-build
+        ./cc-test-reporter after-build --exit-code 0
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        RAILS_ENV: test
+      working-directory: ./cybercrm
