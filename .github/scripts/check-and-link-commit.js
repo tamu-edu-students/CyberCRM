@@ -23,12 +23,12 @@ commitMessages.forEach(message => {
 });
 
 if (!allMessagesValid) {
+  console.error("You can fix this by either linking your commit to pivotal tracker if it is relevant or following the instructions below.");
+  console.error("If this is not related to pivotal tracker you can ignore");
   console.error("Some commit messages are invalid. Please fix the commit messages using the following command:");
   console.error("git rebase -i HEAD~<number_of_commits>");
   console.error("In the interactive rebase editor, change pick to reword or edit for the commits you need to modify. Save and exit the editor.");
   console.error("Git will prompt you to edit the commit messages one by one. Update them to meet the required format.");
-  console.error("Once you have updated the commit messages, continue the rebase process");
-  console.error("git rebase --continue");
   console.error("After fixing, you can force push the changes using:");
   console.error("git push --force-with-lease");
   process.exit(1);
