@@ -56,4 +56,4 @@ commitMessages.forEach(message => {
   }
 });
 
-console.log("All commit messages are valid and processed for Pivotal Tracker.");
+console.log("All commit messages are valid and processed for Pivotal Tracker!");
