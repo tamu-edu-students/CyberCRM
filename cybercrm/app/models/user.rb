@@ -2,6 +2,10 @@
 
 # This is user < application record
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
   # Validations
   # https://guides.rubyonrails.org/testing.html
 

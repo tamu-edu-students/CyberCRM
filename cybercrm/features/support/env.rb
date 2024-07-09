@@ -7,11 +7,20 @@
 # files.
 
 require 'cucumber/rails'
+require 'warden/test/helpers'
 require 'simplecov'
 require 'capybara/rails'
 require 'capybara/cucumber'
 
 SimpleCov.start
+
+Warden.test_mode!
+
+World(Warden::Test::Helpers)
+
+After do
+  Warden.test_reset!
+end
 
 Capybara.save_path = Rails.root.join('tmp/downloads')
 
