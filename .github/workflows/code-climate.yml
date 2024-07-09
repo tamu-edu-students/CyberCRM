@@ -1,0 +1,70 @@
+name: CodeClimate and Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test_and_analyze:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: cybercrm_test
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3.2'
+
+    - name: Install dependencies
+      run: bundle install
+      working-directory: ./cybercrm
+
+    - name: Set up database configuration
+      run: cp config/database.yml.ci config/database.yml
+      working-directory: ./cybercrm
+
+    - name: Create and migrate the database
+      run: |
+        bundle exec rails db:create
+        bundle exec rails db:schema:load
+      env:
+        RAILS_ENV: test
+      working-directory: ./cybercrm
+
+    - name: Install Code Climate Test Reporter
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+      working-directory: ./cybercrm
+
+    - name: Run tests and upload coverage
+      run: |
+        ./cc-test-reporter before-build
+        CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} bundle exec rspec
+        CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} bundle exec cucumber
+        ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.json
+        ./cc-test-reporter upload-coverage --input coverage/codeclimate.json
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      working-directory: ./cybercrm
