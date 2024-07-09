@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+# features/step_definitions/student_steps.rb
+
+Given('I am logged in with Google') do
+  login_with_google_oauth2
+end
+
 Given('I am on the new student page') do
   visit new_student_path
 end
@@ -20,10 +26,6 @@ end
 
 When('I submit the create form') do
   click_on 'Create Student'
-end
-
-When('I submit the edit form') do
-  click_on 'Update Student'
 end
 
 Then('I should see the student has been created') do
@@ -72,6 +74,10 @@ end
 When('I click the delete button') do
   visit student_path(@student)
   click_on 'Delete this student'
+end
+
+When('I submit the edit form') do
+  click_button 'Update Student'
 end
 
 Then('I should see the student has been deleted') do

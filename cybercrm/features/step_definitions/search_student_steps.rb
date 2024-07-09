@@ -8,7 +8,7 @@ Given('the following students exist:') do |table|
 end
 
 When('I go to the students page') do
-  visit pages_login_path
+  visit root_path
 end
 
 When('I click on the search icon') do
