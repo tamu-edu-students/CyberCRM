@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
              'pcannell512@tamu.edu', 'matthewatanas@tamu.edu', 'chrisvmuniz@tamu.edu']
 
     unless array.any? { |token| user.email.include?(token) }
-      redirect_to pages_failure_path, alert: I18n.t('failure')
+      redirect_to pages_login_path, alert: I18n.t('failure')
       return
     end
 

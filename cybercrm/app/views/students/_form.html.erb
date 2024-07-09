@@ -1,3 +1,4 @@
+<% if current_user.role == 'student_worker' || 'program_director' || 'super_user' %>
 <%= form_with(model: student, class: "contents") do |form| %>
   <% if student.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
@@ -13,32 +14,32 @@
 
   <div class="my-5">
     <%= form.label :name %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", maxlength: 200 %>
   </div>
 
   <div class="my-5">
     <%= form.label :uin %>
-    <%= form.number_field :uin, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.number_field :uin, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", maxlength: 9 %>
   </div>
 
   <div class="my-5">
     <%= form.label :grade %>
-    <%= form.number_field :grade_ryg, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :grade_ryg, options_for_select(Student::GRADE_OPTIONS, @student.grade_ryg), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :gender %>
-    <%= form.text_field :gender, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :gender, options_for_select(Student::GENDER_OPTIONS, @student.gender), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :ethnicity %>
-    <%= form.text_field :ethnicity, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :ethnicity, options_for_select(Student::ETHNICITY_OPTIONS, @student.ethnicity), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :nationality %>
-    <%= form.text_field :nationality, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :nationality, options_for_select(Student::NATIONALITY_OPTIONS, @student.nationality), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
@@ -48,30 +49,33 @@
 
   <div class="my-5">
     <%= form.label :university_classification %>
-    <%= form.text_field :university_classification, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :university_classification, options_for_select(Student::UNIVERSITY_CLASSIFICATIONS, @student.university_classification), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :status %>
-    <%= form.number_field :status, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :status, options_for_select(Student::STATUS_OPTIONS, @student.status), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :sexual_orientation %>
-    <%= form.number_field :sexual_orientation, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :sexual_orientation, options_for_select(Student::SEXUAL_ORIENTATION_OPTIONS, @student.sexual_orientation), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :date_of_birth %>
-    <%= form.number_field :date_of_birth, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.date_field :date_of_birth, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
     <%= form.label :email %>
-    <%= form.number_field :email, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.email_field :email, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
+<% end %>
+<% else %>
+  <% redirect_to pages_login_path, alert: I18n.t('failure') %>
 <% end %>

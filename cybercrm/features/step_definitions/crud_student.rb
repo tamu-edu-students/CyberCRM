@@ -1,5 +1,23 @@
 # frozen_string_literal: true
 
+Given('I am a super user') do
+  begin
+    puts 'Creating super user...'
+    @current_user = User.create!(
+      role: 'super_user',
+      email: 'superuser@example.com',
+      provider: 'google',
+      uid: 'superuser@example.com',
+      name: 'Super User'
+    )
+    puts "Super user created with ID: #{@current_user.id}"
+    login_as(@current_user, scope: :user)
+    puts 'Super user logged in.'
+  rescue => e
+    puts "Error creating or logging in super user: #{e.message}"
+  end
+end
+
 Given('I am on the new student page') do
   visit new_student_path
 end
@@ -12,8 +30,8 @@ When('I fill in the student form with valid data') do
   fill_in 'Nationality', with: 'American'
   fill_in 'Expected graduation', with: '2025-05-01'
   fill_in 'University classification', with: 'Senior'
-  fill_in 'Status', with: '1'
-  fill_in 'Sexual orientation', with: '1'
+  fill_in 'Status', with: 'Active'
+  fill_in 'Sexual orientation', with: 'Heterosexual'
   fill_in 'Date of birth', with: '2000-01-01'
   fill_in 'Email', with: 'jdoe@tamu.edu'
 end
@@ -36,12 +54,12 @@ Given('a student exists') do
     name: 'Jane Doe',
     uin: '987654321',
     gender: 'Female',
-    ethnicity: 'Caucasian',
+    ethnicity: 'White',
     nationality: 'Canadian',
     expected_graduation: '2024-05-01',
     university_classification: 'Junior',
-    status: '1',
-    sexual_orientation: '1',
+    status: 'Active',
+    sexual_orientation: 'Heterosexual',
     date_of_birth: '2001-01-01',
     email: 'jane.doe@example.com'
   )

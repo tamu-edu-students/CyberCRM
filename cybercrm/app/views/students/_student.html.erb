@@ -1,3 +1,4 @@
+<% if current_user.role == 'student_worker' || 'program_director' || 'super_user' %>
 <div id="<%= dom_id student %>">
   <p class="my-5">
     <strong class="block font-medium mb-1">Name:</strong>
@@ -59,3 +60,6 @@
     <%= student.email %>
   </p>
 </div>
+<% else %>
+  <% redirect_to pages_login_path, alert: I18n.t('failure') %>
+<% end %>

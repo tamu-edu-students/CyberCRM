@@ -1,3 +1,4 @@
+<% if current_user.role == 'student_worker' || 'program_director' || 'super_user' %>
 <div class="w-full">
   <%= render 'layouts/navbar' %>
   <% if notice.present? %>
@@ -10,10 +11,20 @@
     <h1 class="font-bold text-4xl">Students</h1>
     <div>
       <%= link_to "Export CSV", export_csv_students_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <%= link_to "New student", new_student_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to "New student", new_student_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     </div>
   </div>
-  <div id="students" class="min-w-full mt-4">
+
+  <div class="mt-4">
+    <%= form_with url: import_students_path, local: true, method: :post, multipart: true do %>
+      <div class="flex items-center">
+        <%= file_field_tag :file, class: "rounded-lg border border-gray-300 px-3 py-2" %>
+        <%= submit_tag 'Import Students', class: "ml-2 rounded-lg py-2 px-5 bg-gray-100 inline-block font-medium hover:cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="students" class="min-w-full mt-4 overflow-x-auto">
     <table class="min-w-full border-collapse border border-gray-300">
       <thead>
         <tr>
@@ -53,12 +64,11 @@
           <th class="border border-gray-300 px-4 py-2">
             <%= sortable "email", "Email" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2" colspan="2">Actions</th>
         </tr>
       </thead>
       <tbody>
         <% @students.each do |student| %>
-          <tr>
+          <tr data-href="<%= student_path(student) %>" class="cursor-pointer hover:bg-gray-100">
             <td class="border border-gray-300 px-4 py-2"><%= student.name %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.uin %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.grade_ryg %></td>
@@ -71,11 +81,23 @@
             <td class="border border-gray-300 px-4 py-2"><%= student.sexual_orientation %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.date_of_birth %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.email %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= link_to "Show", student, class: "text-blue-500 hover:underline" %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= link_to "Edit", edit_student_path(student), class: "text-blue-500 hover:underline" %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= link_to "Delete", student, method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500 hover:underline" %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const rows = document.querySelectorAll("tr[data-href]");
+    rows.forEach(row => {
+      row.addEventListener("click", () => {
+        window.location.href = row.dataset.href;
+      });
+    });
+  });
+</script>
+<% else %>
+  <% redirect_to pages_login_path, alert: I18n.t('failure') %>
+<% end %>

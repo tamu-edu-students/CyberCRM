@@ -1,3 +1,4 @@
+<% if current_user.role == 'student_worker' || 'program_director' || 'super_user' %>
 <div id="search_results" class="border border-black bg-gray-100 mb-8 rounded-xl">
   <% if students.any? %>
       <% students.each do |student| %>
@@ -9,3 +10,6 @@
     <p class="pl-3">No students found</p>
   <% end %>
 </div>
+<% else %>
+  <% redirect_to pages_login_path, alert: I18n.t('failure') %>
+<% end %>
