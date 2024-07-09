@@ -9,11 +9,8 @@ Rails.application.routes.draw do
   end
 
   root 'pages#login'
+
   get 'pages/home'
-  get 'pages/login'
-  get 'pages/spreadsheet'
-  get 'pages/student_detail'
-  get 'pages/failure'
   get 'pages/form'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

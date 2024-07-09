@@ -6,7 +6,7 @@
 # heavily edited down because testing oauth is really hard
 
 Given('I am on the login page') do
-  visit pages_login_path
+  visit root_path
 end
 
 Then('On the login page, I should see {string}') do |text|
