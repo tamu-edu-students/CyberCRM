@@ -1,5 +1,6 @@
 <!-- app/views/layouts/_navbar.html.erb -->
-<style> <!--  from w3schools -->
+<!--  from w3schools -->
+<style>
 .dropdown {
   position: relative;
   display: inline-block;
@@ -45,7 +46,7 @@
   <% if current_user != nil %>
     <div class="dropdown">
       <%= current_user.name %>
-      <p class=dropbtn><%= image_tag(current_user.image, alt: 'User image', class: 'h-10 mr-4') %></p>
+      <p class=dropbtn><%= image_tag(current_user&.image || '/assets/images/default.jpg', alt: 'User image', class: 'h-10 mr-4') %></p>
       <div class="dropdown-content" style="float:right;">
         <%= current_user.email %>
         <% if current_user.role == 'super_user' %>
