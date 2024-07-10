@@ -12,6 +12,7 @@ Feature: Search for students
       | John | 3   | 3.8   | male   | Caucasian | USA         | 2024-05-10          | senior                    | active | homosexual         | 2003-03-03    | john@example.com     |
 
   Scenario: Search for student named "test"
+    Given I am logged in with Google
     When I go to the students page
     And I click on the search icon
     And I fill in the search field with "te"

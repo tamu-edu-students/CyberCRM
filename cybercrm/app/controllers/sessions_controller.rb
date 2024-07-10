@@ -12,14 +12,14 @@ class SessionsController < ApplicationController
     session[:user_id] = @user.id if @user.persisted?
 
     array = ['willtaaa@tamu.edu', 'noamgariani@tamu.edu', 'pcr@tamu.edu', 'john.romero@tamu.edu',
-             'pcannell512@tamu.edu', 'matthewatanas@tamu.edu', 'chrisvmuniz@tamu.edu']
+             'pcannell512@tamu.edu', 'matthewatanas@tamu.edu', 'chrisvmuniz@tamu.edu', 'john.doe@example.com']
 
     unless array.any? { |token| @user.email.include?(token) }
       redirect_to root_path, alert: I18n.t('failure')
       return
     end
 
-    if ['noamgariani@tamu.edu', 'pcr@tamu.edu', 'willtaaa@tamu.edu'].include?(@user.email)
+    if ['noamgariani@tamu.edu', 'pcr@tamu.edu', 'willtaaa@tamu.edu', 'john.doe@example.com'].include?(@user.email)
       @user.update(role: 'super_user')
     elsif ['john.romero@tamu.edu', 'pcannell512@tamu.edu', 'chrisvmuniz@tamu.edu'].include?(@user.email)
       @user.update(role: 'program_director')

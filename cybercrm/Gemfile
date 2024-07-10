@@ -89,6 +89,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
   gem 'cucumber-rails', require: false
+  gem 'rack_session_access'
   gem 'selenium-webdriver'
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
