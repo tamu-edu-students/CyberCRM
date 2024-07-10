@@ -77,7 +77,7 @@ When('I click the delete button') do
 end
 
 When('I submit the edit form') do
-  click_button 'Update Student'
+  click_on 'Update Student'
 end
 
 Then('I should see the student has been deleted') do
