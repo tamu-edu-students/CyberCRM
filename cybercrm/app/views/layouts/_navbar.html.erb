@@ -13,6 +13,7 @@
         <% end %>
         <%= link_to 'Home', pages_home_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
         <%= link_to 'Students', students_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+        <%= link_to 'Sign out', logout_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
       <% else %>
         <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
       <% end %>
@@ -27,15 +28,14 @@
       <div class="dropdown-content absolute hidden bg-gray-100 text-black min-w-[160px] shadow-lg p-3 z-10 right-0">
         <%= current_user.email %>
         <% if current_user.role == 'super_user' %>
-          <p>Logged in as a Super User</p>
+          <p>Super User</p>
         <% end %>
         <% if current_user.role == 'program_director' %>
-          <p>Logged in as a Program Director</p>
+          <p>Program Director</p>
         <% end %>
         <% if current_user.role == 'student_worker' %>
-          <p>Logged in as a Student Worker</p>
+          <p>Student Worker</p>
         <% end %>
-        <%= link_to 'Sign out', logout_path, data: { turbo: false }, class: 'hover:opacity-80 hover:text-red-500 text-2xl' %>
       </div>
     </div>
   <% end %>
