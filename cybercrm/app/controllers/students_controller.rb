@@ -100,9 +100,17 @@ class StudentsController < ApplicationController
             'university_classification', 'status', 'sexual_orientation', 'date_of_birth', 'email'
           )
 
-          Student.new(student_attributes)
+          student = Student.new(student_attributes)
+
+          unless student.save
+            redirect_to students_url, alert: "Error saving student: #{student.errors.full_messages.join(', ')}"
+            break
+          end
         end
+
         redirect_to students_url, notice: I18n.t('student_imported')
+      rescue CSV::MalformedCSVError => e
+        redirect_to students_url, alert: "CSV format error: #{e.message}"
       rescue StandardError => e
         redirect_to students_url, alert: "Error importing students: #{e.message}"
       end
