@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :students do
     collection do
       post :search
+      post :import
       get :export_csv
     end
   end
