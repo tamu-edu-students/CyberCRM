@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-require 'csv'
-
-# Student Controller
+# Students Controller
+# rubocop:disable Metrics/ClassLength
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[show edit update destroy]
   helper_method :sort_column, :sort_direction
@@ -89,17 +88,42 @@ class StudentsController < ApplicationController
     send_data generate_csv(@students), filename: "students-#{Time.zone.today}.csv"
   end
 
+  # POST /students/import
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
+  def import
+    if params[:file].present?
+      begin
+        CSV.foreach(params[:file].path, headers: true) do |row|
+          student_attributes = row.to_hash.slice(
+            'name', 'uin', 'grade_ryg', 'gender', 'ethnicity', 'nationality', 'expected_graduation',
+            'university_classification', 'status', 'sexual_orientation', 'date_of_birth', 'email'
+          )
+
+          Student.new(student_attributes)
+        end
+        redirect_to students_url, notice: I18n.t('student_imported')
+      rescue StandardError => e
+        redirect_to students_url, alert: "Error importing students: #{e.message}"
+      end
+    else
+      redirect_to students_url, alert: I18n.t('upload_csv')
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
+
   private
 
   def generate_csv(students)
     CSV.generate(headers: true) do |csv|
-      csv << ['Name', 'UIN', 'Grade', 'Gender', 'Ethnicity', 'Nationality', 'Expected Graduation',
-              'University Classification', 'Status', 'Sexual Orientation', 'Date of Brirth']
+      csv << %w[name uin grade_ryg gender ethnicity nationality expected_graduation
+                university_classification status sexual_orientation date_of_birth email]
 
       students.each do |student|
         csv << [student.name, student.uin, student.grade_ryg, student.gender, student.ethnicity,
                 student.nationality, student.expected_graduation, student.university_classification,
-                student.status, student.sexual_orientation, student.date_of_birth]
+                student.status, student.sexual_orientation, student.date_of_birth, student.email]
       end
     end
   end
@@ -124,3 +148,4 @@ class StudentsController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : nil
   end
 end
+# rubocop:enable Metrics/ClassLength
