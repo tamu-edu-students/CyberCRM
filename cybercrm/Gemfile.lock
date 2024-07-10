@@ -190,6 +190,8 @@ GEM
     matrix (0.4.2)
     mini_mime (1.1.5)
     minitest (5.23.1)
+    mocha (2.4.0)
+      ruby2_keywords (>= 0.0.5)
     msgpack (1.7.2)
     multi_test (1.1.0)
     multi_xml (0.7.1)
@@ -353,6 +355,7 @@ GEM
       rubocop (~> 1.61)
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.21.1)
       base64 (~> 0.2)
@@ -450,6 +453,7 @@ DEPENDENCIES
   faker
   importmap-rails
   jbuilder
+  mocha
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (~> 1.0)

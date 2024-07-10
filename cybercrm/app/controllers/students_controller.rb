@@ -89,39 +89,41 @@ class StudentsController < ApplicationController
   end
 
   # POST /students/import
-  # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
   def import
     if params[:file].present?
-      begin
-        CSV.foreach(params[:file].path, headers: true) do |row|
-          student_attributes = row.to_hash.slice(
-            'name', 'uin', 'grade_ryg', 'gender', 'ethnicity', 'nationality', 'expected_graduation',
-            'university_classification', 'status', 'sexual_orientation', 'date_of_birth', 'email'
-          )
-
-          student = Student.new(student_attributes)
-
-          unless student.save
-            redirect_to students_url, alert: "Error saving student: #{student.errors.full_messages.join(', ')}"
-            break
-          end
-        end
-
-        redirect_to students_url, notice: I18n.t('student_imported')
-      rescue CSV::MalformedCSVError => e
-        redirect_to students_url, alert: "CSV format error: #{e.message}"
-      rescue StandardError => e
-        redirect_to students_url, alert: "Error importing students: #{e.message}"
-      end
+      process_csv_file(params[:file])
     else
-      redirect_to students_url, alert: I18n.t('upload_csv')
+      redirect_to students_url
+    end
+  end
+
+  private
+
+  # rubocop:disable Metrics/MethodLength
+  def process_csv_file(file)
+    errors = []
+
+    CSV.foreach(file.path, headers: true) do |row|
+      student_attributes = extract_student_attributes(row)
+      student = Student.new(student_attributes)
+
+      errors << student.errors.full_messages.join(', ') unless student.save
+    end
+
+    if errors.any?
+      redirect_to students_url, alert: "Error saving students: #{errors.join(', ')}"
+    else
+      redirect_to students_url, notice: I18n.t('student_imported')
     end
   end
   # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Metrics/AbcSize
 
-  private
+  def extract_student_attributes(row)
+    row.to_hash.slice(
+      'name', 'uin', 'grade_ryg', 'gender', 'ethnicity', 'nationality', 'expected_graduation',
+      'university_classification', 'status', 'sexual_orientation', 'date_of_birth', 'email'
+    )
+  end
 
   def generate_csv(students)
     CSV.generate(headers: true) do |csv|
