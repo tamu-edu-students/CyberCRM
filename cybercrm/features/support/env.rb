@@ -10,6 +10,7 @@ require 'cucumber/rails'
 require 'capybara/rails'
 require 'capybara/cucumber'
 require_relative '../../spec/simplecov_setup'
+require 'rack_session_access/capybara'
 
 Capybara.save_path = Rails.root.join('tmp/downloads')
 

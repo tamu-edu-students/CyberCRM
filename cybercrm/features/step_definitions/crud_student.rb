@@ -4,6 +4,8 @@
 
 Given('I am logged in with Google') do
   login_with_google_oauth2
+  @test_user = test_user
+  page.set_rack_session(user_id: @test_user.id)
 end
 
 Given('I am on the new student page') do
@@ -77,7 +79,7 @@ When('I click the delete button') do
 end
 
 When('I submit the edit form') do
-  click_button 'Update Student'
+  click_on 'Update Student'
 end
 
 Then('I should see the student has been deleted') do

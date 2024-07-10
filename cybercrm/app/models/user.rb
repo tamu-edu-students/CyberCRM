@@ -18,7 +18,7 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.image = auth.info.image
       user.role = 'student_worker'
-      user.save!
+      user.save
     end
   end
 end
