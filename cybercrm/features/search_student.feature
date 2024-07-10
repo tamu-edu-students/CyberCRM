@@ -5,11 +5,11 @@ Feature: Search for students
   So that I can find the relevant students easily
 
   Background:
-    Given the following students exist:
-      | name | uin | gpa   | gender | ethnicity | nationality | expected_graduation | university_classification | status | sexual_orientation | date_of_birth | email                |
-      | test | 1   | 3.5   | male   | Asian     | USA         | 2024-05-10          | junior                    | active | heterosexual       | 2004-04-04    | test1@example.com    |
-      | test | 2   | 3.2   | male   | Asian     | USA         | 2024-05-10          | senior                    | active | heterosexual       | 2002-02-02    | test2@example.com    |
-      | John | 3   | 3.8   | male   | Caucasian | USA         | 2024-05-10          | senior                    | active | homosexual         | 2003-03-03    | john@example.com     |
+  Given the following students exist:
+    | name | uin        | grade_ryg | gender | ethnicity | nationality | expected_graduation | university_classification | status | sexual_orientation | date_of_birth | email                |
+    | test | 123456789  | G         | Male   | Asian     | American    | 2025-05-10          | Junior                    | Active | Heterosexual       | 2004-04-04    | test1@example.com    |
+    | test | 123456789  | G         | Male   | Asian     | American    | 2025-05-10          | Senior                    | Active | Heterosexual       | 2002-02-02    | test2@example.com    |
+    | John | 123456789  | G         | Male   | White     | American    | 2025-05-10          | Senior                    | Active | Homosexual         | 2003-03-03    | john@example.com     |
 
   Scenario: Search for student named "test"
     Given I am logged in with Google
