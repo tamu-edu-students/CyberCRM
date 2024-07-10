@@ -111,8 +111,9 @@ class StudentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def student_params
-    params.require(:student).permit(:name, :age, :grade, :uin, :gpa, :gender, :ethnicity, :nationality,
-                                    :expected_graduation, :university_classification)
+    params.require(:student).permit(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality,
+                                    :expected_graduation, :university_classification, :status,
+                                    :sexual_orientation, :date_of_birth, :email)
   end
 
   def sort_column

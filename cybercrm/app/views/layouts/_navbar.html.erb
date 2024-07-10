@@ -1,27 +1,4 @@
 <!-- app/views/layouts/_navbar.html.erb -->
-<!--  from w3schools -->
-<style>
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  color: #000000;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 12px 16px;
-  z-index: 1;
-  right: 0;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-</style>
 <header class="bg-maroon-800 text-white py-4 px-8 flex justify-around items-center fixed top-0 left-0 w-full z-10">
   <div>
     <%= link_to pages_home_path, data: { turbo: false } do %>
@@ -29,25 +6,25 @@
     <% end %>
   </div>
   <div class="flex-1 flex justify-center">
-    
     <nav class="flex space-x-6">
       <% if session[:user_id] %>
         <%= link_to pages_form_path, id: "search-link", data: { turbo_frame: "modal" }, class: 'text-white hover:opacity-80 text-2xl' do %>
           <i class="fas fa-search"></i>
         <% end %>
-        <%= link_to 'Home', pages_home_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %> 
+        <%= link_to 'Home', pages_home_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
         <%= link_to 'Students', students_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
-        
       <% else %>
         <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
       <% end %>
     </nav>
   </div>
-  <% if current_user != nil %>
-    <div class="dropdown">
-      <%= current_user.name %>
-      <p class=dropbtn><%= image_tag(current_user&.image || '/assets/images/default.jpg', alt: 'User image', class: 'h-10 mr-4') %></p>
-      <div class="dropdown-content" style="float:right;">
+  <% if current_user %>
+    <div class="relative inline-block">
+      <div class="flex items-center cursor-pointer">
+        <span class="mr-2"><%= current_user.name %></span>
+        <%= image_tag(current_user&.image || '/assets/images/default.jpg', alt: 'User image', class: 'h-10 w-10 rounded-full') %>
+      </div>
+      <div class="dropdown-content absolute hidden bg-gray-100 text-black min-w-[160px] shadow-lg p-3 z-10 right-0">
         <%= current_user.email %>
         <% if current_user.role == 'super_user' %>
           <p>Logged in as a Super User</p>
@@ -58,9 +35,23 @@
         <% if current_user.role == 'student_worker' %>
           <p>Logged in as a Student Worker</p>
         <% end %>
-        <%= link_to 'Sign out', logout_path, data: { turbo: false }, class: '\hover:opacity-80 hover:text-red-500 text-2xl' %>
+        <%= link_to 'Sign out', logout_path, data: { turbo: false }, class: 'hover:opacity-80 hover:text-red-500 text-2xl' %>
       </div>
     </div>
   <% end %>
-  
 </header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var dropdown = document.querySelector('.relative');
+    var dropdownContent = dropdown.querySelector('.dropdown-content');
+
+    dropdown.addEventListener('mouseover', function() {
+      dropdownContent.classList.remove('hidden');
+    });
+
+    dropdown.addEventListener('mouseout', function() {
+      dropdownContent.classList.add('hidden');
+    });
+  });
+</script>

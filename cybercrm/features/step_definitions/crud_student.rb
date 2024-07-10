@@ -15,13 +15,13 @@ end
 When('I fill in the student form with valid data') do
   fill_in 'Name', with: 'John Doe'
   fill_in 'Uin', with: '123456789'
-  fill_in 'Gender', with: 'Male'
-  fill_in 'Ethnicity', with: 'Asian'
-  fill_in 'Nationality', with: 'American'
+  select 'Male', from: 'Gender'
+  select 'Asian', from: 'Ethnicity'
+  select 'American', from: 'Nationality'
   fill_in 'Expected graduation', with: '2025-05-01'
-  fill_in 'University classification', with: 'Senior'
-  fill_in 'Status', with: '1'
-  fill_in 'Sexual orientation', with: '1'
+  select 'Senior', from: 'University classification'
+  select 'Active', from: 'Status'
+  select 'Heterosexual', from: 'Sexual orientation'
   fill_in 'Date of birth', with: '2000-01-01'
   fill_in 'Email', with: 'jdoe@tamu.edu'
 end
@@ -36,16 +36,17 @@ Then('I should see the student has been created') do
 end
 
 Given('a student exists') do
-  @student = Student.create(
+  @student = Student.create!(
     name: 'Jane Doe',
     uin: '987654321',
+    grade_ryg: 'R',
     gender: 'Female',
-    ethnicity: 'Caucasian',
+    ethnicity: 'White',
     nationality: 'Canadian',
-    expected_graduation: '2024-05-01',
+    expected_graduation: '2025-05-01',
     university_classification: 'Junior',
-    status: '1',
-    sexual_orientation: '1',
+    status: 'Active',
+    sexual_orientation: 'Heterosexual',
     date_of_birth: '2001-01-01',
     email: 'jane.doe@example.com'
   )
