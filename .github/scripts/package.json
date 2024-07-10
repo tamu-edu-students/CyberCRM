@@ -4,6 +4,6 @@
   "description": "Check commit messages and link to Pivotal Tracker",
   "main": "check-and-link-commit.js",
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": ">=0.28.0"
   }
 }
