@@ -2,11 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe Student, type: :model do
+# rubocop:disable RSpec/ExampleLength
+RSpec.describe Student do
   it 'is valid with name, uin, and all required attributes' do
     student = described_class.new(
       name: 'John Doe',
-      uin: 123456789,
+      uin: 123_456_789,
       grade_ryg: 'G',
       gender: 'Male',
       ethnicity: 'White',
@@ -21,3 +22,4 @@ RSpec.describe Student, type: :model do
     expect(student).to be_valid
   end
 end
+# rubocop:enable RSpec/ExampleLength
