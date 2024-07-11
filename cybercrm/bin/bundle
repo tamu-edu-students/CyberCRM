@@ -45,7 +45,9 @@ m = Module.new do
   # rubocop:disable Layout/LineLength
   def gemfile
     gemfile = ENV.fetch('BUNDLE_GEMFILE', nil)
-    return gemfile if gemfile.present?
+    # rubocop:disable all
+    return gemfile if gemfile && !gemfile.empty?
+    # rubocop:enable all
 
     File.expand_path('../Gemfile', __dir__)
   end
