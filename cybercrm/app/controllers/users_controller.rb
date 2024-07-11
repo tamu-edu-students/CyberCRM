@@ -17,12 +17,15 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.provider = 'preloaded'
+
+    @user.provider = 'google_oauth2'
     @user.uid = SecureRandom.uuid
+    @user.name = 'preloaded'
 
     if @user.save
       redirect_to @user, notice: 'User was successfully created.'
     else
+      Rails.logger.info @user.errors.full_messages.join(', ')
       render :new
     end
   end
