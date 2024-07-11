@@ -13,11 +13,11 @@ class User < ApplicationRecord
 
   # Method to find or create a user from OmniAuth data
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
       user.name = auth.info.name
       user.email = auth.info.email
       user.image = auth.info.image
-      user.role = 'student_worker'
+      user.role ||= 'student_worker'
       user.save
     end
   end

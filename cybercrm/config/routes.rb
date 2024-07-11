@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: %i[index show edit update destroy]
+  resources :users, only: %i[index show edit update destroy new create]
 
   root 'pages#login'
 
