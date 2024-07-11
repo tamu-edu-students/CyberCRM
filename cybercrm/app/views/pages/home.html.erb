@@ -10,6 +10,10 @@
   <%= render 'layouts/navbar' %>
   <main class="p-8 mt-16">
 
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+
     <br>
     <% if current_user && ['student_worker', 'program_director', 'super_user'].include?(current_user.role) %>
       <section>

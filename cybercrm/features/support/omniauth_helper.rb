@@ -27,6 +27,15 @@ module OmniauthHelper
   def test_user
     User.find_by(email: 'john.doe@example.com')
   end
+
+  def test_user1
+    User.find_by(email: 'user1@example.com')
+  end
+
+  def test_user2
+    User.find_by(email: 'user2@example.com')
+  end
+
 end
 
 World(OmniauthHelper)

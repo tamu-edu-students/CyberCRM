@@ -24,7 +24,8 @@ class SessionsController < ApplicationController
 
   def handle_user_failure
     array = ['willtaaa@tamu.edu', 'noamgariani@tamu.edu', 'pcr@tamu.edu', 'john.romero@tamu.edu',
-             'pcannell512@tamu.edu', 'matthewatanas@tamu.edu', 'chrisvmuniz@tamu.edu', 'john.doe@example.com']
+             'pcannell512@tamu.edu', 'matthewatanas@tamu.edu', 'chrisvmuniz@tamu.edu', 'john.doe@example.com',
+             'user1@example.com', 'user2@example.com']
 
     return if array.any? { |token| @user.email.include?(token) }
 
@@ -33,7 +34,7 @@ class SessionsController < ApplicationController
 
   def assign_role_to_user(user)
     super_user_emails = ['noamgariani@tamu.edu', 'pcr@tamu.edu', 'willtaaa@tamu.edu', 'john.doe@example.com']
-    program_director_emails = ['john.romero@tamu.edu', 'pcannell512@tamu.edu', 'chrisvmuniz@tamu.edu']
+    program_director_emails = ['john.romero@tamu.edu', 'pcannell512@tamu.edu', 'chrisvmuniz@tamu.edu', 'user1@example.com']
 
     if super_user_emails.include?(user.email)
       user.update(role: 'super_user')
