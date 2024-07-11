@@ -1,0 +1,44 @@
+# frozen_string_literal: true
+
+# This is the user controller
+class UsersController < ApplicationController
+  before_action :set_user, only: %i[show edit update destroy]
+  before_action :authorize_super_user
+
+  def index
+    @users = User.all
+  end
+
+  def show; end
+
+  def edit; end
+
+  def update
+    if @user.update(user_params)
+      redirect_to @user, notice: 'User was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to users_url, notice: 'User was successfully destroyed.'
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :role)
+  end
+
+  def authorize_super_user
+    return if current_user&.role == 'super_user'
+
+    redirect_to root_path, alert: 'You are not authorized to perform this action.'
+  end
+end

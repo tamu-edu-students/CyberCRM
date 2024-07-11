@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, only: %i[index show edit update destroy]
+
   root 'pages#login'
 
   get 'pages/home'
