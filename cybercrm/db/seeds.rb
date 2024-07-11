@@ -16,11 +16,15 @@ puts 'Student table reset'
 Student.destroy_all
 
 # rubocop:disable Metrics/BlockLength
+nationalities = %w[American British Canadian Australian French German Japanese Chinese Indian
+                   Other]
+ethnicities = ['Asian', 'Black', 'Hispanic/Latino', 'Native American', 'White', 'Other']
+
 50.times do |i|
   name_first = Faker::Name.male_first_name
   name_last = Faker::Name.last_name
   name_full = "#{name_first} #{name_last}"
-  uin = Faker::Number.number(digits: 8).to_s
+  uin = Faker::Number.number(digits: 9).to_s
   gpa = Faker::Number.between(from: 2.50, to: 4.00).round(2)
 
   grade_ryg = if gpa >= 3.30 && gpa <= 4.00
@@ -31,8 +35,7 @@ Student.destroy_all
                 'R'
               end
 
-  nationality = Faker::Nation.nationality
-  nationality = nationality.chop if nationality[-1] == 's'
+  nationality = nationalities.sample
 
   classification = case i % 4
                    when 0
@@ -48,6 +51,7 @@ Student.destroy_all
   status = (i % 5).zero? ? 'Inactive' : 'Active'
   sexual_orientation = i % 9 == 1 ? 'Homosexual' : 'Heterosexual'
   email = "#{name_first[0].downcase}#{name_last.downcase}@tamu.edu"
+  ethnicity = ethnicities.sample
 
   Student.create!(
     name: name_full,
@@ -55,9 +59,9 @@ Student.destroy_all
     gpa:,
     grade_ryg:,
     gender: 'Male',
-    ethnicity: Faker::Demographic.race,
+    ethnicity:,
     nationality:,
-    expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23'),
+    expected_graduation: Faker::Date.between(from: '2026-08-23', to: '2029-05-23'),
     university_classification: classification,
     status:,
     sexual_orientation:,
