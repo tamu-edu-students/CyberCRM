@@ -11,14 +11,15 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
+
 # rubocop:disable Metrics/BlockLength
-ActiveRecord::Schema[7.1].define(version: 20_240_627_225_554) do
+ActiveRecord::Schema[7.1].define(version: 20_240_711_064_114) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
   create_table 'students', force: :cascade do |t|
     t.string 'name'
-    t.integer 'uin'
+    t.string 'uin'
     t.decimal 'gpa'
     t.string 'gender'
     t.string 'ethnicity'
@@ -43,6 +44,14 @@ ActiveRecord::Schema[7.1].define(version: 20_240_627_225_554) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.string 'role'
+    t.string 'encrypted_password', default: '', null: false
+    t.string 'reset_password_token'
+    t.datetime 'reset_password_sent_at'
+    t.datetime 'remember_created_at'
+    t.string 'full_name'
+    t.string 'avatar_url'
+    t.index ['email'], name: 'index_users_on_email', unique: true
+    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end
-  # rubocop:enable Metrics/BlockLength
 end
+# rubocop:enable Metrics/BlockLength

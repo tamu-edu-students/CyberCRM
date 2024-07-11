@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @user.name = 'preloaded'
 
     if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+      redirect_to @user, notice: I18n.t('created')
     else
       Rails.logger.info @user.errors.full_messages.join(', ')
       render :new
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to @user, notice: I18n.t('updated')
     else
       render :edit
     end
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to users_url, notice: 'User was successfully destroyed.'
+    redirect_to users_url, notice: I18n.t('destroyed')
   end
 
   private
@@ -58,6 +58,6 @@ class UsersController < ApplicationController
   def authorize_super_user
     return if current_user&.role == 'super_user'
 
-    redirect_to root_path, alert: 'You are not authorized to perform this action.'
+    redirect_to root_path, alert: I18n.t('unauthorized')
   end
 end

@@ -15,6 +15,8 @@ class User < ApplicationRecord
   # Used ChatGPT to rewrite this for preloading a user
   # the prompt was basically asking it to modify this to work
   # with my user creation and handle the different cases of user state
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def self.from_omniauth(auth)
     user = where(provider: auth.provider, uid: auth.uid).first_or_initialize
     existing_user_with_email = User.find_by(email: auth.info.email)
@@ -48,3 +50,5 @@ class User < ApplicationRecord
     user
   end
 end
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/AbcSize
