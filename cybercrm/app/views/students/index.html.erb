@@ -1,103 +1,143 @@
 <% if current_user.role == 'student_worker' || 'program_director' || 'super_user' %>
-<div class="w-full">
-  <%= render 'layouts/navbar' %>
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
+  <div class="w-full">
+    <%= render 'layouts/navbar' %>
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
 
-  <% content_for :title, "Students" %>
-
-  <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Students</h1>
-    <div>
-      <%= link_to "Export CSV", export_csv_students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <%= link_to "New student", new_student_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+
+    <%= form_with url: students_path, method: :get, local: true, class: "filter-form mt-4" do %>
+      <div class="flex flex-wrap">
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :name, 'Name' %>
+          <%= text_field_tag :name, params[:name], class: "form-input" %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :uin, 'UIN' %>
+          <%= text_field_tag :uin, params[:uin], class: "form-input" %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :grade, 'Grade' %>
+          <%= select_tag :grade, options_for_select(Student::GRADE_OPTIONS, params[:grade]), prompt: 'Select Grade', class: "form-select" %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :gender, 'Gender' %>
+          <%= select_tag :gender, options_for_select(Student::GENDER_OPTIONS, params[:gender]), prompt: 'Select Gender', class: "form-select" %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :ethnicity, 'Ethnicity' %>
+          <%= select_tag :ethnicity, options_for_select(Student::ETHNICITY_OPTIONS, params[:ethnicity]), prompt: 'Select Ethnicity', class: "form-select" %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :nationality, 'Nationality' %>
+          <%= select_tag :nationality, options_for_select(Student::NATIONALITY_OPTIONS, params[:nationality]), prompt: 'Select Nationality', class: "form-select" %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :expected_graduation, 'Expected Graduation' %>
+          <%= date_field_tag :expected_graduation, params[:expected_graduation], class: "form-input" %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :university_classification, 'University Classification' %>
+          <%= select_tag :university_classification, options_for_select(Student::UNIVERSITY_CLASSIFICATIONS, params[:university_classification]), prompt: 'Select Classification', class: "form-select" %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :status, 'Status' %>
+          <%= select_tag :status, options_for_select(Student::STATUS_OPTIONS, params[:status]), prompt: 'Select Status', class: "form-select" %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :sexual_orientation, 'Sexual Orientation' %>
+          <%= select_tag :sexual_orientation, options_for_select(Student::SEXUAL_ORIENTATION_OPTIONS, params[:sexual_orientation]), prompt: 'Select Orientation', class: "form-select" %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :date_of_birth, 'Date of Birth' %>
+          <%= date_field_tag :date_of_birth, params[:date_of_birth], class: "form-input" %>
+        </div>
+        <div class="w-full sm:w-1/2 md:w-1/4 px-2 mb-4">
+          <%= label_tag :email, 'Email' %>
+          <%= text_field_tag :email, params[:email], class: "form-input" %>
+        </div>
+        <div class="w-full px-2 mb-4">
+          <%= submit_tag 'Search', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-lg" %>
+
+        </div>
+      </div>
+    <% end %>
+
+    <div id="students" class="min-w-full mt-4 overflow-x-auto">
+      <table class="min-w-full border-collapse border border-gray-300">
+        <thead>
+          <tr>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "name", "Name" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "uin", "UIN" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "grade_ryg", "Grade_RYG" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "gender", "Gender" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "ethnicity", "Ethnicity" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "nationality", "Nationality" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "expected_graduation", "Expected Graduation" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "university_classification", "University Classification" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "status", "Status" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "sexual_orientation", "Sexual Orientation" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "date_of_birth", "Date of Birth" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "email", "Email" %>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @students.each do |student| %>
+            <tr data-href="<%= student_path(student) %>" class="cursor-pointer hover:bg-gray-100">
+              <td class="border border-gray-300 px-4 py-2"><%= student.name %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= student.uin %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= student.grade_ryg %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= student.gender %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= student.ethnicity %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= student.nationality %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= student.expected_graduation %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= student.university_classification %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= student.status %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= student.sexual_orientation %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= student.date_of_birth %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= student.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <div class="mt-4">
-    <%= form_with url: import_students_path, local: true, method: :post, multipart: true do %>
-      <div class="flex items-center">
-        <%= file_field_tag :file, class: "rounded-lg border border-gray-300 px-3 py-2" %>
-        <%= submit_tag 'Import Students', data: { turbo: false }, class: "ml-2 rounded-lg py-2 px-5 bg-gray-100 inline-block font-medium hover:cursor-pointer" %>
-      </div>
-    <% end %>
-  </div>
-
-  <div id="students" class="min-w-full mt-4 overflow-x-auto">
-    <table class="min-w-full border-collapse border border-gray-300">
-      <thead>
-        <tr>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "name", "Name" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "uin", "UIN" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "grade_ryg", "Grade_RYG" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "gender", "Gender" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "ethnicity", "Ethnicity" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "nationality", "Nationality" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "expected_graduation", "Expected Graduation" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "university_classification", "University Classification" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "status", "Status" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "sexual_orientation", "Sexual Orientation" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "date_of_birth", "Date of Birth" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2">
-            <%= sortable "email", "Email" %>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @students.each do |student| %>
-          <tr data-href="<%= student_path(student) %>" class="cursor-pointer hover:bg-gray-100">
-            <td class="border border-gray-300 px-4 py-2"><%= student.name %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.uin %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.grade_ryg %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.gender %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.ethnicity %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.nationality %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.expected_graduation %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.university_classification %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.status %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.sexual_orientation %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.date_of_birth %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.email %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const rows = document.querySelectorAll("tr[data-href]");
-    rows.forEach(row => {
-      row.addEventListener("click", () => {
-        window.location.href = row.dataset.href;
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const rows = document.querySelectorAll("tr[data-href]");
+      rows.forEach(row => {
+        row.addEventListener("click", () => {
+          window.location.href = row.dataset.href;
+        });
       });
     });
-  });
-</script>
+  </script>
 <% else %>
   <% redirect_to pages_login_path, alert: I18n.t('failure') %>
 <% end %>

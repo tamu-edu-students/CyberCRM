@@ -26,11 +26,22 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    @students = if sort_column && sort_direction
-                  Student.order("#{sort_column} #{sort_direction}")
-                else
-                  Student.all
-                end
+    @students = Student.all
+    @students = @students.by_name(params[:name]) if params[:name].present?
+    @students = @students.by_uin(params[:uin]) if params[:uin].present?
+    @students = @students.by_grade(params[:grade]) if params[:grade].present?
+    @students = @students.by_gender(params[:gender]) if params[:gender].present?
+    @students = @students.by_ethnicity(params[:ethnicity]) if params[:ethnicity].present?
+    @students = @students.by_nationality(params[:nationality]) if params[:nationality].present?
+    @students = @students.by_expected_graduation(params[:expected_graduation]) if params[:expected_graduation].present?
+    @students = @students.by_university_classification(params[:university_classification]) if params[:university_classification].present?
+    @students = @students.by_status(params[:status]) if params[:status].present?
+    @students = @students.by_sexual_orientation(params[:sexual_orientation]) if params[:sexual_orientation].present?
+    @students = @students.by_date_of_birth(params[:date_of_birth]) if params[:date_of_birth].present?
+    @students = @students.by_email(params[:email]) if params[:email].present?
+    
+    # Sorting logic remains the same
+    @students = @students.order("#{sort_column} #{sort_direction}") if sort_column && sort_direction
   end
 
   # GET /students/1 or /students/1.json
@@ -147,7 +158,7 @@ class StudentsController < ApplicationController
   def student_params
     params.require(:student).permit(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality,
                                     :expected_graduation, :university_classification, :status,
-                                    :sexual_orientation, :date_of_birth, :email)
+                                    :sexual_orientation, :date_of_birth, :email, program_ids: [])
   end
 
   def sort_column

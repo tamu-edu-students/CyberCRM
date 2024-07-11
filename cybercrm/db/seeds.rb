@@ -14,13 +14,20 @@ require 'faker'
 
 puts 'Student table reset'
 Student.destroy_all
+Program.destroy_all
+StudentProgram.destroy_all
+
+# Create Programs
+programs = %w[SFS CLDP VICEROY].map do |program_name|
+  Program.create!(name: program_name)
+end
 
 # rubocop:disable Metrics/BlockLength
 50.times do |i|
-  name_first = Faker::Name.male_first_name
+  name_first = Faker::Name.first_name
   name_last = Faker::Name.last_name
   name_full = "#{name_first} #{name_last}"
-  uin = Faker::Number.number(digits: 8).to_s
+  uin = Faker::Number.number(digits: 9).to_s
   gpa = Faker::Number.between(from: 2.50, to: 4.00).round(2)
 
   grade_ryg = if gpa >= 3.30 && gpa <= 4.00
@@ -31,8 +38,8 @@ Student.destroy_all
                 'R'
               end
 
-  nationality = Faker::Nation.nationality
-  nationality = nationality.chop if nationality[-1] == 's'
+  nationality = Student::NATIONALITY_OPTIONS.sample
+  ethnicity = Student::ETHNICITY_OPTIONS.sample
 
   classification = case i % 4
                    when 0
@@ -49,21 +56,23 @@ Student.destroy_all
   sexual_orientation = i % 9 == 1 ? 'Homosexual' : 'Heterosexual'
   email = "#{name_first[0].downcase}#{name_last.downcase}@tamu.edu"
 
-  Student.create!(
+  student = Student.create!(
     name: name_full,
-    uin:,
-    gpa:,
-    grade_ryg:,
-    gender: 'Male',
-    ethnicity: Faker::Demographic.race,
-    nationality:,
-    expected_graduation: Faker::Date.between(from: '2023-08-23', to: '2026-05-23'),
+    uin: uin,
+    grade_ryg: grade_ryg,
+    gender: 'Male',  # or you can use Faker::Gender.binary_type to randomize
+    ethnicity: ethnicity,
+    nationality: nationality,
+    expected_graduation: Faker::Date.between(from: 2.years.from_now, to: 4.years.from_now),
     university_classification: classification,
-    status:,
-    sexual_orientation:,
+    status: status,
+    sexual_orientation: sexual_orientation,
     date_of_birth: Faker::Date.between(from: '1995-01-01', to: '2005-01-01'),
-    email:
+    email: email
   )
+
+  # Assign programs to students
+  student.programs << programs.sample(rand(1..3)) # Assign 1 to 3 random programs to each student
 end
 # rubocop:enable Metrics/BlockLength
 

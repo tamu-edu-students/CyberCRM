@@ -2,6 +2,10 @@
 
 # Student
 class Student < ApplicationRecord
+  has_many :student_programs
+  has_many :programs, through: :student_programs
+  
+  #Constants
   UNIVERSITY_CLASSIFICATIONS = %w[Freshman Sophomore Junior Senior Graduate].freeze
   NATIONALITY_OPTIONS = %w[American British Canadian Australian French German Japanese Chinese
                            Indian Other].freeze
@@ -11,6 +15,7 @@ class Student < ApplicationRecord
   SEXUAL_ORIENTATION_OPTIONS = %w[Heterosexual Homosexual].freeze
   STATUS_OPTIONS = %w[Active Inactive].freeze
 
+  # Validation
   validates :name, presence: true, length: { maximum: 200 }
   validates :uin, presence: true, numericality: { only_integer: true }, length: { is: 9 }
   validates :grade_ryg, inclusion: { in: GRADE_OPTIONS }
@@ -34,4 +39,17 @@ class Student < ApplicationRecord
            }
   validates :email, presence: true,
                     format: { with: URI::MailTo::EMAIL_REGEXP }
+  # Filter
+  scope :by_name, ->(name) { where('name ILIKE ?', "%#{name}%") if name.present? }
+  scope :by_uin, ->(uin) { where(uin: uin) if uin.present? }
+  scope :by_grade, ->(grade) { where(grade_ryg: grade) if grade.present? }
+  scope :by_gender, ->(gender) { where(gender: gender) if gender.present? }
+  scope :by_ethnicity, ->(ethnicity) { where(ethnicity: ethnicity) if ethnicity.present? }
+  scope :by_nationality, ->(nationality) { where(nationality: nationality) if nationality.present? }
+  scope :by_expected_graduation, ->(date) { where(expected_graduation: date) if date.present? }
+  scope :by_university_classification, ->(classification) { where(university_classification: classification) if classification.present? }
+  scope :by_status, ->(status) { where(status: status) if status.present? }
+  scope :by_sexual_orientation, ->(orientation) { where(sexual_orientation: orientation) if orientation.present? }
+  scope :by_date_of_birth, ->(dob) { where(date_of_birth: dob) if dob.present? }
+  scope :by_email, ->(email) { where('email ILIKE ?', "%#{email}%") if email.present? }
 end
