@@ -1,0 +1,30 @@
+<!-- app/views/custom_attributes/index.html.erb -->
+<h1>Custom Attributes</h1>
+
+<%= link_to 'New Custom Attribute', new_custom_attribute_path, data: { turbo: false } %>
+
+<% if @custom_attributes.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Active</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @custom_attributes.each do |attribute| %>
+        <tr>
+          <td><%= attribute.name %></td>
+          <td><%= attribute.active ? 'Yes' : 'No' %></td>
+          <td>
+            <%= link_to 'Edit', edit_custom_attribute_path(attribute), data: { turbo: false } %>
+            <%= button_to attribute.active ? 'Set Inactive' : 'Set Active', toggle_active_custom_attribute_path(attribute), method: :post, data: { turbo: false }, class: attribute.active ? "ml-2 py-1 px-3 bg-red-500 text-white rounded-lg" : "ml-2 py-1 px-3 bg-green-500 text-white rounded-lg" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No custom attributes found. <%= link_to 'Create a new custom attribute', new_custom_attribute_path, data: { turbo: false } %></p>
+<% end %>

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   resources :students do
     collection do
@@ -7,15 +8,17 @@ Rails.application.routes.draw do
       post :import
       get :export_csv
     end
-  end
 
-  resources :students do
     member do
       post :update_custom_attribute
     end
   end
 
-  resources :custom_attributes, except: :show
+  resources :custom_attributes, except: :show do
+    member do
+      post :toggle_active
+    end
+  end
 
   resources :users, only: %i[index show edit update destroy new create]
 
@@ -24,6 +27,9 @@ Rails.application.routes.draw do
   get 'pages/home'
   get 'pages/form'
 
+  get 'custom_attributes/index'
+  get 'custom_attributes/new'
+  get 'custom_attributes/edit'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: redirect('/')
@@ -36,3 +42,4 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 end
+# rubocop:enable Metrics/BlockLength

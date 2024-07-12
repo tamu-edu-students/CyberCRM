@@ -108,7 +108,7 @@ class StudentsController < ApplicationController
     student_custom_attribute.value = params[:value]
 
     if student_custom_attribute.save
-      redirect_to @student, notice: 'Custom attribute value was successfully updated.'
+      redirect_to @student, notice: I18n.t('attr_updated')
     else
       render :show
     end

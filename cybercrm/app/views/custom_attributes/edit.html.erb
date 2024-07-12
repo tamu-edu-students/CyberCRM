@@ -1,0 +1,18 @@
+<!-- app/views/custom_attributes/edit.html.erb -->
+<h1>Edit Custom Attribute</h1>
+
+<%= form_with model: @custom_attribute, local: true do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+  </div>
+
+  <div>
+    <%= f.submit 'Update Custom Attribute' %>
+  </div>
+<% end %>

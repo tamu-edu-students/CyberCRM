@@ -13,7 +13,7 @@ class CustomAttributesController < ApplicationController
   def create
     @custom_attribute = CustomAttribute.new(custom_attribute_params)
     if @custom_attribute.save
-      redirect_to custom_attributes_path, notice: 'Custom attribute was successfully created.'
+      redirect_to custom_attributes_path, notice: I18n.t('attr_created')
     else
       render :new
     end
@@ -26,10 +26,16 @@ class CustomAttributesController < ApplicationController
   def update
     @custom_attribute = CustomAttribute.find(params[:id])
     if @custom_attribute.update(custom_attribute_params)
-      redirect_to custom_attributes_path, notice: 'Custom attribute was successfully updated.'
+      redirect_to custom_attributes_path, notice: I18n.t('attr_updated')
     else
       render :edit
     end
+  end
+
+  def toggle_active
+    @custom_attribute = CustomAttribute.find(params[:id])
+    @custom_attribute.update(active: !@custom_attribute.active)
+    redirect_to custom_attributes_path, notice: I18n.t('attr_updated')
   end
 
   private
