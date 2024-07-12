@@ -18,8 +18,8 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.role %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Show', data: { turbo: false }, user %></td>
+        <td><%= link_to 'Edit', data: { turbo: false }, edit_user_path(user) %></td>
         <td><%= button_to 'Destroy', user, method: :delete, data: { turbo: false } %></td>
       </tr>
     <% end %>
