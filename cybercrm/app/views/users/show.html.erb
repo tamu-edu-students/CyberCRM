@@ -1,19 +1,28 @@
-<h1>User: <%= @user.name %></h1>
+<%= render 'layouts/navbar' %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<div class="container mx-auto my-8">
+  <h1 class="text-2xl font-bold mb-4">User: <%= @user.name %></h1>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+  <p class="mb-4">
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </p>
 
-<p>
-  <strong>Role:</strong>
-  <%= @user.role %>
-</p>
+  <p class="mb-4">
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
 
-<%= link_to 'Edit', data: { turbo: false }, edit_user_path(@user) %> |
-<%= link_to 'Back', data: { turbo: false }, users_path %>
+  <p class="mb-4">
+    <strong>Role:</strong>
+    <%= @user.role %>
+  </p>
+
+  <div class="mt-4">
+    <%= link_to 'Edit', edit_user_path(@user), data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Back', users_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+      <%= button_to 'Delete', user_path(@user), method: :delete, data: { turbo: false, confirm: 'Are you sure?' }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    </div>
+  </div>
+</div>
