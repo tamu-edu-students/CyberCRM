@@ -17,7 +17,8 @@
 
     <div class="mb-4">
       <%= form.label :name, class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      <%= form.hidden_field :name, value: "preloaded" %>
+      <%= form.text_field :name, value: "preloaded", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200", disabled: true %>
     </div>
 
     <div class="mb-4">
