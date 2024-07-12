@@ -23,7 +23,11 @@
 
   <div class="my-5">
     <%= form.label :grade %>
-    <%= form.select :grade_ryg, options_for_select(Student::GRADE_OPTIONS, @student.grade_ryg), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    <select name="student[grade_ryg]" id="student_grade_ryg" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full">
+      <option value="G" <%= 'selected' if @student.grade_ryg == 'G' %>>G</option>
+      <option value="R" <%= 'selected' if @student.grade_ryg == 'R' %>>R</option>
+      <option value="Y" <%= 'selected' if @student.grade_ryg == 'Y' %>>Y</option>
+    </select>
   </div>
 
   <div class="my-5">
@@ -75,3 +79,32 @@
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const gradeSelect = document.getElementById("student_grade_ryg");
+
+  function updateGradeColor() {
+    const selectedOption = gradeSelect.options[gradeSelect.selectedIndex].value;
+    gradeSelect.classList.remove("bg-green-500", "bg-red-500", "bg-yellow-500", "text-white", "text-black");
+
+    switch (selectedOption) {
+      case "G":
+        gradeSelect.classList.add("bg-green-500", "text-white");
+        break;
+      case "R":
+        gradeSelect.classList.add("bg-red-500", "text-white");
+        break;
+      case "Y":
+        gradeSelect.classList.add("bg-yellow-500", "text-black");
+        break;
+      default:
+        break;
+    }
+  }
+
+  updateGradeColor();
+
+  gradeSelect.addEventListener("change", updateGradeColor);
+});
+</script>
