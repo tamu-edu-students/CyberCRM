@@ -52,7 +52,11 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :role)
+    if authorize_super_user
+      params.require(:user).permit(:name, :email).merge(role: params[:user][:role])
+    else
+      params.require(:user).permit(:name, :email)
+    end
   end
 
   def authorize_super_user
