@@ -59,9 +59,9 @@ RSpec.describe User do
 
       user = described_class.last
       expect(user).to eq(existing_user)
-      expect(user.name).to eq('Existing User')
-      expect(user.email).to eq('existing.user@example.com')
-      expect(user.role).to eq('student_worker')
+      expect(existing_user.name).to eq('Existing User')
+      expect(existing_user.email).to eq('existing.user@example.com')
+      expect(existing_user.role).to eq('student_worker')
     end
   end
   # rubocop:enable RSpec/MultipleExpectations

@@ -7,8 +7,8 @@ Feature: Search for students
   Background:
   Given the following students exist:
     | name | uin        | grade_ryg | gender | ethnicity | nationality | expected_graduation | university_classification | status | sexual_orientation | date_of_birth | email                |
-    | test | 123456789  | G         | Male   | Asian     | American    | 2025-05-10          | Junior                    | Active | Heterosexual       | 2004-04-04    | test1@example.com    |
-    | test | 123456787  | G         | Male   | Asian     | American    | 2025-05-10          | Senior                    | Active | Heterosexual       | 2002-02-02    | test2@example.com    |
+    | test | 123456784  | G         | Male   | Asian     | American    | 2025-05-10          | Junior                    | Active | Heterosexual       | 2004-04-04    | test1@example.com    |
+    | test | 123456785  | G         | Male   | Asian     | American    | 2025-05-10          | Senior                    | Active | Heterosexual       | 2002-02-02    | test2@example.com    |
     | John | 123456786  | G         | Male   | White     | American    | 2025-05-10          | Senior                    | Active | Homosexual         | 2003-03-03    | john@example.com     |
 
   Scenario: Search for student named "test"

@@ -33,5 +33,5 @@ class Student < ApplicationRecord
              end
            }
   validates :email, presence: true,
-                    format: { with: URI::MailTo::EMAIL_REGEXP }
+                    format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
 end

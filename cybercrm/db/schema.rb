@@ -12,13 +12,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 # rubocop:disable Metrics/BlockLength
-ActiveRecord::Schema[7.1].define(version: 20_240_627_225_554) do
+ActiveRecord::Schema[7.1].define(version: 20_240_711_064_114) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
   create_table 'students', force: :cascade do |t|
     t.string 'name'
-    t.integer 'uin'
+    t.string 'uin'
     t.decimal 'gpa'
     t.string 'gender'
     t.string 'ethnicity'
@@ -44,5 +44,5 @@ ActiveRecord::Schema[7.1].define(version: 20_240_627_225_554) do
     t.datetime 'updated_at', null: false
     t.string 'role'
   end
-  # rubocop:enable Metrics/BlockLength
 end
+# rubocop:enable Metrics/BlockLength

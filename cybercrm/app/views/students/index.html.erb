@@ -71,7 +71,7 @@
           <tr data-href="<%= student_path(student) %>" class="cursor-pointer hover:bg-gray-100">
             <td class="border border-gray-300 px-4 py-2"><%= student.name %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.uin %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.grade_ryg %></td>
+            <td class="<%= grade_ryg_class(student.grade_ryg) %> border border-gray-300 px-4 py-2"><%= student.grade_ryg %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.gender %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.ethnicity %></td>
             <td class="border border-gray-300 px-4 py-2"><%= student.nationality %></td>
