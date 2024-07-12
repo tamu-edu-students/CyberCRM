@@ -1,30 +1,34 @@
 <!-- app/views/custom_attributes/index.html.erb -->
-<h1>Custom Attributes</h1>
+<%= render 'layouts/navbar' %>
 
-<%= link_to 'New Custom Attribute', new_custom_attribute_path, data: { turbo: false } %>
+<div class="container mx-auto my-8">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-2xl font-bold">Custom Attributes</h1>
+    <%= link_to 'New Custom Attribute', new_custom_attribute_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </div>
 
-<% if @custom_attributes.any? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Active</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @custom_attributes.each do |attribute| %>
+  <% if @custom_attributes.empty? %>
+    <p>No custom attributes found. <%= link_to 'Create a new custom attribute', new_custom_attribute_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %></p>
+  <% else %>
+    <table class="min-w-full bg-white">
+      <thead>
         <tr>
-          <td><%= attribute.name %></td>
-          <td><%= attribute.active ? 'Yes' : 'No' %></td>
-          <td>
-            <%= link_to 'Edit', edit_custom_attribute_path(attribute), data: { turbo: false } %>
-            <%= button_to attribute.active ? 'Set Inactive' : 'Set Active', toggle_active_custom_attribute_path(attribute), method: :post, data: { turbo: false }, class: attribute.active ? "ml-2 py-1 px-3 bg-red-500 text-white rounded-lg" : "ml-2 py-1 px-3 bg-green-500 text-white rounded-lg" %>
-          </td>
+          <th class="py-2 px-4 border-b-2 border-gray-300">Name</th>
+          <th class="py-2 px-4 border-b-2 border-gray-300">Active</th>
+          <th class="py-2 px-4 border-b-2 border-gray-300">Actions</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>No custom attributes found. <%= link_to 'Create a new custom attribute', new_custom_attribute_path, data: { turbo: false } %></p>
-<% end %>
+      </thead>
+      <tbody>
+        <% @custom_attributes.each do |attribute| %>
+          <tr class="hover:bg-gray-100 cursor-pointer" onclick="window.location='<%= edit_custom_attribute_path(attribute) %>'">
+            <td class="py-2 px-4 border-b border-gray-300 text-center"><%= attribute.name %></td>
+            <td class="py-2 px-4 border-b border-gray-300 text-center"><%= attribute.active ? 'Yes' : 'No' %></td>
+            <td class="py-2 px-4 border-b border-gray-300 text-center">
+              <%= button_to attribute.active ? 'Set Inactive' : 'Set Active', toggle_active_custom_attribute_path(attribute), method: :post, data: { turbo: false }, class: attribute.active ? "ml-2 py-1 px-3 bg-red-500 text-white rounded-lg" : "ml-2 py-1 px-3 bg-green-500 text-white rounded-lg" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
