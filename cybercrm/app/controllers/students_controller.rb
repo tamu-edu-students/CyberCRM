@@ -34,7 +34,10 @@ class StudentsController < ApplicationController
   end
 
   # GET /students/1 or /students/1.json
-  def show; end
+  def show
+    @student = Student.find(params[:id])
+    @custom_attributes = CustomAttribute.where(active: true)
+  end
 
   # GET /students/new
   def new
@@ -94,6 +97,20 @@ class StudentsController < ApplicationController
       process_csv_file(params[:file])
     else
       redirect_to students_url
+    end
+  end
+
+  def update_custom_attribute
+    @student = Student.find(params[:id])
+    @custom_attribute = CustomAttribute.find(params[:attribute_id])
+    student_custom_attribute = @student.student_custom_attributes.find_or_initialize_by(custom_attribute:
+                                                                                        @custom_attribute)
+    student_custom_attribute.value = params[:value]
+
+    if student_custom_attribute.save
+      redirect_to @student, notice: 'Custom attribute value was successfully updated.'
+    else
+      render :show
     end
   end
 

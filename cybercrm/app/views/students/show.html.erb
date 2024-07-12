@@ -13,6 +13,21 @@
       <div class="inline-block ml-2">
         <%= button_to "Delete this student", @student, data: { turbo: false }, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
       </div>
+
+      <div class="mt-5">
+        <h2 class="text-xl font-medium mb-3">Custom Attributes</h2>
+        <% @custom_attributes = CustomAttribute.where(active: true) %>
+        <% @custom_attributes.each do |attribute| %>
+          <div class="mb-3">
+            <%= attribute.name %>: <%= @student.custom_attribute_value(attribute.name) %>
+            <%= form_with url: update_custom_attribute_student_path(@student), method: :post, local: true, class: "inline" do |f| %>
+              <%= hidden_field_tag :attribute_id, attribute.id %>
+              <%= text_field_tag :value, @student.custom_attribute_value(attribute.name), class: "ml-2" %>
+              <%= f.submit 'Update', class: "ml-2 py-1 px-3 bg-blue-500 text-white rounded-lg" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>

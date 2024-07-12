@@ -9,6 +9,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :students do
+    member do
+      post :update_custom_attribute
+    end
+  end
+
+  resources :custom_attributes, except: :show
+
   resources :users, only: %i[index show edit update destroy new create]
 
   root 'pages#login'

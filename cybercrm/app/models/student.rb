@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
-# Student
+# app/models/student.rb
 class Student < ApplicationRecord
+  has_many :student_custom_attributes, dependent: :destroy
+  has_many :custom_attributes, through: :student_custom_attributes
+
   UNIVERSITY_CLASSIFICATIONS = %w[Freshman Sophomore Junior Senior Graduate].freeze
   NATIONALITY_OPTIONS = %w[American British Canadian Australian French German Japanese Chinese
                            Indian Other].freeze
@@ -34,4 +37,12 @@ class Student < ApplicationRecord
            }
   validates :email, presence: true,
                     format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
+
+  # Method to get the value of a custom attribute
+  def custom_attribute_value(attribute_name)
+    custom_attribute = CustomAttribute.find_by(name: attribute_name)
+    return nil unless custom_attribute
+
+    student_custom_attributes.find_by(custom_attribute:)&.value
+  end
 end
