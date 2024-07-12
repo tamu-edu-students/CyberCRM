@@ -11,8 +11,8 @@ class Student < ApplicationRecord
   SEXUAL_ORIENTATION_OPTIONS = %w[Heterosexual Homosexual].freeze
   STATUS_OPTIONS = %w[Active Inactive].freeze
 
-  validates :name, presence: true, length: { maximum: 200 }
-  validates :uin, presence: true, numericality: { only_integer: true }, length: { is: 9 }
+  validates :name, presence: true, length: { minimum: 4, maximum: 200 }
+  validates :uin, presence: true, numericality: { only_integer: true }, length: { is: 9 }, uniqueness: true
   validates :grade_ryg, inclusion: { in: GRADE_OPTIONS }
   validates :gender, presence: true, inclusion: { in: GENDER_OPTIONS }
   validates :ethnicity, presence: true, inclusion: { in: ETHNICITY_OPTIONS }
@@ -33,5 +33,5 @@ class Student < ApplicationRecord
              end
            }
   validates :email, presence: true,
-                    format: { with: URI::MailTo::EMAIL_REGEXP }
+                    format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
 end

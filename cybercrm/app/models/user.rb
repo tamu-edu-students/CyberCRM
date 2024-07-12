@@ -6,10 +6,12 @@ class User < ApplicationRecord
   # https://guides.rubyonrails.org/testing.html
 
   # presence ensures that it is not nil
-  validates :provider, :uid, :name, :email, :role, presence: true
+  validates :provider, :uid, :email, :role, presence: true
+  validates :name, presence: true, length: { minimum: 4, maximum: 200 }
 
   # uniqueness ensures that it is unique across users
-  validates :email, uniqueness: true
+  validates :email,
+            format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
 
   # Method to find or create a user from OmniAuth data
   # Used ChatGPT to rewrite this for preloading a user
