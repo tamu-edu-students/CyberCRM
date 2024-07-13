@@ -5,5 +5,5 @@ class StudentCustomAttribute < ApplicationRecord
   belongs_to :student
   belongs_to :custom_attribute
 
-  validates :value, presence: true
+  validates :value, presence: true, length: { maximum: 255 }
 end

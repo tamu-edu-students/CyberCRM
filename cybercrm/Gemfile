@@ -95,6 +95,9 @@ group :test do
   gem 'selenium-webdriver'
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
+  gem 'factory_bot_rails'
+  gem 'launchy'
+  gem 'rails-controller-testing'
 end
 
 group :production do

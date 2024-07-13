@@ -17,9 +17,9 @@
     <tbody>
       <% @users.each do |user| %>
         <tr class="hover:bg-gray-100 cursor-pointer" onclick="window.location='<%= user_path(user) %>'">
-          <td class="py-2 px-4 border-b border-gray-300"><%= user.name %></td>
-          <td class="py-2 px-4 border-b border-gray-300"><%= user.email %></td>
-          <td class="py-2 px-4 border-b border-gray-300"><%= user.role %></td>
+          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= user.name %></td>
+          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= user.email %></td>
+          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= user.role %></td>
         </tr>
       <% end %>
     </tbody>

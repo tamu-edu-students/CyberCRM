@@ -68,9 +68,6 @@ class StudentsController < ApplicationController
       if @student.update(student_params)
         format.html { redirect_to student_url(@student), notice: I18n.t('student_updated') }
         format.json { render :show, status: :ok, location: @student }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -95,8 +92,6 @@ class StudentsController < ApplicationController
   def import
     if params[:file].present?
       process_csv_file(params[:file])
-    else
-      redirect_to students_url
     end
   end
 

@@ -7,10 +7,12 @@ class SessionsController < ApplicationController
     @user = User.from_omniauth(auth)
 
     if @user.persisted?
+      if handle_user_failure
+        return
+      end
+
       session[:user_id] = @user.id
       redirect_to pages_home_path, notice: I18n.t('signed_in')
-    else
-      handle_user_failure
     end
   end
 

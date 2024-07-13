@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-# generated with ChatGPT
-# prompt can you make an rspec
-# user model code
-
 require 'rails_helper'
-RSpec.describe User do
+
+RSpec.describe User, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:provider) }
     it { is_expected.to validate_presence_of(:uid) }
@@ -18,7 +15,7 @@ RSpec.describe User do
   describe '.from_omniauth' do
     let(:auth) do
       OmniAuth::AuthHash.new(
-        provider: 'google',
+        provider: 'google_oauth2',
         uid: '123545',
         info: {
           name: 'John Doe',
@@ -28,42 +25,48 @@ RSpec.describe User do
       )
     end
 
-    # rubocop:disable RSpec/MultipleExpectations
-    # rubocop:disable RSpec/ExampleLength
-    it 'creates a new user if one does not exist' do
-      expect do
-        described_class.from_omniauth(auth)
-      end.to change(described_class, :count).by(1)
+    context 'when user does not exist' do
+      it 'creates a new user' do
+        expect do
+          described_class.from_omniauth(auth)
+        end.to change(described_class, :count).by(1)
 
-      user = described_class.last
-      expect(user.provider).to eq('google')
-      expect(user.uid).to eq('123545')
-      expect(user.name).to eq('John Doe')
-      expect(user.email).to eq('john.doe@example.com')
-      expect(user.image).to eq('http://example.com/image.jpg')
-      expect(user.role).to eq('student_worker')
+        user = described_class.last
+        expect(user.provider).to eq('google_oauth2')
+        expect(user.uid).to eq('123545')
+        expect(user.name).to eq('John Doe')
+        expect(user.email).to eq('john.doe@example.com')
+        expect(user.image).to eq('http://example.com/image.jpg')
+        expect(user.role).to eq('student_worker')
+      end
     end
 
-    it 'finds an existing user if one already exists' do
-      existing_user = described_class.create!(
-        provider: 'google',
-        uid: '123545',
-        name: 'Existing User',
-        email: 'existing.user@example.com',
-        role: 'student_worker'
-      )
+    context 'when user exists with provider and uid' do
+      let!(:user) { create(:user, provider: 'google_oauth2', uid: '123545', email: 'john.doe@example.com') }
 
-      expect do
-        described_class.from_omniauth(auth)
-      end.not_to change(described_class, :count)
+      it 'updates the user info' do
+        updated_user = described_class.from_omniauth(auth)
+        expect(updated_user.name).to eq('John Doe')
+        expect(updated_user.image).to eq('http://example.com/image.jpg')
+        expect(updated_user.email).to eq('john.doe@example.com')
+      end
+    end
 
-      user = described_class.last
-      expect(user).to eq(existing_user)
-      expect(existing_user.name).to eq('Existing User')
-      expect(existing_user.email).to eq('existing.user@example.com')
-      expect(existing_user.role).to eq('student_worker')
+    context 'when user exists with the same email' do
+      let!(:existing_user) { create(:user, email: 'john.doe@example.com', provider: 'facebook', uid: '54321') }
+
+      it 'updates the existing user with provider and uid and returns it' do
+        expect do
+          described_class.from_omniauth(auth)
+        end.not_to change(described_class, :count)
+
+        updated_user = described_class.from_omniauth(auth)
+        expect(updated_user.provider).to eq('google_oauth2')
+        expect(updated_user.uid).to eq('123545')
+        expect(updated_user.name).to eq('John Doe')
+        expect(updated_user.image).to eq('http://example.com/image.jpg')
+        expect(updated_user.email).to eq('john.doe@example.com')
+      end
     end
   end
-  # rubocop:enable RSpec/MultipleExpectations
-  # rubocop:enable RSpec/ExampleLength
 end

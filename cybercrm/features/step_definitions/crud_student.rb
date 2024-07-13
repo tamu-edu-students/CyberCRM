@@ -4,7 +4,8 @@
 
 Given('I am logged in with Google') do
   login_with_google_oauth2
-  @test_user = test_user
+  @test_user = test_user(role: 'super_user')
+  @current_user = test_user(role: 'super_user')
   page.set_rack_session(user_id: @test_user.id)
 end
 

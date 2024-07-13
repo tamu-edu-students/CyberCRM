@@ -22,22 +22,16 @@ class UsersController < ApplicationController
     @user.uid = SecureRandom.uuid
     @user.name = 'preloaded'
 
-    if @user.save
-      redirect_to @user, notice: I18n.t('created')
-    else
-      Rails.logger.info @user.errors.full_messages.join(', ')
-      render :new
-    end
+    @user.save
+    redirect_to @user, notice: I18n.t('created')
   end
 
   def edit; end
 
   def update
-    if @user.update(user_params)
-      redirect_to @user, notice: I18n.t('updated')
-    else
-      render :edit
-    end
+    return unless @user.update(user_params)
+
+    redirect_to @user, notice: I18n.t('updated')
   end
 
   def destroy
@@ -52,11 +46,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    if authorize_super_user
-      params.require(:user).permit(:name, :email).merge(role: params[:user][:role])
-    else
-      params.require(:user).permit(:name, :email)
-    end
+    params.require(:user).permit(:name, :email, :role)
   end
 
   def authorize_super_user
