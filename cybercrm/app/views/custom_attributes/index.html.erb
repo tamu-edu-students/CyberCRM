@@ -8,7 +8,7 @@
   </div>
 
   <% if @custom_attributes.empty? %>
-    <p>No custom attributes found. <%= link_to 'Create a new custom attribute', new_custom_attribute_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %></p>
+    <p>No custom attributes found.</p>
   <% else %>
     <table class="min-w-full bg-white">
       <thead>
