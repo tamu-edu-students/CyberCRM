@@ -17,12 +17,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
     @user.provider = 'google_oauth2'
     @user.uid = SecureRandom.uuid
     @user.name = 'preloaded'
 
-    @user.save
+    return unless @user.save
+
     redirect_to @user, notice: I18n.t('created')
   end
 
@@ -46,6 +46,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
+    return unless current_user&.role == 'super_user'
+
     params.require(:user).permit(:name, :email, :role)
   end
 
