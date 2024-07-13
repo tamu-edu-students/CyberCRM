@@ -1,7 +1,7 @@
 <!-- app/views/custom_attributes/index.html.erb -->
 <%= render 'layouts/navbar' %>
 
-<div class="container mx-auto my-8">
+<div class="container mx-auto my-8 overflow-hidden">
   <div class="flex justify-between items-center mb-4">
     <h1 class="text-2xl font-bold">Custom Attributes</h1>
     <%= link_to 'New Custom Attribute', new_custom_attribute_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
