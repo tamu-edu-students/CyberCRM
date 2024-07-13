@@ -14,9 +14,6 @@
         <%= link_to 'Home', pages_home_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
         <%= link_to 'Students', students_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
         <%= link_to 'Users', users_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
-        <% if current_user.role == 'program_director' || 'super_user' %>
-          <%= link_to 'Attributes', custom_attributes_path, data: {turbo: false}, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
-        <% end %>
       <% else %>
         <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
       <% end %>
