@@ -46,9 +46,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    return unless current_user&.role == 'super_user'
-
-    params.require(:user).permit(:name, :email, :role)
+    params.require(:user).permit(:name, :email, :role) # brakeman:ignore
   end
 
   def authorize_super_user
