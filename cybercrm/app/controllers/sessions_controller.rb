@@ -6,14 +6,11 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth']
     @user = User.from_omniauth(auth)
 
-    if @user.persisted?
-      if handle_user_failure
-        return
-      end
+    return unless @user.persisted?
+    return if handle_user_failure
 
-      session[:user_id] = @user.id
-      redirect_to pages_home_path, notice: I18n.t('signed_in')
-    end
+    session[:user_id] = @user.id
+    redirect_to pages_home_path, notice: I18n.t('signed_in')
   end
 
   def destroy

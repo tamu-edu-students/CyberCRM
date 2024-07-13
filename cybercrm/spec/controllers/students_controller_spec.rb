@@ -3,21 +3,23 @@
 require 'rails_helper'
 require 'csv'
 
-RSpec.describe StudentsController, type: :controller do
+# rubocop:disable RSpec/MultipleExpectations
+# rubocop:disable FactoryBot/ExcessiveCreateList
+RSpec.describe StudentsController do
   describe 'GET #search' do
-    let!(:student1) { create(:student, name: 'John Doe') }
-    let!(:student2) { create(:student, name: 'Jane Smith') }
-    let!(:student3) { create(:student, name: 'Johnny Appleseed') }
+    let(:johndoe) { create(:student, name: 'John Doe') }
+    let(:janesmith) { create(:student, name: 'Jane Smith') }
+    let(:johnnyappleseed) { create(:student, name: 'Johnny Appleseed') }
 
     context 'when student_search param is present' do
       it 'returns matching students' do
         get :search, params: { student_search: 'John' }, format: :turbo_stream
 
-        expect(assigns(:students)).to match_array([student1, student3])
+        expect(assigns(:students)).to contain_exactly(johndoe, johnnyappleseed)
       end
 
       it 'limits the number of returned students to 10' do
-        11.times { create(:student, name: 'John Doe') }
+        create_list(:student, 11, name: 'John Doe')
 
         get :search, params: { student_search: 'John' }, format: :turbo_stream
 
@@ -33,7 +35,7 @@ RSpec.describe StudentsController, type: :controller do
       end
     end
 
-    context 'response format' do
+    context 'when response format' do
       it 'renders the search_results partial with turbo_stream format' do
         get :search, params: { student_search: 'John' }, format: :turbo_stream
 
@@ -67,7 +69,7 @@ RSpec.describe StudentsController, type: :controller do
 
         expect(response).to redirect_to(student)
         expect(flash[:notice]).to eq(I18n.t('attr_updated'))
-        expect(student.student_custom_attributes.find_by(custom_attribute: custom_attribute).value).to eq('New Value')
+        expect(student.student_custom_attributes.find_by(custom_attribute:).value).to eq('New Value')
       end
     end
 
@@ -132,3 +134,5 @@ RSpec.describe StudentsController, type: :controller do
     end
   end
 end
+# rubocop:enable RSpec/MultipleExpectations
+# rubocop:enable FactoryBot/ExcessiveCreateList

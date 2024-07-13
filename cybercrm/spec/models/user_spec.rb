@@ -2,7 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+# rubocop:disable RSpec/MultipleExpectations
+# rubocop:disable RSpec/ExampleLength
+# rubocop:disable RSpec/LetSetup
+RSpec.describe User do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:provider) }
     it { is_expected.to validate_presence_of(:uid) }
@@ -70,3 +73,6 @@ RSpec.describe User, type: :model do
     end
   end
 end
+# rubocop:enable RSpec/MultipleExpectations
+# rubocop:enable RSpec/ExampleLength
+# rubocop:enable RSpec/LetSetup

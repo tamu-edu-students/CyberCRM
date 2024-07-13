@@ -2,7 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe SessionsController, type: :controller do
+# rubocop:disable RSpec/MultipleExpectations
+# rubocop:disable RSpec/NestedGroups
+RSpec.describe SessionsController do
   describe 'POST #create' do
     let(:auth) do
       OmniAuth::AuthHash.new(
@@ -80,3 +82,5 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 end
+# rubocop:enable RSpec/MultipleExpectations
+# rubocop:enable RSpec/NestedGroups

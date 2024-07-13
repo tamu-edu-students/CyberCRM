@@ -90,9 +90,9 @@ class StudentsController < ApplicationController
 
   # POST /students/import
   def import
-    if params[:file].present?
-      process_csv_file(params[:file])
-    end
+    return if params[:file].blank?
+
+    process_csv_file(params[:file])
   end
 
   def update_custom_attribute
