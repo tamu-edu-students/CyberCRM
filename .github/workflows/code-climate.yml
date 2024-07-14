@@ -58,11 +58,27 @@ jobs:
         chmod +x ./cc-test-reporter
       working-directory: ./cybercrm
 
-    - name: Run tests and upload coverage
+    - name: Run RSpec tests
       run: |
         ./cc-test-reporter before-build
         CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} bundle exec rspec
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      working-directory: ./cybercrm
+
+    - name: Run Cucumber tests
+      run: |
         CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} bundle exec cucumber
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      working-directory: ./cybercrm
+
+    - name: Merge coverage reports
+      run: |
+        mkdir -p coverage/merged
+        cp coverage/rspec/.resultset.json coverage/merged/.resultset-rspec.json
+        cp coverage/cucumber/.resultset.json coverage/merged/.resultset-cucumber.json
+        SIMPLECOV_MERGE_TIMEOUT=3600 bundle exec simplecov-merge coverage/merged
         ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.json
         ./cc-test-reporter upload-coverage --input coverage/codeclimate.json
       env:
