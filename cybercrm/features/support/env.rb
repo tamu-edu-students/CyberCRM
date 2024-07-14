@@ -6,13 +6,7 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-
-require 'simplecov'
-SimpleCov.start 'rails' do
-  add_filter '/spec/'
-  add_filter '/channels/'
-end
-
+require_relative '../../spec/simplecov_setup'
 require 'cucumber/rails'
 require 'capybara/rails'
 require 'mocha/minitest'
