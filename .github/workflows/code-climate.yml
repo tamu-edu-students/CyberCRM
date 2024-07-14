@@ -75,10 +75,7 @@ jobs:
 
     - name: Merge coverage reports
       run: |
-        mkdir -p coverage/merged
-        cp coverage/rspec/.resultset.json coverage/merged/.resultset-rspec.json
-        cp coverage/cucumber/.resultset.json coverage/merged/.resultset-cucumber.json
-        SIMPLECOV_MERGE_TIMEOUT=3600 bundle exec simplecov-merge coverage/merged
+        ruby scripts/merge_coverage.rb
         ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.json
         ./cc-test-reporter upload-coverage --input coverage/codeclimate.json
       env:
