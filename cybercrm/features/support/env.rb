@@ -13,6 +13,10 @@ require 'capybara/cucumber'
 require_relative '../../spec/simplecov_setup'
 require 'rack_session_access/capybara'
 require 'factory_bot'
+require 'simplecov'
+SimpleCov.command_name 'Cucumber'
+SimpleCov.coverage_dir 'coverage/cucumber'
+SimpleCov.start 'rails'
 
 World(FactoryBot::Syntax::Methods)
 

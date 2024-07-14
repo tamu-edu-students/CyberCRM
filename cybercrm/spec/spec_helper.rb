@@ -16,6 +16,10 @@
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require_relative 'simplecov_setup'
+require 'simplecov'
+SimpleCov.command_name 'RSpec'
+SimpleCov.coverage_dir 'coverage/rspec'
+SimpleCov.start 'rails'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

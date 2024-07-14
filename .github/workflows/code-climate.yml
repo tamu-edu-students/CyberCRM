@@ -61,14 +61,14 @@ jobs:
     - name: Run RSpec tests
       run: |
         ./cc-test-reporter before-build
-        CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} bundle exec rspec
+        bundle exec rspec
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       working-directory: ./cybercrm
 
     - name: Run Cucumber tests
       run: |
-        CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} bundle exec cucumber
+        bundle exec cucumber
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       working-directory: ./cybercrm
