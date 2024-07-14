@@ -10,9 +10,13 @@ require 'cucumber/rails'
 require 'capybara/rails'
 require 'mocha/minitest'
 require 'capybara/cucumber'
-require_relative '../../spec/simplecov_setup'
 require 'rack_session_access/capybara'
 require 'factory_bot'
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter '/spec/'
+  add_filter '/channels/'
+end
 
 World(FactoryBot::Syntax::Methods)
 
