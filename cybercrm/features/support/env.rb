@@ -10,7 +10,7 @@ require 'cucumber/rails'
 require 'capybara/rails'
 require 'mocha/minitest'
 require 'capybara/cucumber'
-require_relative '/cybercrm/spec/simplecov_setup'
+require_relative '../../spec/simplecov_setup'
 require 'rack_session_access/capybara'
 require 'factory_bot'
 
