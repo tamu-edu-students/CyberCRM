@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Method to find or create a user from OmniAuth data
   # Used ChatGPT to rewrite this for preloading a user
@@ -19,8 +21,6 @@ class User < ApplicationRecord
     user
   end
 
-  private
-
   def self.update_existing_user(user, auth_info)
     existing_user_with_email = find_by(email: auth_info.email)
 
@@ -31,7 +31,7 @@ class User < ApplicationRecord
         name: auth_info.name,
         image: auth_info.image
       )
-      user = existing_user_with_email
+      existing_user_with_email
     else
       user.update!(
         name: auth_info.name,

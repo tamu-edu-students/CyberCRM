@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-# rubocop:disable RSpec/MultipleExpectations
 RSpec.describe ApplicationHelper do
   describe '#grade_ryg_class' do
     it "returns 'bg-green-500 text-white' when grade is 'G'" do
@@ -23,4 +22,3 @@ RSpec.describe ApplicationHelper do
     end
   end
 end
-# rubocop:enable RSpec/MultipleExpectations

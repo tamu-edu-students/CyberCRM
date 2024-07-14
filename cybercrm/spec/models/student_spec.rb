@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable RSpec/ExampleLength
 RSpec.describe Student do
   it 'is valid with name, uin, and all required attributes' do
     student = described_class.new(
@@ -22,4 +21,3 @@ RSpec.describe Student do
     expect(student).to be_valid
   end
 end
-# rubocop:enable RSpec/ExampleLength
