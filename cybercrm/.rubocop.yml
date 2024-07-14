@@ -76,6 +76,7 @@ AllCops:
     - '.git/**/*'
     - 'db/schema.rb'
     - 'bin/*'
+    - 'bin/bundle'
     - 'config/initializers/*'
     - 'db/migrate/*'
     - 'spec/**/*'
