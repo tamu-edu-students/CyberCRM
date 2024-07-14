@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable RSpec/MultipleExpectations
 RSpec.describe UsersController do
   describe 'POST #create' do
     context 'when as a super user' do
@@ -71,4 +70,3 @@ RSpec.describe UsersController do
     end
   end
 end
-# rubocop:enable RSpec/MultipleExpectations
