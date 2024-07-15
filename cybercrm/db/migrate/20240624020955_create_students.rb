@@ -8,7 +8,7 @@ class CreateStudents < ActiveRecord::Migration[7.1]
       t.string :name
       t.integer :age
       t.string :grade
-      t.string :uin, unique: true
+      t.string :uin
       t.decimal :gpa
       t.string :gender
       t.string :ethnicity
@@ -18,6 +18,7 @@ class CreateStudents < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+    add_index :students, :uin, unique: true
   end
   # rubocop:enable Metrics/MethodLength
 end
