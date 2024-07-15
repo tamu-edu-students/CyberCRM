@@ -46,8 +46,9 @@ jobs:
 
     - name: Create and migrate the database
       run: |
-        bundle exec rails db:create
-        bundle exec rails db:schema:load
+        rails db:drop
+        rails db:create
+        rails db:schema:load
       env:
         RAILS_ENV: test
       working-directory: ./cybercrm
