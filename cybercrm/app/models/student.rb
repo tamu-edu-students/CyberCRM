@@ -4,6 +4,7 @@
 class Student < ApplicationRecord
   has_many :student_custom_attributes, dependent: :destroy
   has_many :custom_attributes, through: :student_custom_attributes
+  has_many :notes
 
   UNIVERSITY_CLASSIFICATIONS = %w[Freshman Sophomore Junior Senior Graduate].freeze
   NATIONALITY_OPTIONS = %w[American British Canadian Australian French German Japanese Chinese
