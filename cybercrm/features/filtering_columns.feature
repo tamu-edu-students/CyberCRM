@@ -30,14 +30,14 @@ Feature: Column sorting
   Scenario: Sorting by Grade_ryg
     Given I am logged in with Google
     Given I am on the students index page
-    When I click the "Grade_RYG" column header
-    Then I should see students sorted by "Grade_RYG" in ascending order
+    When I click the "Grade" column header
+    Then I should see students sorted by "Grade" in ascending order
 
-    When I click the "Grade_RYG" column header
-    Then I should see students sorted by "Grade_RYG" in descending order
+    When I click the "Grade" column header
+    Then I should see students sorted by "Grade" in descending order
 
-    When I click the "Grade_RYG" column header
-    Then I should see students sorted by "Grade_RYG" in the default order
+    When I click the "Grade" column header
+    Then I should see students sorted by "Grade" in the default order
 
   Scenario: Sorting by Gender
     Given I am logged in with Google
