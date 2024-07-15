@@ -48,7 +48,8 @@ jobs:
       run: |
         rails db:drop
         rails db:create
-        rails db:schema:load
+        rails db:migrate
+        rails db:seed
       env:
         RAILS_ENV: test
       working-directory: ./cybercrm
