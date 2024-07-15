@@ -20,22 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_14_002805) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "notes", force: :cascade do |t|
-    t.bigint "student_id", null: false
-    t.string "note"
-    t.date "note_created_date"
-    t.string "followup_action"
-    t.date "followup_date"
-    t.boolean "action_completed"
-    t.boolean "is_private"
-    t.string "private_note_user"
-    t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_notes_on_student_id"
-  end
-
+  
   create_table "student_custom_attributes", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "custom_attribute_id", null: false
@@ -73,6 +58,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_14_002805) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "role"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.string "note"
+    t.date "note_created_date"
+    t.string "followup_action"
+    t.date "followup_date"
+    t.boolean "action_completed"
+    t.boolean "is_private"
+    t.string "private_note_user"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_notes_on_student_id"
   end
 
   add_foreign_key "notes", "students"
