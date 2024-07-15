@@ -69,7 +69,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_214721) do
   add_foreign_key "student_programs", "students"
 
     t.index ["email"], name: "index_users_on_email", unique: true
-  end
 
   add_foreign_key "student_custom_attributes", "custom_attributes"
   add_foreign_key "student_custom_attributes", "students"
