@@ -137,22 +137,7 @@
 
           </tr>
         </thead>
-        <tbody>
-          <% @students.each do |student| %>
-            <tr data-href="<%= student_path(student) %>" class="cursor-pointer hover:bg-gray-100">
-              <td class="border border-gray-300 px-4 py-2"><%= student.name %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= student.uin %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= student.grade_ryg %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= student.gender %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= student.ethnicity %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= student.nationality %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= student.expected_graduation %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= student.university_classification %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= student.status %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= student.sexual_orientation %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= student.date_of_birth %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= student.email %></td>
-            </tr>
+        
           <% end %>
         </tbody>
       </table>
