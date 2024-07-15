@@ -46,7 +46,11 @@ jobs:
         run: yarn install
         working-directory: ./cybercrm 
       - name: Set up database schema
-        run: bin/rails db:test:prepare
+        run: |
+          bin/rails db:drop
+          bin/rails db:create
+          bin/rails db:migrate
+          bin/rails db:seed
         working-directory: ./cybercrm 
       - name: Run cucumber
         run: bundle exec cucumber
