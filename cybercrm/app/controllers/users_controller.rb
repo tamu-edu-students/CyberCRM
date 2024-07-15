@@ -15,6 +15,8 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def edit; end
+
   def create
     @user = User.new(user_params)
     @user.provider = 'google_oauth2'
@@ -25,8 +27,6 @@ class UsersController < ApplicationController
 
     redirect_to @user, notice: I18n.t('created')
   end
-
-  def edit; end
 
   def update
     return unless @user.update(user_params)

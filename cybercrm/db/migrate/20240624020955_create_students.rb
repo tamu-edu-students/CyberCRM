@@ -8,7 +8,7 @@ class CreateStudents < ActiveRecord::Migration[7.1]
       t.string :name
       t.integer :age
       t.string :grade
-      t.string :uin
+      t.string :uin, unique: true
       t.decimal :gpa
       t.string :gender
       t.string :ethnicity

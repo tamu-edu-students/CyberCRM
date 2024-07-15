@@ -12,7 +12,7 @@
 
 require 'faker'
 
-puts 'Student table reset'
+Rails.logger.debug 'Student table reset'
 Student.destroy_all
 
 # rubocop:disable Metrics/BlockLength
@@ -78,4 +78,4 @@ students.each do |student|
 end
 # rubocop:enable Metrics/BlockLength
 
-puts "There are #{Student.count} students"
+Rails.logger.debug { "There are #{Student.count} students" }

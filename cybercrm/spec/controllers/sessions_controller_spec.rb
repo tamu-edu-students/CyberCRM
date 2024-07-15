@@ -2,8 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable RSpec/MultipleExpectations
-# rubocop:disable RSpec/NestedGroups
 RSpec.describe SessionsController do
   describe 'POST #create' do
     let(:auth) do
@@ -82,5 +80,3 @@ RSpec.describe SessionsController do
     end
   end
 end
-# rubocop:enable RSpec/MultipleExpectations
-# rubocop:enable RSpec/NestedGroups

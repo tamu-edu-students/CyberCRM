@@ -6,11 +6,11 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
+require_relative '../../spec/simplecov_setup'
 require 'cucumber/rails'
 require 'capybara/rails'
 require 'mocha/minitest'
 require 'capybara/cucumber'
-require_relative '../../spec/simplecov_setup'
 require 'rack_session_access/capybara'
 require 'factory_bot'
 

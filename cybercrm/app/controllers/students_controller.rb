@@ -7,11 +7,7 @@ class StudentsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def search
-    @students = if params[:student_search].present?
-                  Student.where('LOWER(name) LIKE LOWER(?)', "%#{params[:student_search]}%").limit(10)
-                else
-                  []
-                end
+    @students = search_students(params[:student_search])
 
     respond_to do |format|
       format.turbo_stream do
@@ -110,6 +106,12 @@ class StudentsController < ApplicationController
   end
 
   private
+
+  def search_students(query)
+    return [] if query.blank?
+
+    Student.where('LOWER(name) LIKE LOWER(?)', "%#{query}%").limit(10)
+  end
 
   # rubocop:disable Metrics/MethodLength
   def process_csv_file(file)

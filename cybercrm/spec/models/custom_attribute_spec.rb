@@ -2,8 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable RSpec/MultipleExpectations
-
 RSpec.describe CustomAttribute do
   describe 'validations' do
     it 'is valid with a name and active status' do
@@ -41,4 +39,3 @@ RSpec.describe CustomAttribute do
     it { is_expected.to have_many(:students).through(:student_custom_attributes) }
   end
 end
-# rubocop:enable RSpec/MultipleExpectations
