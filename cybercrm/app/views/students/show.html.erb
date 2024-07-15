@@ -1,6 +1,6 @@
-<% if current_user.role == 'student_worker' || 'program_director' || 'super_user' %>
+<%= render 'layouts/navbar' %>
+<% if (current_user.role == 'program_director') || (current_user.role == 'student_worker' && current_user.name == @student.name)%>
   <div class="mx-auto md:w-2/3 w-full flex">
-    <%= render 'layouts/navbar' %>
     <div class="mx-auto">
       <% if notice.present? %>
         <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
@@ -19,17 +19,20 @@
             <%= form_with url: update_custom_attribute_student_path(@student), method: :post, local: true, class: "inline hidden" do |f| %>
               <%= hidden_field_tag :attribute_id, attribute.id %>
               <%= text_field_tag :value, @student.custom_attribute_value(attribute.name), class: "ml-2" %>
-              <%= f.submit 'Update', class: "ml-2 py-1 px-3 bg-blue-500 text-white rounded-lg" %>
+              <% if (current_user.role == 'program_director') %>
+                <%= f.submit 'Update', class: "ml-2 py-1 px-3 bg-blue-500 text-white rounded-lg" %>
+              <%end%>
             <% end %>
           </div>
         <% end %>
       </div>
-
-      <%= link_to "Edit this student", edit_student_path(@student), data: { turbo: false }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <%= link_to "Back to students", students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <div class="inline-block ml-2">
-        <%= button_to "Delete this student", @student, data: { turbo: false }, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-      </div>
+      <% if (current_user.role == 'program_director') %>
+        <%= link_to "Edit this student", edit_student_path(@student), data: { turbo: false }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= link_to "Back to students", students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <div class="inline-block ml-2">
+          <%= button_to "Delete this student", @student, data: { turbo: false }, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+        </div>
+      <%end%>
     </div>
   </div>
 
@@ -47,4 +50,8 @@
       });
     });
   </script>
+<% else %>
+  <div class="mx-auto md:w-2/3 w-full">
+    <h1 class="font-bold text-4xl">Permission denied.  Please return to the homepage.</h1>
+</div>
 <% end %>

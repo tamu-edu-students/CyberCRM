@@ -12,7 +12,7 @@ Feature: Search for students
     | John | 123456786  | G         | Male   | White     | American    | 2025-05-10          | Senior                    | Active | Homosexual         | 2003-03-03    | john@example.com     |
 
   Scenario: Search for student named "test"
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     When I go to the students page
     And I click on the search icon
     And I fill in the search field with "te"

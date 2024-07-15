@@ -1,3 +1,5 @@
+<%= render 'layouts/navbar' %>
+<% if current_user.role == 'program_director' %>
 <div id="<%= dom_id student %>">
   <p class="my-5">
     <strong class="block font-medium mb-1">Name:</strong>
@@ -59,3 +61,8 @@
     <%= student.email %>
   </p>
 </div>
+<% else %>
+  <div class="mx-auto md:w-2/3 w-full">
+    <h1 class="font-bold text-4xl">Permission denied.  Please return to the homepage.</h1>
+</div>
+<% end %>
