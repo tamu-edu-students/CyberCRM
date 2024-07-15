@@ -1,3 +1,4 @@
+<%= render 'layouts/navbar' %>
 <% if current_user.role == 'program_director' %>
 <%= form_with(model: student, class: "contents") do |form| %>
   <% if student.errors.any? %>
