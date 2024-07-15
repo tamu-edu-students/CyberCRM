@@ -98,6 +98,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    childprocess (5.0.0)
     concurrent-ruby (1.3.3)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -146,6 +147,11 @@ GEM
     dotenv (3.1.2)
     drb (2.2.1)
     erubi (1.12.0)
+    factory_bot (6.4.6)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     faker (3.4.1)
       i18n (>= 1.8.11, < 2)
     faraday (2.9.1)
@@ -178,6 +184,9 @@ GEM
     jwt (2.8.1)
       base64
     language_server-protocol (3.17.0.3)
+    launchy (3.0.1)
+      addressable (~> 2.8)
+      childprocess (~> 5.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -284,6 +293,10 @@ GEM
       activesupport (= 7.1.3.4)
       bundler (>= 1.15.0)
       railties (= 7.1.3.4)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -344,6 +357,8 @@ GEM
       parser (>= 3.3.1.0)
     rubocop-capybara (2.21.0)
       rubocop (~> 1.41)
+    rubocop-factory_bot (2.26.1)
+      rubocop (~> 1.61)
     rubocop-rails (2.25.0)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
@@ -450,9 +465,11 @@ DEPENDENCIES
   database_cleaner
   debug
   dotenv
+  factory_bot_rails
   faker
   importmap-rails
   jbuilder
+  launchy
   mocha
   omniauth
   omniauth-google-oauth2
@@ -463,10 +480,12 @@ DEPENDENCIES
   rack (>= 3.1.5)
   rack_session_access
   rails (~> 7.1.3, >= 7.1.3.4)
+  rails-controller-testing
   redis (>= 4.0.1)
   rspec-rails (~> 6.1.0)
   rubocop
   rubocop-capybara
+  rubocop-factory_bot
   rubocop-rails
   rubocop-rspec (~> 3.0, >= 3.0.1)
   rubocop-rspec_rails (~> 2.30)

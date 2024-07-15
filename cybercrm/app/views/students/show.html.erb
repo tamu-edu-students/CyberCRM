@@ -73,6 +73,23 @@
         </p>
       </div>
 
+      <div class="mt-5">
+        <h2 class="text-xl font-medium mb-3">Custom Attributes</h2>
+        <% @custom_attributes = CustomAttribute.where(active: true) %>
+        <% @custom_attributes.each do |attribute| %>
+          <div class="mb-3">
+            <span class="custom-attribute" data-attribute-id="<%= attribute.id %>">
+              <%= attribute.name %>: <%= @student.custom_attribute_value(attribute.name) %>
+            </span>
+            <%= form_with url: update_custom_attribute_student_path(@student), method: :post, local: true, class: "inline hidden" do |f| %>
+              <%= hidden_field_tag :attribute_id, attribute.id %>
+              <%= text_field_tag :value, @student.custom_attribute_value(attribute.name), class: "ml-2" %>
+              <%= f.submit 'Update', class: "ml-2 py-1 px-3 bg-blue-500 text-white rounded-lg" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
       <%= link_to "Edit this student", edit_student_path(@student), data: { turbo: false }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       <%= link_to "Back to students", students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       <div class="inline-block ml-2">
@@ -80,4 +97,21 @@
       </div>
     </div>
   </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.custom-attribute').forEach(function(element) {
+        element.addEventListener('click', function() {
+          var attributeId = this.getAttribute('data-attribute-id');
+          var form = this.nextElementSibling;
+
+          if (form && form.tagName === 'FORM') {
+            form.classList.toggle('hidden');
+          }
+        });
+      });
+    });
+  </script>
+
 <% end %>

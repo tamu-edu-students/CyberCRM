@@ -8,9 +8,9 @@ Feature: Import students from CSV
     Given I am on the students page
     Given the following students exist:
       | name | uin        | grade_ryg | gender | ethnicity | nationality | expected_graduation | university_classification | status | sexual_orientation | date_of_birth | email                |
-      | John | 123456789  | G         | Male   | White     | American    | 2025-05-10          | Senior                    | Active | Homosexual         | 2003-03-03    | john@example.com     |
+      | John | 123456781  | G         | Male   | White     | American    | 2025-05-10          | Senior                    | Active | Homosexual         | 2003-03-03    | john1@example.com     |
     When I upload a valid CSV file
     Then I should see "Students imported successfully"
     And I should see the following students:
       | name | uin        | grade_ryg | gender | ethnicity | nationality | expected_graduation | university_classification | status | sexual_orientation | date_of_birth | email                |
-      | John | 123456789  | G         | Male   | White     | American    | 2025-05-10          | Senior                    | Active | Homosexual         | 2003-03-03    | john@example.com     |
+      | John | 123456781  | G         | Male   | White     | American    | 2025-05-10          | Senior                    | Active | Homosexual         | 2003-03-03    | john1@example.com     |

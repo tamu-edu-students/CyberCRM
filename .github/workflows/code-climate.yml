@@ -46,8 +46,9 @@ jobs:
 
     - name: Create and migrate the database
       run: |
-        bundle exec rails db:create
-        bundle exec rails db:schema:load
+        rails db:drop
+        rails db:create
+        rails db:schema:load
       env:
         RAILS_ENV: test
       working-directory: ./cybercrm
@@ -61,8 +62,8 @@ jobs:
     - name: Run tests and upload coverage
       run: |
         ./cc-test-reporter before-build
-        CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} bundle exec rspec
         CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} bundle exec cucumber
+        CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }} bundle exec rspec
         ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.json
         ./cc-test-reporter upload-coverage --input coverage/codeclimate.json
       env:

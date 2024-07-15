@@ -12,7 +12,7 @@
 
 require 'faker'
 
-puts 'Student table reset'
+Rails.logger.debug 'Student table reset'
 Student.destroy_all
 Program.destroy_all
 StudentProgram.destroy_all
@@ -23,6 +23,10 @@ programs = %w[SFS CLDP VICEROY].map do |program_name|
 end
 
 # rubocop:disable Metrics/BlockLength
+nationalities = %w[American British Canadian Australian French German Japanese Chinese Indian
+                   Other]
+ethnicities = ['Asian', 'Black', 'Hispanic/Latino', 'Native American', 'White', 'Other']
+
 50.times do |i|
   name_first = Faker::Name.first_name
   name_last = Faker::Name.last_name
@@ -38,8 +42,11 @@ end
                 'R'
               end
 
+
   nationality = Student::NATIONALITY_OPTIONS.sample
   ethnicity = Student::ETHNICITY_OPTIONS.sample
+
+
 
   classification = case i % 4
                    when 0
@@ -55,15 +62,18 @@ end
   status = (i % 5).zero? ? 'Inactive' : 'Active'
   sexual_orientation = i % 9 == 1 ? 'Homosexual' : 'Heterosexual'
   email = "#{name_first[0].downcase}#{name_last.downcase}@tamu.edu"
+  ethnicity = ethnicities.sample
 
   student = Student.create!(
     name: name_full,
+
     uin: uin,
     grade_ryg: grade_ryg,
     gender: 'Male',  # or you can use Faker::Gender.binary_type to randomize
     ethnicity: ethnicity,
     nationality: nationality,
     expected_graduation: Faker::Date.between(from: 2.years.from_now, to: 4.years.from_now),
+
     university_classification: classification,
     status: status,
     sexual_orientation: sexual_orientation,
@@ -76,4 +86,4 @@ end
 end
 # rubocop:enable Metrics/BlockLength
 
-puts "There are #{Student.count} students"
+Rails.logger.debug { "There are #{Student.count} students" }

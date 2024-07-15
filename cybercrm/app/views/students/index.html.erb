@@ -1,11 +1,23 @@
 <% if current_user.role == 'student_worker' || 'program_director' || 'super_user' %>
-  <div class="w-full">
-    <%= render 'layouts/navbar' %>
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+
+<div class="w-full px-5">
+  <%= render 'layouts/navbar' %>
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Students" %>
+
 
     <h1 class="font-bold text-4xl">Students</h1>
+
+    <div>
+      <%= link_to "Export CSV", export_csv_students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to 'Add attributes', custom_attributes_path, data: {turbo: false}, class: 'ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium' %>
+      <%= link_to "New student", new_student_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    </div>
+  </div>
+
 
     <%= form_with url: students_path, method: :get, local: true, class: "filter-form mt-4" do %>
       <div class="flex flex-wrap">
@@ -64,46 +76,65 @@
       </div>
     <% end %>
 
-    <div id="students" class="min-w-full mt-4 overflow-x-auto">
-      <table class="min-w-full border-collapse border border-gray-300">
-        <thead>
-          <tr>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "name", "Name" %>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "uin", "UIN" %>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "grade_ryg", "Grade_RYG" %>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "gender", "Gender" %>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "ethnicity", "Ethnicity" %>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "nationality", "Nationality" %>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "expected_graduation", "Expected Graduation" %>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "university_classification", "University Classification" %>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "status", "Status" %>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "sexual_orientation", "Sexual Orientation" %>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "date_of_birth", "Date of Birth" %>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable "email", "Email" %>
-            </th>
+
+  <div id="students" class="mt-4 overflow-x-auto">
+    <table class="min-w-full border-collapse border border-gray-300">
+      <thead>
+        <tr>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "name", "Name" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "uin", "UIN" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "grade_ryg", "Grade" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "gender", "Gender" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "ethnicity", "Ethnicity" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "nationality", "Nationality" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "expected_graduation", "Expected Graduation" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "university_classification", "University Classification" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "status", "Status" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "sexual_orientation", "Sexual Orientation" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "date_of_birth", "Date of Birth" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "email", "Email" %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @students.each do |student| %>
+          <tr data-href="<%= student_path(student) %>" class="cursor-pointer hover:bg-gray-100">
+            <td class="border border-gray-300 px-4 py-2"><%= student.name %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.uin %></td>
+            <td class="<%= grade_ryg_class(student.grade_ryg) %> border border-gray-300 px-4 py-2"><%= student.grade_ryg %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.gender %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.ethnicity %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.nationality %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.expected_graduation %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.university_classification %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.status %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.sexual_orientation %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.date_of_birth %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.email %></td>
+
           </tr>
         </thead>
         <tbody>
