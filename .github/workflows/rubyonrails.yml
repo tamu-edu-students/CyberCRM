@@ -49,7 +49,8 @@ jobs:
         run: |
           rails db:drop
           rails db:create
-          rails db:schema:load
+          rails db:migrate
+          rails db:seed
         working-directory: ./cybercrm 
       - name: Run cucumber
         run: bundle exec cucumber
