@@ -4,13 +4,13 @@ Feature: Download CSV of students
   So that I can analyze student data offline
 
   Scenario: Admin downloads CSV file
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students page
     When I click the "Export CSV" link
     Then I should receive a file ending in .csv
 
   Scenario: Successfully export students to a CSV file
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students page
     Given the following students exist:
       | name | uin        | grade_ryg | gender | ethnicity | nationality | expected_graduation | university_classification | status | sexual_orientation | date_of_birth | email                |
