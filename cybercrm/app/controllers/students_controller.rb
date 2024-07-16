@@ -7,11 +7,7 @@ class StudentsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def search
-    @students = if params[:student_search].present?
-                  Student.where('LOWER(name) LIKE LOWER(?)', "%#{params[:student_search]}%").limit(10)
-                else
-                  []
-                end
+    @students = search_students(params[:student_search])
 
     respond_to do |format|
       format.turbo_stream do
@@ -47,7 +43,10 @@ class StudentsController < ApplicationController
   end
 
   # GET /students/1 or /students/1.json
-  def show; end
+  def show
+    @student = Student.find(params[:id])
+    @custom_attributes = CustomAttribute.where(active: true)
+  end
 
   # GET /students/new
   def new
@@ -78,9 +77,6 @@ class StudentsController < ApplicationController
       if @student.update(student_params)
         format.html { redirect_to student_url(@student), notice: I18n.t('student_updated') }
         format.json { render :show, status: :ok, location: @student }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -103,14 +99,32 @@ class StudentsController < ApplicationController
 
   # POST /students/import
   def import
-    if params[:file].present?
-      process_csv_file(params[:file])
+    return if params[:file].blank?
+
+    process_csv_file(params[:file])
+  end
+
+  def update_custom_attribute
+    @student = Student.find(params[:id])
+    @custom_attribute = CustomAttribute.find(params[:attribute_id])
+    student_custom_attribute = @student.student_custom_attributes.find_or_initialize_by(custom_attribute:
+                                                                                        @custom_attribute)
+    student_custom_attribute.value = params[:value]
+
+    if student_custom_attribute.save
+      redirect_to @student, notice: I18n.t('attr_updated')
     else
-      redirect_to students_url
+      render :show
     end
   end
 
   private
+
+  def search_students(query)
+    return [] if query.blank?
+
+    Student.where('LOWER(name) LIKE LOWER(?)', "%#{query}%").limit(10)
+  end
 
   # rubocop:disable Metrics/MethodLength
   def process_csv_file(file)

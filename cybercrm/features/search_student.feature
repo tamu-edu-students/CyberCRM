@@ -7,12 +7,12 @@ Feature: Search for students
   Background:
   Given the following students exist:
     | name | uin        | grade_ryg | gender | ethnicity | nationality | expected_graduation | university_classification | status | sexual_orientation | date_of_birth | email                |
-    | test | 123456789  | G         | Male   | Asian     | American    | 2025-05-10          | Junior                    | Active | Heterosexual       | 2004-04-04    | test1@example.com    |
-    | test | 123456789  | G         | Male   | Asian     | American    | 2025-05-10          | Senior                    | Active | Heterosexual       | 2002-02-02    | test2@example.com    |
-    | John | 123456789  | G         | Male   | White     | American    | 2025-05-10          | Senior                    | Active | Homosexual         | 2003-03-03    | john@example.com     |
+    | test | 123456784  | G         | Male   | Asian     | American    | 2025-05-10          | Junior                    | Active | Heterosexual       | 2004-04-04    | test1@example.com    |
+    | test | 123456785  | G         | Male   | Asian     | American    | 2025-05-10          | Senior                    | Active | Heterosexual       | 2002-02-02    | test2@example.com    |
+    | John | 123456786  | G         | Male   | White     | American    | 2025-05-10          | Senior                    | Active | Homosexual         | 2003-03-03    | john@example.com     |
 
   Scenario: Search for student named "test"
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     When I go to the students page
     And I click on the search icon
     And I fill in the search field with "te"

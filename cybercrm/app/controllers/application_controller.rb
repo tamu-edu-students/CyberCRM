@@ -5,7 +5,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    return unless session[:user_id]
+
+    user = User.find_by(id: session[:user_id])
+    @current_user ||= user unless user&.name == 'preloaded'
   end
 
   protect_from_forgery with: :exception

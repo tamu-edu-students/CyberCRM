@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# Student
+# app/models/student.rb
 class Student < ApplicationRecord
-  has_many :student_programs
-  has_many :programs, through: :student_programs
 
-  # Constants
+  has_many :student_custom_attributes, dependent: :destroy
+  has_many :custom_attributes, through: :student_custom_attributes
+
   UNIVERSITY_CLASSIFICATIONS = %w[Freshman Sophomore Junior Senior Graduate].freeze
   NATIONALITY_OPTIONS = %w[American British Canadian Australian French German Japanese Chinese
                            Indian Other].freeze
@@ -15,9 +15,9 @@ class Student < ApplicationRecord
   SEXUAL_ORIENTATION_OPTIONS = %w[Heterosexual Homosexual].freeze
   STATUS_OPTIONS = %w[Active Inactive].freeze
 
-  # Validation
-  validates :name, presence: true, length: { maximum: 200 }
-  validates :uin, presence: true, numericality: { only_integer: true }, length: { is: 9 }
+
+  validates :name, presence: true, length: { minimum: 4, maximum: 200 }
+  validates :uin, presence: true, numericality: { only_integer: true }, length: { is: 9 }, uniqueness: true
   validates :grade_ryg, inclusion: { in: GRADE_OPTIONS }
   validates :gender, presence: true, inclusion: { in: GENDER_OPTIONS }
   validates :ethnicity, presence: true, inclusion: { in: ETHNICITY_OPTIONS }
@@ -38,7 +38,8 @@ class Student < ApplicationRecord
              end
            }
   validates :email, presence: true,
-                    format: { with: URI::MailTo::EMAIL_REGEXP }
+
+                    format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   # Filter
   scope :by_name, ->(name) { where('name ILIKE ?', "%#{name}%") if name.present? }
   scope :by_uin, ->(uin) { where(uin:) if uin.present? }
@@ -54,4 +55,14 @@ class Student < ApplicationRecord
   scope :by_sexual_orientation, ->(orientation) { where(sexual_orientation: orientation) if orientation.present? }
   scope :by_date_of_birth, ->(dob) { where(date_of_birth: dob) if dob.present? }
   scope :by_email, ->(email) { where('email ILIKE ?', "%#{email}%") if email.present? }
+                    
+
+  # Method to get the value of a custom attribute
+  def custom_attribute_value(attribute_name)
+    custom_attribute = CustomAttribute.find_by(name: attribute_name)
+    return nil unless custom_attribute
+
+    student_custom_attributes.find_by(custom_attribute:)&.value
+  end
+
 end

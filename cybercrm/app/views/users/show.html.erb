@@ -1,0 +1,33 @@
+<%= render 'layouts/navbar' %>
+<% if current_user.role == 'super_user' %>
+<div class="container mx-auto my-8">
+  <h1 class="text-2xl font-bold mb-4">User: <%= @user.name %></h1>
+
+  <p class="mb-4">
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </p>
+
+  <p class="mb-4">
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
+
+  <p class="mb-4">
+    <strong>Role:</strong>
+    <%= @user.role %>
+  </p>
+
+  <div class="mt-4">
+    <%= link_to 'Edit', edit_user_path(@user), data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Back', users_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+      <%= button_to 'Delete', user_path(@user), method: :delete, data: { turbo: false, confirm: 'Are you sure?' }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+  </div>
+</div>
+<% else %>
+  <div class="mx-auto md:w-2/3 w-full">
+    <h1 class="font-bold text-4xl">Permission denied.  Please return to the homepage.</h1>
+</div>
+<% end %>

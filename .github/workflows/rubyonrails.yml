@@ -46,15 +46,18 @@ jobs:
         run: yarn install
         working-directory: ./cybercrm 
       - name: Set up database schema
-        run: bin/rails db:test:prepare
-        working-directory: ./cybercrm 
-      - name: Run rspec
-        run: bundle exec rspec
+        run: |
+          rails db:drop
+          rails db:create
+          rails db:migrate
         working-directory: ./cybercrm 
       - name: Run cucumber
         run: bundle exec cucumber
         working-directory: ./cybercrm 
-
+      - name: Run rspec
+        run: bundle exec rspec
+        working-directory: ./cybercrm 
+        
   lint:
     runs-on: ubuntu-latest
     steps:
