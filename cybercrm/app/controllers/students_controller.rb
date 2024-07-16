@@ -34,12 +34,14 @@ class StudentsController < ApplicationController
     @students = @students.by_ethnicity(params[:ethnicity]) if params[:ethnicity].present?
     @students = @students.by_nationality(params[:nationality]) if params[:nationality].present?
     @students = @students.by_expected_graduation(params[:expected_graduation]) if params[:expected_graduation].present?
-    @students = @students.by_university_classification(params[:university_classification]) if params[:university_classification].present?
+    if params[:university_classification].present?
+      @students = @students.by_university_classification(params[:university_classification])
+    end
     @students = @students.by_status(params[:status]) if params[:status].present?
     @students = @students.by_sexual_orientation(params[:sexual_orientation]) if params[:sexual_orientation].present?
     @students = @students.by_date_of_birth(params[:date_of_birth]) if params[:date_of_birth].present?
     @students = @students.by_email(params[:email]) if params[:email].present?
-    
+
     # Sorting logic remains the same
     @students = @students.order("#{sort_column} #{sort_direction}") if sort_column && sort_direction
   end

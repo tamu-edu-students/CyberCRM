@@ -58,17 +58,17 @@ end
 
   student = Student.create!(
     name: name_full,
-    uin: uin,
-    grade_ryg: grade_ryg,
-    gender: 'Male',  # or you can use Faker::Gender.binary_type to randomize
-    ethnicity: ethnicity,
-    nationality: nationality,
+    uin:,
+    grade_ryg:,
+    gender: 'Male', # or you can use Faker::Gender.binary_type to randomize
+    ethnicity:,
+    nationality:,
     expected_graduation: Faker::Date.between(from: 2.years.from_now, to: 4.years.from_now),
     university_classification: classification,
-    status: status,
-    sexual_orientation: sexual_orientation,
+    status:,
+    sexual_orientation:,
     date_of_birth: Faker::Date.between(from: '1995-01-01', to: '2005-01-01'),
-    email: email
+    email:
   )
 
   # Assign programs to students
