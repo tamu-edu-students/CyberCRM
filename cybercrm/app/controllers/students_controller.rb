@@ -22,11 +22,7 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    @students = if sort_column && sort_direction
-                  Student.order("#{sort_column} #{sort_direction}")
-                else
-                  Student.all
-                end
+    @students = filtered_students
   end
 
   # GET /students/1 or /students/1.json
@@ -64,6 +60,9 @@ class StudentsController < ApplicationController
       if @student.update(student_params)
         format.html { redirect_to student_url(@student), notice: I18n.t('student_updated') }
         format.json { render :show, status: :ok, location: @student }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -94,8 +93,7 @@ class StudentsController < ApplicationController
   def update_custom_attribute
     @student = Student.find(params[:id])
     @custom_attribute = CustomAttribute.find(params[:attribute_id])
-    student_custom_attribute = @student.student_custom_attributes.find_or_initialize_by(custom_attribute:
-                                                                                        @custom_attribute)
+    student_custom_attribute = @student.student_custom_attributes.find_or_initialize_by(custom_attribute: @custom_attribute)
     student_custom_attribute.value = params[:value]
 
     if student_custom_attribute.save
@@ -107,13 +105,38 @@ class StudentsController < ApplicationController
 
   private
 
+  def filtered_students
+    students = Student.all
+    filter_params.each do |key, value|
+      if value.present?
+        if key == :expected_graduation || key == :date_of_birth
+          students = students.where("#{key} = ?", value)
+        else
+          students = students.where(key => value)
+        end
+      end
+    end
+    students
+  end
+  
+  def filter_params
+    params.permit(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality, :expected_graduation,
+                  :university_classification, :status, :sexual_orientation, :date_of_birth, :email)
+  end
+  
+
+  def sort_column_and_direction
+    sort_column + ' ' + sort_direction if sort_column && sort_direction
+  end
+
+
+
   def search_students(query)
     return [] if query.blank?
 
     Student.where('LOWER(name) LIKE LOWER(?)', "%#{query}%").limit(10)
   end
 
-  # rubocop:disable Metrics/MethodLength
   def process_csv_file(file)
     errors = []
 
@@ -130,7 +153,6 @@ class StudentsController < ApplicationController
       redirect_to students_url, notice: I18n.t('student_imported')
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def extract_student_attributes(row)
     row.to_hash.slice(
