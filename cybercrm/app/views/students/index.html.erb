@@ -31,14 +31,16 @@
   <div id="students" class="mt-4 overflow-x-auto">
     <table class="table min-w-full border-collapse border border-gray-300">
       <thead>
-        <tr>
-          <% form_fields.keys.each do |header| %>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable header.to_s, header.to_s.titleize %>
-            </th>
-          <% end %>
-        </tr>
-      </thead>
+      <tr>
+      <tr>
+        <% form_fields.keys.each do |header| %>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= link_to header.to_s.titleize, students_path(sort: header, direction: next_direction(params[:direction])) %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+    
       <tbody>
         <% @students.each do |student| %>
           <tr data-href="<%= student_path(student) %>" class="cursor-pointer hover:bg-gray-100">

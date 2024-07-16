@@ -2,6 +2,11 @@
 
 # Student Helper
 module StudentsHelper
+    def next_direction(current_direction)
+        current_direction == "asc" ? "desc" : "asc"
+    end
+
+    
     def form_fields
       {
         name: { type: :text },

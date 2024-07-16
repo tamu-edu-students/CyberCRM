@@ -107,17 +107,14 @@ class StudentsController < ApplicationController
 
   def filtered_students
     students = Student.all
-    filter_params.each do |key, value|
-      if value.present?
-        if key == :expected_graduation || key == :date_of_birth
-          students = students.where("#{key} = ?", value)
-        else
-          students = students.where(key => value)
-        end
+    params.slice(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality, :expected_graduation, :university_classification, :status, :sexual_orientation, :date_of_birth, :email).each do |key, value|
+      if value.present? && Student.column_names.include?(key)
+        students = students.where(key => value)
       end
     end
     students
   end
+
   
   def filter_params
     params.permit(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality, :expected_graduation,
