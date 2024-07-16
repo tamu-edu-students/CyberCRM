@@ -22,7 +22,8 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    @students = filtered_students
+    @students = load_students
+    load_filter_options
   end
 
   # GET /students/1 or /students/1.json
@@ -93,8 +94,8 @@ class StudentsController < ApplicationController
   def update_custom_attribute
     @student = Student.find(params[:id])
     @custom_attribute = CustomAttribute.find(params[:attribute_id])
-    student_custom_attribute = @student.student_custom_attributes
-                                       .find_or_initialize_by(custom_attribute: @custom_attribute)
+    student_custom_attribute = @student.student_custom_attributes.find_or_initialize_by(custom_attribute:
+                                                                                        @custom_attribute)
     student_custom_attribute.value = params[:value]
 
     if student_custom_attribute.save
@@ -106,27 +107,37 @@ class StudentsController < ApplicationController
 
   private
 
-  def filtered_students
-    Student.all.tap do |students|
-      filter_params.each do |key, value|
-        next if value.blank?
-
-        students.where!(key => value) unless date_related_key?(key)
-      end
-    end
+  def load_students
+    students = if sort_column && sort_direction
+                 Student.order("#{sort_column} #{sort_direction}")
+               else
+                 Student.all
+               end
+    apply_filters(students)
   end
 
-  def date_related_key?(key)
-    %i[expected_graduation date_of_birth].include?(key)
+  def load_filter_options
+    @genders = Student.distinct.pluck(:gender)
+    @ethnicities = Student.distinct.pluck(:ethnicity)
+    @nationalities = Student.distinct.pluck(:nationality)
+    @grades = Student.distinct.pluck(:grade_ryg)
+    @classifications = Student.distinct.pluck(:university_classification)
+    @statuses = Student.distinct.pluck(:status)
+    @orientations = Student.distinct.pluck(:sexual_orientation)
+  end
+
+  def apply_filters(students)
+    filter_params.each do |key, value|
+      next if value.blank?
+
+      students = students.where("#{key} LIKE ?", "%#{value}%")
+    end
+    students
   end
 
   def filter_params
     params.permit(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality, :expected_graduation,
                   :university_classification, :status, :sexual_orientation, :date_of_birth, :email)
-  end
-
-  def sort_column_and_direction
-    "#{sort_column} #{sort_direction}" if sort_column && sort_direction
   end
 
   def search_students(query)
@@ -135,29 +146,24 @@ class StudentsController < ApplicationController
     Student.where('LOWER(name) LIKE LOWER(?)', "%#{query}%").limit(10)
   end
 
+  # rubocop:disable Metrics/MethodLength
   def process_csv_file(file)
-    CSV.foreach(file.path, headers: true) do |row|
-      process_csv_row(row)
-    end
-    handle_csv_errors
-  end
+    errors = []
 
-  def handle_csv_errors
-    if @errors.any?
-      redirect_to students_url, alert: "Error saving students: #{@errors.join(', ')}"
+    CSV.foreach(file.path, headers: true) do |row|
+      student_attributes = extract_student_attributes(row)
+      student = Student.new(student_attributes)
+
+      errors << student.errors.full_messages.join(', ') unless student.save
+    end
+
+    if errors.any?
+      redirect_to students_url, alert: "Error saving students: #{errors.join(', ')}"
     else
       redirect_to students_url, notice: I18n.t('student_imported')
     end
   end
-
-  def process_csv_row(row)
-    student_attributes = extract_student_attributes(row)
-    student = Student.new(student_attributes)
-    return if student.save
-
-    @errors ||= []
-    @errors << student.errors.full_messages.join(', ')
-  end
+  # rubocop:enable Metrics/MethodLength
 
   def extract_student_attributes(row)
     row.to_hash.slice(

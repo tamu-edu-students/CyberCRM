@@ -6,6 +6,7 @@
   <% end %>
 
   <% content_for :title, "Students" %>
+
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Students</h1>
     <div>
@@ -17,34 +18,128 @@
   <!-- Filter Form -->
   <%= form_with url: students_path, method: :get, local: true, class: "mb-4 students-form" do |form| %>
     <div class="grid grid-cols-4 gap-4">
-      <% form_fields.each do |field, options| %>
-        <div class="field">
-          <%= render_field(form, field, options) %>
-        </div>
-      <% end %>
-      <div class="actions">
-        <%= form.submit 'Apply Filters', class: "submit-button" %>
+      <div class="field">
+        <%= form.label :name, 'Name' %>
+        <%= form.text_field :name, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="field">
+        <%= form.label :uin, 'UIN' %>
+        <%= form.text_field :uin, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="field">
+        <%= form.label :grade_ryg, 'Grade' %>
+        <%= form.select :grade_ryg, options_for_select(@grades), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="field">
+        <%= form.label :gender, 'Gender' %>
+        <%= form.select :gender, options_for_select(@genders), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="field">
+        <%= form.label :ethnicity, 'Ethnicity' %>
+        <%= form.select :ethnicity, options_for_select(@ethnicities), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="field">
+        <%= form.label :nationality, 'Nationality' %>
+        <%= form.select :nationality, options_for_select(@nationalities), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="field">
+        <%= form.label :expected_graduation, 'Expected Graduation' %>
+        <%= form.date_field :expected_graduation, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="field">
+        <%= form.label :university_classification, 'University Classification' %>
+        <%= form.select :university_classification, options_for_select(@classifications), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="field">
+        <%= form.label :status, 'Status' %>
+        <%= form.select :status, options_for_select(@statuses), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="field">
+        <%= form.label :sexual_orientation, 'Sexual Orientation' %>
+        <%= form.select :sexual_orientation, options_for_select(@orientations), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="field">
+        <%= form.label :date_of_birth, 'Date of Birth' %>
+        <%= form.date_field :date_of_birth, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="field">
+        <%= form.label :email, 'Email' %>
+        <%= form.text_field :email, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+      </div>
+      <div class="actions flex">
+        <%= form.submit 'Apply Filters', class: "submit-button mr-2" %>
+        <%= link_to 'Reset Filters', students_path, class: "submit-button" %>
       </div>
     </div>
   <% end %>
 
+  <!-- Import Form -->
+  <div class="mt-4">
+    <%= form_with url: import_students_path, local: true, method: :post, multipart: true do %>
+      <div class="flex items-center">
+        <%= file_field_tag :file, class: "rounded-lg border border-gray-300 px-3 py-2" %>
+        <%= submit_tag 'Import Students', data: { turbo: false }, class: "ml-2 rounded-lg py-2 px-5 bg-gray-100 inline-block font-medium hover:cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+
   <div id="students" class="mt-4 overflow-x-auto">
-    <table class="table min-w-full border-collapse border border-gray-300">
+    <table class="min-w-full border-collapse border border-gray-300">
       <thead>
         <tr>
-          <% form_fields.keys.each do |header| %>
-            <th class="border border-gray-300 px-4 py-2">
-              <%= sortable header.to_s, header.to_s.titleize %>
-            </th>
-          <% end %>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "name", "Name" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "uin", "UIN" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "grade_ryg", "Grade" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "gender", "Gender" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "ethnicity", "Ethnicity" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "nationality", "Nationality" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "expected_graduation", "Expected Graduation" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "university_classification", "University Classification" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "status", "Status" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "sexual_orientation", "Sexual Orientation" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "date_of_birth", "Date of Birth" %>
+          </th>
+          <th class="border border-gray-300 px-4 py-2">
+            <%= sortable "email", "Email" %>
+          </th>
         </tr>
       </thead>
       <tbody>
         <% @students.each do |student| %>
           <tr data-href="<%= student_path(student) %>" class="cursor-pointer hover:bg-gray-100">
-            <% form_fields.keys.each do |attribute| %>
-              <td class="border border-gray-300 px-4 py-2"><%= student.send(attribute) %></td>
-            <% end %>
+            <td class="border border-gray-300 px-4 py-2"><%= student.name %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.uin %></td>
+            <td class="<%= grade_ryg_class(student.grade_ryg) %> border border-gray-300 px-4 py-2"><%= student.grade_ryg %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.gender %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.ethnicity %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.nationality %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.expected_graduation %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.university_classification %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.status %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.sexual_orientation %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.date_of_birth %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= student.email %></td>
           </tr>
         <% end %>
       </tbody>
