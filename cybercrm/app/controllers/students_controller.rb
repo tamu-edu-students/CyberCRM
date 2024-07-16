@@ -107,17 +107,17 @@ class StudentsController < ApplicationController
   private
 
   def filtered_students
-    students = Student.all
-    filter_params.each do |key, value|
-      next if value.blank?
+    Student.all.tap do |students|
+      filter_params.each do |key, value|
+        next if value.blank?
 
-      students = if %i[expected_graduation date_of_birth].include?(key)
-                   students.where("#{key} = ?", value)
-                 else
-                   students.where(key => value)
-                 end
+        students.where!(key => value) unless date_related_key?(key)
+      end
     end
-    students
+  end
+
+  def date_related_key?(key)
+    %i[expected_graduation date_of_birth].include?(key)
   end
 
   def filter_params
@@ -136,20 +136,27 @@ class StudentsController < ApplicationController
   end
 
   def process_csv_file(file)
-    errors = []
-
     CSV.foreach(file.path, headers: true) do |row|
-      student_attributes = extract_student_attributes(row)
-      student = Student.new(student_attributes)
-
-      errors << student.errors.full_messages.join(', ') unless student.save
+      process_csv_row(row)
     end
+    handle_csv_errors
+  end
 
-    if errors.any?
-      redirect_to students_url, alert: "Error saving students: #{errors.join(', ')}"
+  def handle_csv_errors
+    if @errors.any?
+      redirect_to students_url, alert: "Error saving students: #{@errors.join(', ')}"
     else
       redirect_to students_url, notice: I18n.t('student_imported')
     end
+  end
+
+  def process_csv_row(row)
+    student_attributes = extract_student_attributes(row)
+    student = Student.new(student_attributes)
+    return if student.save
+
+    @errors ||= []
+    @errors << student.errors.full_messages.join(', ')
   end
 
   def extract_student_attributes(row)
