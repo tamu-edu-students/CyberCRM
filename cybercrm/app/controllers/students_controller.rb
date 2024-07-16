@@ -93,7 +93,8 @@ class StudentsController < ApplicationController
   def update_custom_attribute
     @student = Student.find(params[:id])
     @custom_attribute = CustomAttribute.find(params[:attribute_id])
-    student_custom_attribute = @student.student_custom_attributes.find_or_initialize_by(custom_attribute: @custom_attribute)
+    student_custom_attribute = @student.student_custom_attributes
+                                       .find_or_initialize_by(custom_attribute: @custom_attribute)
     student_custom_attribute.value = params[:value]
 
     if student_custom_attribute.save
