@@ -107,26 +107,26 @@ class StudentsController < ApplicationController
 
   def filtered_students
     students = Student.all
-    params.slice(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality, :expected_graduation, :university_classification, :status, :sexual_orientation, :date_of_birth, :email).each do |key, value|
-      if value.present? && Student.column_names.include?(key)
-        students = students.where(key => value)
-      end
+    filter_params.each do |key, value|
+      next if value.blank?
+
+      students = if %i[expected_graduation date_of_birth].include?(key)
+                   students.where("#{key} = ?", value)
+                 else
+                   students.where(key => value)
+                 end
     end
     students
   end
 
-  
   def filter_params
     params.permit(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality, :expected_graduation,
                   :university_classification, :status, :sexual_orientation, :date_of_birth, :email)
   end
-  
 
   def sort_column_and_direction
-    sort_column + ' ' + sort_direction if sort_column && sort_direction
+    "#{sort_column} #{sort_direction}" if sort_column && sort_direction
   end
-
-
 
   def search_students(query)
     return [] if query.blank?
