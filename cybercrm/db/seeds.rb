@@ -69,6 +69,18 @@ ethnicities = ['Asian', 'Black', 'Hispanic/Latino', 'Native American', 'White', 
     email:
   )
 end
+students = Student.all
+students.each do |student|
+  Rails.logger.debug student.name
+  student.notes.build(note: "#{student.name} has finals", note_created_date: Date.new(2024, 5, 14),
+                      followup_action: "Check up on #{student.name} to see if they are prepared",
+                      followup_date: Date.new(2024, 5, 21), action_completed: true, status: 'Active')
+  student.notes.build(note: "Check that #{student.name} is well after finals",
+                      note_created_date: Date.new(2024, 6, 4),
+                      followup_action: "Send #{student.name} an email at #{student.email}",
+                      followup_date: Date.new(2024, 6, 7), action_completed: false, status: 'Active')
+  student.save!
+end
 # rubocop:enable Metrics/BlockLength
 
 Rails.logger.debug { "There are #{Student.count} students" }

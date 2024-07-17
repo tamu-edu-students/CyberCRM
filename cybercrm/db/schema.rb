@@ -11,8 +11,9 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
+# rubocop:disable Metrics/BlockLength
 
-ActiveRecord::Schema[7.1].define(version: 20_240_714_075_108) do
+ActiveRecord::Schema[7.1].define(version: 20_240_714_002_805) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -65,7 +66,25 @@ ActiveRecord::Schema[7.1].define(version: 20_240_714_075_108) do
     t.string 'role'
     t.index ['email'], name: 'index_users_on_email', unique: true
   end
+  
+  create_table 'notes', force: :cascade do |t|
+    t.bigint 'student_id', null: false
+    t.string 'note'
+    t.date 'note_created_date'
+    t.string 'followup_action'
+    t.date 'followup_date'
+    t.boolean 'action_completed'
+    t.boolean 'is_private'
+    t.string 'private_note_user'
+    t.string 'status'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['student_id'], name: 'index_notes_on_student_id'
+  end
 
+  add_foreign_key 'notes', 'students'
   add_foreign_key 'student_custom_attributes', 'custom_attributes'
   add_foreign_key 'student_custom_attributes', 'students'
+
 end
+# rubocop:enable Metrics/BlockLength
