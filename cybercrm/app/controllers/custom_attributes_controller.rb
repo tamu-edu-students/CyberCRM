@@ -10,15 +10,15 @@ class CustomAttributesController < ApplicationController
     @custom_attribute = CustomAttribute.new
   end
 
+  def edit
+    @custom_attribute = CustomAttribute.find(params[:id])
+  end
+
   def create
     @custom_attribute = CustomAttribute.new(custom_attribute_params)
     return unless @custom_attribute.save
 
     redirect_to custom_attributes_path, notice: I18n.t('attr_created')
-  end
-
-  def edit
-    @custom_attribute = CustomAttribute.find(params[:id])
   end
 
   def update

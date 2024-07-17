@@ -18,6 +18,7 @@ class CreateStudents < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+    add_index :students, :uin, unique: true
   end
   # rubocop:enable Metrics/MethodLength
 end

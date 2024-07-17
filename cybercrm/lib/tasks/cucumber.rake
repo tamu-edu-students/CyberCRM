@@ -53,12 +53,9 @@ unless ARGV.any? { |a| a =~ /^gems/ } # Don't load anything when running the gem
       warn "*** The 'features' task is deprecated. See rake -T cucumber ***"
     end
 
-    # rubocop:disable Lint/EmptyBlock
     # In case we don't have the generic Rails test:prepare hook, append a no-op task that we can depend upon.
     task 'test:prepare' => :environment do
     end
-    # rubocop:enable Lint/EmptyBlock
-
     task stats: 'cucumber:statsetup'
   rescue LoadError
     desc 'cucumber rake task not available (cucumber not installed)'

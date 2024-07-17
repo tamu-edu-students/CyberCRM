@@ -4,7 +4,7 @@ Feature: Import students from CSV
   So that I can quickly add multiple students
 
   Scenario: Successfully import students from a CSV file
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students page
     Given the following students exist:
       | name | uin        | grade_ryg | gender | ethnicity | nationality | expected_graduation | university_classification | status | sexual_orientation | date_of_birth | email                |

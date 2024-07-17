@@ -3,8 +3,6 @@
 require 'rails_helper'
 require 'csv'
 
-# rubocop:disable RSpec/MultipleExpectations
-# rubocop:disable FactoryBot/ExcessiveCreateList
 RSpec.describe StudentsController do
   describe 'GET #search' do
     let(:johndoe) { create(:student, name: 'John Doe') }
@@ -134,5 +132,3 @@ RSpec.describe StudentsController do
     end
   end
 end
-# rubocop:enable RSpec/MultipleExpectations
-# rubocop:enable FactoryBot/ExcessiveCreateList

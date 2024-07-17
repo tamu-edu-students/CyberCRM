@@ -4,7 +4,7 @@ Feature: Column sorting
   So that I can view the data in the desired order
 
   Scenario: Sorting by name
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students index page
     When I click the "Name" column header
     Then I should see students sorted by "Name" in ascending order
@@ -16,7 +16,7 @@ Feature: Column sorting
     Then I should see students sorted by "Name" in the default order
 
   Scenario: Sorting by UIN
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students index page
     When I click the "UIN" column header
     Then I should see students sorted by "UIN" in ascending order
@@ -28,19 +28,19 @@ Feature: Column sorting
     Then I should see students sorted by "UIN" in the default order
 
   Scenario: Sorting by Grade_ryg
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students index page
-    When I click the "Grade_RYG" column header
-    Then I should see students sorted by "Grade_RYG" in ascending order
+    When I click the "Grade" column header
+    Then I should see students sorted by "Grade" in ascending order
 
-    When I click the "Grade_RYG" column header
-    Then I should see students sorted by "Grade_RYG" in descending order
+    When I click the "Grade" column header
+    Then I should see students sorted by "Grade" in descending order
 
-    When I click the "Grade_RYG" column header
-    Then I should see students sorted by "Grade_RYG" in the default order
+    When I click the "Grade" column header
+    Then I should see students sorted by "Grade" in the default order
 
   Scenario: Sorting by Gender
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students index page
     When I click the "Gender" column header
     Then I should see students sorted by "Gender" in ascending order
@@ -52,7 +52,7 @@ Feature: Column sorting
     Then I should see students sorted by "Gender" in the default order
 
   Scenario: Sorting by Ethnicity
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students index page
     When I click the "Ethnicity" column header
     Then I should see students sorted by "Ethnicity" in ascending order
@@ -64,7 +64,7 @@ Feature: Column sorting
     Then I should see students sorted by "Ethnicity" in the default order
 
   Scenario: Sorting by Nationality
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students index page
     When I click the "Nationality" column header
     Then I should see students sorted by "Nationality" in ascending order
@@ -76,7 +76,7 @@ Feature: Column sorting
     Then I should see students sorted by "Nationality" in the default order
 
   Scenario: Sorting by Expected Graduation
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students index page
     When I click the "Expected Graduation" column header
     Then I should see students sorted by "Expected Graduation" in ascending order
@@ -88,7 +88,7 @@ Feature: Column sorting
     Then I should see students sorted by "Expected Graduation" in the default order
 
   Scenario: Sorting by University Classification
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students index page
     When I click the "University Classification" column header
     Then I should see students sorted by "University Classification" in ascending order
@@ -100,7 +100,7 @@ Feature: Column sorting
     Then I should see students sorted by "University Classification" in the default order
 
   Scenario: Sorting by Status
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students index page
     When I click the "Status" column header
     Then I should see students sorted by "Status" in ascending order
@@ -112,7 +112,7 @@ Feature: Column sorting
     Then I should see students sorted by "Status" in the default order
 
   Scenario: Sorting by Sexual Orientation
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students index page
     When I click the "Sexual Orientation" column header
     Then I should see students sorted by "Sexual Orientation" in ascending order
@@ -124,7 +124,7 @@ Feature: Column sorting
     Then I should see students sorted by "Sexual Orientation" in the default order
 
   Scenario: Sorting by Date of Birth
-    Given I am logged in with Google
+    Given I am logged in with Google as Program Manager
     Given I am on the students index page
     When I click the "Date of Birth" column header
     Then I should see students sorted by "Date of Birth" in ascending order

@@ -74,6 +74,14 @@ AllCops:
     - 'tmp/**/*'
     - 'vendor/**/*'
     - '.git/**/*'
+    - 'db/schema.rb'
+    - 'bin/*'
+    - 'bin/bundle'
+    - 'config/initializers/*'
+    - 'db/migrate/*'
+    - 'spec/**/*'
+    - 'lib/tasks/cucumber.rake'
+    
   # Default formatter will be used if no `-f/--format` option is given.
   DefaultFormatter: progress
   # Cop names are displayed in offense messages by default. Change behavior
@@ -150,7 +158,7 @@ AllCops:
   # or gems.rb file, RuboCop reads the final value from the lock file.) If the
   # Ruby version is still unresolved, RuboCop will use the oldest officially
   # supported Ruby version (currently Ruby 2.7).
-  TargetRubyVersion: ~
+  TargetRubyVersion: 3.3.2
   # You can specify the parser engine. There are two options available:
   # - `parser_whitequark` ... https://github.com/whitequark/parser
   # - `parser_prism` ... https://github.com/ruby/prism (`Prism::Translation::Parser`)
