@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,61 +14,59 @@
 # rubocop:disable Metrics/BlockLength
 
 ActiveRecord::Schema[7.1].define(version: 20_240_714_002_805) do
-
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "custom_attributes", force: :cascade do |t|
-    t.string "name"
-    t.boolean "active"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_custom_attributes_on_name", unique: true
+  create_table 'custom_attributes', force: :cascade do |t|
+    t.string 'name'
+    t.boolean 'active'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['name'], name: 'index_custom_attributes_on_name', unique: true
   end
 
-  create_table "student_custom_attributes", force: :cascade do |t|
-    t.bigint "student_id", null: false
-    t.bigint "custom_attribute_id", null: false
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["custom_attribute_id"], name: "index_student_custom_attributes_on_custom_attribute_id"
-    t.index ["student_id"], name: "index_student_custom_attributes_on_student_id"
+  create_table 'student_custom_attributes', force: :cascade do |t|
+    t.bigint 'student_id', null: false
+    t.bigint 'custom_attribute_id', null: false
+    t.string 'value'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['custom_attribute_id'], name: 'index_student_custom_attributes_on_custom_attribute_id'
+    t.index ['student_id'], name: 'index_student_custom_attributes_on_student_id'
   end
 
-  create_table "students", force: :cascade do |t|
-    t.string "name"
-    t.string "uin"
-    t.decimal "gpa"
-    t.string "gender"
-    t.string "ethnicity"
-    t.string "nationality"
-    t.date "expected_graduation"
-    t.string "university_classification"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "status"
-    t.string "sexual_orientation"
-    t.date "date_of_birth"
-    t.string "grade_ryg"
-    t.string "email"
-    t.index ["email"], name: "index_students_on_email", unique: true
-    t.index ["uin"], name: "index_students_on_uin", unique: true
+  create_table 'students', force: :cascade do |t|
+    t.string 'name'
+    t.string 'uin'
+    t.decimal 'gpa'
+    t.string 'gender'
+    t.string 'ethnicity'
+    t.string 'nationality'
+    t.date 'expected_graduation'
+    t.string 'university_classification'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string 'status'
+    t.string 'sexual_orientation'
+    t.date 'date_of_birth'
+    t.string 'grade_ryg'
+    t.string 'email'
+    t.index ['email'], name: 'index_students_on_email', unique: true
+    t.index ['uin'], name: 'index_students_on_uin', unique: true
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "provider"
-    t.string "uid"
-    t.string "name"
-    t.string "email"
-    t.string "image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "role"
-    t.index ["email"], name: "index_users_on_email", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.string 'provider'
+    t.string 'uid'
+    t.string 'name'
+    t.string 'email'
+    t.string 'image'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string 'role'
+    t.index ['email'], name: 'index_users_on_email', unique: true
   end
-
-
+  
   create_table 'notes', force: :cascade do |t|
     t.bigint 'student_id', null: false
     t.string 'note'

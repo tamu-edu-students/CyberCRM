@@ -22,11 +22,8 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    @students = if sort_column && sort_direction
-                  Student.order("#{sort_column} #{sort_direction}")
-                else
-                  Student.all
-                end
+    @students = load_students
+    load_filter_options
   end
 
   # GET /students/1 or /students/1.json
@@ -64,6 +61,9 @@ class StudentsController < ApplicationController
       if @student.update(student_params)
         format.html { redirect_to student_url(@student), notice: I18n.t('student_updated') }
         format.json { render :show, status: :ok, location: @student }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -106,6 +106,39 @@ class StudentsController < ApplicationController
   end
 
   private
+
+  def load_students
+    students = if sort_column && sort_direction
+                 Student.order("#{sort_column} #{sort_direction}")
+               else
+                 Student.all
+               end
+    apply_filters(students)
+  end
+
+  def load_filter_options
+    @genders = Student.distinct.pluck(:gender)
+    @ethnicities = Student.distinct.pluck(:ethnicity)
+    @nationalities = Student.distinct.pluck(:nationality)
+    @grades = Student.distinct.pluck(:grade_ryg)
+    @classifications = Student.distinct.pluck(:university_classification)
+    @statuses = Student.distinct.pluck(:status)
+    @orientations = Student.distinct.pluck(:sexual_orientation)
+  end
+
+  def apply_filters(students)
+    filter_params.each do |key, value|
+      next if value.blank?
+
+      students = students.where("#{key} LIKE ?", "%#{value}%")
+    end
+    students
+  end
+
+  def filter_params
+    params.permit(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality, :expected_graduation,
+                  :university_classification, :status, :sexual_orientation, :date_of_birth, :email)
+  end
 
   def search_students(query)
     return [] if query.blank?

@@ -61,3 +61,70 @@ input[type="search"] {
     content: "↓";
 }
   
+
+.students-form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px; 
+    margin-bottom: 20px; 
+  }
+  
+  .field {
+    display: flex;
+    flex-direction: column;
+    padding: 8px; 
+  }
+  
+  .field label {
+    margin-bottom: 5px; 
+    font-weight: bold;
+  }
+  
+  .field input,
+  .field select {
+    width: 100%; 
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; 
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid #ddd;
+    padding: 12px; 
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f8f9fa;
+  }
+  
+  .table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .actions {
+    grid-column: 1 / -1; 
+    display: flex;
+    justify-content: center; 
+  }
+  
+  .submit-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
