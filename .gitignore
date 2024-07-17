@@ -44,4 +44,4 @@
 /cybercrm/coverage/
 /cybercrm/coverage/*
 
-/cybercrm/assets/builds/tailwind.css
+/cybercrm/app/assets/builds/tailwind.css
