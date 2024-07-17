@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controls notes. params[:id] is the id of the student
 class NotesController < ApplicationController
   # before_action :set_note, only: %i[show edit update destroy]
 
@@ -11,9 +12,9 @@ class NotesController < ApplicationController
   # GET /notes/1 or /notes/1.json
   def show
     @student = Student.find(params[:id])
-    puts @student.name
+    Rails.logger.debug @student.name
     @notes = @student.notes
-    puts @notes
+    Rails.logger.debug @notes
   end
 
   # GET /notes/new

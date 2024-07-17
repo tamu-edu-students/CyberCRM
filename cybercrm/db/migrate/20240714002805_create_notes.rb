@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/MethodLength
+# Create note table
 class CreateNotes < ActiveRecord::Migration[7.1]
   def change
     create_table :notes do |t|
-      t.references :student, null: false, foreign_key: true
+      t.references :student,
+                   null: false,
+                   foreign_key: true
       t.string :note
       t.date :note_created_date
       t.string :followup_action
@@ -17,3 +21,4 @@ class CreateNotes < ActiveRecord::Migration[7.1]
     end
   end
 end
+# rubocop:enable Metrics/MethodLength
