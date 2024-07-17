@@ -17,7 +17,7 @@
 
   <!-- Filter Form -->
   <%= form_with url: students_path, method: :get, local: true, class: "mb-4 students-form" do |form| %>
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid grid-cols-4 gap-4", id = "FilterForm">
       <div class="field">
         <%= form.label :name, 'Name' %>
         <%= form.text_field :name, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
