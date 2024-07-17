@@ -26,17 +26,30 @@
           </div>
         <% end %>
       </div>
-      <% if (current_user.role == 'program_director') %>
-        <%= link_to "Edit this student", edit_student_path(@student), data: { turbo: false }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-        <%= link_to "Back to students", students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-        <div class="inline-block ml-2">
-          <%= button_to "Delete this student", @student, data: { turbo: false }, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-        </div>
-      <%end%>
+
+  <% if (current_user.role == 'program_director') %>
+      <%= link_to "Edit this student", edit_student_path(@student), data: { turbo: false }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to "Back to students", students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <div class="inline-block ml-2">
+        <%= button_to "Delete this student", @student, data: { turbo: false }, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      </div>
+      <div id="student-id" style="display:none"> 
+            <%= @student.id %>
+      </div>
+      <a id="notes-show"><div id="notes_button" class= "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" >Notes</div></a>
+    <%end%>
+
     </div>
   </div>
 
   <script>
+    /* START NOTES HYPERLINK */
+    var notes_show_hyperlink = "/notes/";
+    var student_id = document.getElementById("student-id").innerHTML.trim();
+    notes_show_hyperlink = notes_show_hyperlink + student_id;
+    var notes_show_button = document.getElementById("notes-show");
+    notes_show_button.setAttribute('href', notes_show_hyperlink);
+    /* END NOTES HYPERLINK */
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.custom-attribute').forEach(function(element) {
         element.addEventListener('click', function() {
