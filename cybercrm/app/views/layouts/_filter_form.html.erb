@@ -22,7 +22,7 @@
       </div>
       <div class="field">
         <%= form.label :gender, 'Gender' %>
-        <%= form.select :gender, options_for_select(@genders, params[:gender]), { include_blank: 'Select Gender' }, class: 'block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full' %>
+        <%= form.select :gender, options_for_select(['Male', 'Female']), { include_blank: 'Select Gender' }, class: 'block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full' %>
       </div>
       <div class="field">
         <%= form.label :ethnicity, 'Ethnicity' %>
@@ -39,10 +39,6 @@
       <div class="field">
         <%= form.label :university_classification, 'University Classification' %>
         <%= form.select :university_classification, options_for_select(@classifications, params[:university_classification]), { include_blank: 'Select Classification' }, class: 'block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full' %>
-      </div>
-      <div class="field">
-        <%= form.label :status, 'Status' %>
-        <%= form.select :status, options_for_select(@statuses, params[:status]), { include_blank: 'Select Status' }, class: 'block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full' %>
       </div>
       <div class="field">
         <%= form.label :sexual_orientation, 'Sexual Orientation' %>
