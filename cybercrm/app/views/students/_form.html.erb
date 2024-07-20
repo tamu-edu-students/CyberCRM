@@ -82,32 +82,32 @@
 <% end %>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const gradeSelect = document.getElementById("student_grade_ryg");
+  document.addEventListener("DOMContentLoaded", function() {
+    const gradeSelect = document.getElementById("student_grade_ryg");
 
-  function updateGradeColor() {
-    const selectedOption = gradeSelect.options[gradeSelect.selectedIndex].value;
-    gradeSelect.classList.remove("bg-green-500", "bg-red-500", "bg-yellow-500", "text-white", "text-black");
+    function updateGradeColor() {
+      const selectedOption = gradeSelect.options[gradeSelect.selectedIndex].value;
+      gradeSelect.classList.remove("bg-green-500", "bg-red-500", "bg-yellow-500", "text-white", "text-black");
 
-    switch (selectedOption) {
-      case "G":
-        gradeSelect.classList.add("bg-green-500", "text-white");
-        break;
-      case "R":
-        gradeSelect.classList.add("bg-red-500", "text-white");
-        break;
-      case "Y":
-        gradeSelect.classList.add("bg-yellow-500", "text-black");
-        break;
-      default:
-        break;
+      switch (selectedOption) {
+        case "G":
+          gradeSelect.classList.add("bg-green-500", "text-white");
+          break;
+        case "R":
+          gradeSelect.classList.add("bg-red-500", "text-white");
+          break;
+        case "Y":
+          gradeSelect.classList.add("bg-yellow-500", "text-black");
+          break;
+        default:
+          break;
+      }
     }
-  }
 
-  updateGradeColor();
+    updateGradeColor();
 
-  gradeSelect.addEventListener("change", updateGradeColor);
-});
+    gradeSelect.addEventListener("change", updateGradeColor);
+  });
 </script>
 <% else %>
   <div class="mx-auto md:w-2/3 w-full">
