@@ -56,3 +56,58 @@ Feature: Filtering students
     And I should not see "Rogelio Ortiz"
     And I should not see "Elwood King"
     And I should not see "Diego Emmerich"
+
+  Scenario: Filter by name
+    Given I am logged in with Google as Program Manager
+    Given I am on the students index page
+    When I input "Name" with "Dominique O'Connell"
+    And I press "Apply Filters"
+    Then I should see "Dominique O'Connell"
+    And I should not see "Felipe Spencer"
+    And I should not see "Rogelio Ortiz"
+    And I should not see "Elwood King"
+    And I should not see "Diego Emmerich"
+
+  Scenario: Filter by UIN
+    Given I am logged in with Google as Program Manager
+    Given I am on the students index page
+    When I input "Uin" with "765656210"
+    And I press "Apply Filters"
+    Then I should see "Dominique O'Connell"
+    And I should not see "Felipe Spencer"
+    And I should not see "Rogelio Ortiz"
+    And I should not see "Elwood King"
+    And I should not see "Diego Emmerich"
+
+  Scenario: Filter by grade
+    Given I am logged in with Google as Program Manager
+    Given I am on the students index page
+    When I select "G" from "grade_ryg"
+    And I press "Apply Filters"
+    Then I should see "Dominique O'Connell"
+    And I should see "Felipe Spencer"
+    And I should not see "Rogelio Ortiz"
+    And I should see "Elwood King"
+    And I should not see "Diego Emmerich"
+
+  Scenario: Filter by gender
+    Given I am logged in with Google as Program Manager
+    Given I am on the students index page
+    When I select "Male" from "Gender"
+    And I press "Apply Filters"
+    Then I should see "Dominique O'Connell"
+    And I should see "Felipe Spencer"
+    And I should see "Rogelio Ortiz"
+    And I should see "Elwood King"
+    And I should see "Diego Emmerich"
+
+  Scenario: Filter by ethnicity
+    Given I am logged in with Google as Program Manager
+    Given I am on the students index page
+    When I select "Black" from "Ethnicity"
+    And I press "Apply Filters"
+    Then I should see "Dominique O'Connell"
+    And I should not see "Felipe Spencer"
+    And I should not see "Rogelio Ortiz"
+    And I should not see "Elwood King"
+    And I should not see "Diego Emmerich"
