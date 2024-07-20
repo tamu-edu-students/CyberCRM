@@ -3,7 +3,7 @@
 <%= form_with url: import_students_path, local: true, method: :post, multipart: true do %>
   <div class="flex items-center space-x-2">
     <%= file_field_tag :file, class: "rounded-lg border border-gray-300 px-3 py-2" %>
-    <%= submit_tag 'Import Students', data: { turbo: false }, class: "rounded-lg py-2 px-5 bg-gray-100 font-medium hover:cursor-pointer" %>
+    <%= submit_tag 'Import Students', data: { turbo: false }, class: "rounded-lg py-2 px-5 bg-gray-100 font-medium hover:cursor-pointer hover:bg-gray-200" %>
   </div>
 <% end %>
 </div>
