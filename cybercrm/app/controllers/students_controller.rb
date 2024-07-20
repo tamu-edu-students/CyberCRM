@@ -22,7 +22,13 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    @students = load_students
+    @students = load_students.where(status: 'Active')
+    load_filter_options
+  end
+
+  # GET /students/inactive
+  def inactive
+    @students = load_students.where(status: 'Inactive')
     load_filter_options
   end
 
