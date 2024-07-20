@@ -13,24 +13,39 @@
     <br>
     <% if current_user.role == 'student_worker' %>
       <section>
-        <h2 class="text-2xl mb-4">Student Worker Access</h2>
-        <p>Content for student workers.</p>
+        <h2 class="text-2xl mb-4">Welcome, <span class="mr-2"><%= current_user.name %></span></h2>
+        <p>
+          As an <b>employee</b> you start with basic access with being able to create students and nothing more. <br>
+          If a given program director wants to give more access that is possible. <br>
+          However it will need to be assigned to you. <br>
+        </p>
       </section>
     <% end %>
 
     <br>
     <% if current_user.role == 'program_director' %>
       <section>
-        <h2 class="text-2xl mb-4">Program Director Access</h2>
-        <p>Content for program directors.</p>
+        <h2 class="text-2xl mb-4">Welcome, <span class="mr-2"><%= current_user.name %></span></h2>
+        <p>
+          As a <b>program director</b> you will have access to all students within your program. <br>
+          You will be able to create, update, and deactivate any students pertaining to your given program. <br>
+          If you would like to add notes that other program directors can see you can add a public note. <br>
+          Otherwise you may add a private note only to where only you can access these notes.
+        </p>
       </section>
     <% end %>
 
     <br>
     <% if current_user.role == 'super_user' %>
       <section>
-        <h2 class="text-2xl mb-4">Super User Access</h2>
-        <p>Content for super users.</p>
+      <h2 class="text-2xl mb-4">Welcome, <span class="mr-2"><%= current_user.name %></span></h2>
+      <p>
+        As a <b>super user</b> you will have access to all users on the website. <br>
+        You will note be able to view students. However you can add, delete, or update users on the site. <br>
+        Additionally, you can change the roles for any given user <br>
+        If you change your own role out of super user access you will not be able to go back unless another super
+        user gives you access to do so.
+      </p>
       </section>
     <% end %>
 
