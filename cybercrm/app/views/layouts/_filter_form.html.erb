@@ -1,0 +1,67 @@
+<!-- app/views/layouts/_filter_form.html.erb -->
+<div class="mb-4">
+  <button id="filter-toggle" class="w-full bg-gray-200 py-2 px-4 rounded-lg text-left font-medium flex items-center justify-between hover:bg-gray-300 focus:outline-none">
+    <span>Filter Form</span>
+    <svg id="filter-icon" class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+  <div id="filter-form" class="mt-4 max-h-0 overflow-hidden transition-max-height duration-500 ease-in-out">
+    <%= form_with url: students_path, method: :get, local: true, class: "students-form" do |form| %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="field">
+          <%= form.label :name, 'Name' %>
+          <%= form.text_field :name, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="field">
+          <%= form.label :uin, 'UIN' %>
+          <%= form.text_field :uin, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="field">
+          <%= form.label :grade_ryg, 'Grade' %>
+          <%= form.select :grade_ryg, options_for_select(@grades), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="field">
+          <%= form.label :gender, 'Gender' %>
+          <%= form.select :gender, options_for_select(@genders), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="field">
+          <%= form.label :ethnicity, 'Ethnicity' %>
+          <%= form.select :ethnicity, options_for_select(@ethnicities), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="field">
+          <%= form.label :nationality, 'Nationality' %>
+          <%= form.select :nationality, options_for_select(@nationalities), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="field">
+          <%= form.label :expected_graduation, 'Expected Graduation' %>
+          <%= form.date_field :expected_graduation, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="field">
+          <%= form.label :university_classification, 'University Classification' %>
+          <%= form.select :university_classification, options_for_select(@classifications), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="field">
+          <%= form.label :status, 'Status' %>
+          <%= form.select :status, options_for_select(@statuses), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="field">
+          <%= form.label :sexual_orientation, 'Sexual Orientation' %>
+          <%= form.select :sexual_orientation, options_for_select(@orientations), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="field">
+          <%= form.label :date_of_birth, 'Date of Birth' %>
+          <%= form.date_field :date_of_birth, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="field">
+          <%= form.label :email, 'Email' %>
+          <%= form.text_field :email, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
+        </div>
+        <div class="actions flex mt-4 space-x-2">
+          <%= form.submit 'Apply Filters', class: "rounded-lg py-2 px-5 bg-gray-100 font-medium" %>
+          <%= link_to 'Reset Filters', students_path, class: "rounded-lg py-2 px-5 bg-gray-100 font-medium" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

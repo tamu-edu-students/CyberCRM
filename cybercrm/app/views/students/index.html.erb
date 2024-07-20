@@ -7,82 +7,18 @@
 
   <% content_for :title, "Students" %>
 
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center mb-6">
     <h1 class="font-bold text-4xl">Students</h1>
-    <div>
-      <%= link_to "Export CSV", export_csv_students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <%= link_to "New student", new_student_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <%= link_to "Archives", inactive_students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="flex space-x-2">
+      <%= link_to "Export CSV", export_csv_students_path, data: { turbo: false }, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= link_to "New student", new_student_path, data: { turbo: false }, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= link_to "Archives", inactive_students_path, data: { turbo: false }, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
   </div>
 
-  <!-- Filter Form -->
-  <%= form_with url: students_path, method: :get, local: true, class: "mb-4 students-form" do |form| %>
-    <div class="grid grid-cols-4 gap-4", id = "FilterForm">
-      <div class="field">
-        <%= form.label :name, 'Name' %>
-        <%= form.text_field :name, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="field">
-        <%= form.label :uin, 'UIN' %>
-        <%= form.text_field :uin, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="field">
-        <%= form.label :grade_ryg, 'Grade' %>
-        <%= form.select :grade_ryg, options_for_select(@grades), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="field">
-        <%= form.label :gender, 'Gender' %>
-        <%= form.select :gender, options_for_select(@genders), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="field">
-        <%= form.label :ethnicity, 'Ethnicity' %>
-        <%= form.select :ethnicity, options_for_select(@ethnicities), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="field">
-        <%= form.label :nationality, 'Nationality' %>
-        <%= form.select :nationality, options_for_select(@nationalities), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="field">
-        <%= form.label :expected_graduation, 'Expected Graduation' %>
-        <%= form.date_field :expected_graduation, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="field">
-        <%= form.label :university_classification, 'University Classification' %>
-        <%= form.select :university_classification, options_for_select(@classifications), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="field">
-        <%= form.label :status, 'Status' %>
-        <%= form.select :status, options_for_select(@statuses), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="field">
-        <%= form.label :sexual_orientation, 'Sexual Orientation' %>
-        <%= form.select :sexual_orientation, options_for_select(@orientations), { include_blank: true }, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="field">
-        <%= form.label :date_of_birth, 'Date of Birth' %>
-        <%= form.date_field :date_of_birth, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="field">
-        <%= form.label :email, 'Email' %>
-        <%= form.text_field :email, class: 'rounded-lg border border-gray-300 px-3 py-2' %>
-      </div>
-      <div class="actions flex">
-        <%= form.submit 'Apply Filters', class: "submit-button mr-2" %>
-        <%= link_to 'Reset Filters', students_path, class: "submit-button" %>
-      </div>
-    </div>
-  <% end %>
+  <%= render 'layouts/filter_form' %>
 
-  <!-- Import Form -->
-  <div class="mt-4">
-    <%= form_with url: import_students_path, local: true, method: :post, multipart: true do %>
-      <div class="flex items-center">
-        <%= file_field_tag :file, class: "rounded-lg border border-gray-300 px-3 py-2" %>
-        <%= submit_tag 'Import Students', data: { turbo: false }, class: "ml-2 rounded-lg py-2 px-5 bg-gray-100 inline-block font-medium hover:cursor-pointer" %>
-      </div>
-    <% end %>
-  </div>
+  <%= render 'layouts/import_form' %>
 
   <div id="students" class="mt-4 overflow-x-auto">
     <table class="min-w-full border-collapse border border-gray-300">
@@ -155,6 +91,20 @@
       row.addEventListener("click", () => {
         window.location.href = row.dataset.href;
       });
+    });
+
+    const filterToggle = document.getElementById("filter-toggle");
+    const filterForm = document.getElementById("filter-form");
+    const filterIcon = document.getElementById("filter-icon");
+
+    filterToggle.addEventListener("click", () => {
+      if (filterForm.style.maxHeight) {
+        filterForm.style.maxHeight = null;
+        filterIcon.style.transform = "rotate(0deg)";
+      } else {
+        filterForm.style.maxHeight = filterForm.scrollHeight + "px";
+        filterIcon.style.transform = "rotate(180deg)";
+      }
     });
   });
 </script>
