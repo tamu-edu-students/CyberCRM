@@ -23,6 +23,7 @@ end
 When('I fill in the student form with valid data') do
   fill_in 'Name', with: 'John Doe'
   fill_in 'Uin', with: '123456789'
+  select 'R', from: 'grade_ryg'
   select 'Male', from: 'Gender'
   select 'Asian', from: 'Ethnicity'
   select 'American', from: 'Nationality'

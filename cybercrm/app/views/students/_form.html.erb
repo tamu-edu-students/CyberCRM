@@ -24,7 +24,7 @@
 
   <div class="my-5">
     <%= form.label :grade %>
-    <select name="student[grade_ryg]" id="student_grade_ryg" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full">
+    <select name="student[grade_ryg]" id="grade_ryg" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full">
       <option>Select Grade</option>
       <option value="G" <%= 'selected' if @student.grade_ryg == 'G' %>>G</option>
       <option value="Y" <%= 'selected' if @student.grade_ryg == 'Y' %>>Y</option>
