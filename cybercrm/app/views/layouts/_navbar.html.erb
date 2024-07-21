@@ -33,13 +33,13 @@
       <div class="dropdown-content absolute hidden bg-gray-100 text-black min-w-[160px] shadow-lg p-3 z-10 right-0">
         <%= current_user.email %>
         <% if current_user.role == 'super_user' %>
-          <p>Logged in as a Super User</p>
+          <p>Role: Super User</p>
         <% end %>
         <% if current_user.role == 'program_director' %>
-          <p>Logged in as a Program Director</p>
+          <p>Role: Program Director</p>
         <% end %>
         <% if current_user.role == 'student_worker' %>
-          <p>Logged in as a Student Worker</p>
+          <p>Role: Employee</p>
         <% end %>
         <%= link_to 'Sign out', logout_path, data: { turbo: false }, class: 'hover:opacity-80 hover:text-red-500' %>
       </div>
