@@ -28,15 +28,15 @@
       </div>
 
   <% if (current_user.role == 'program_director') %>
-      <%= link_to "Edit this student", edit_student_path(@student), data: { turbo: false }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <%= link_to "Back to students", students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to "Edit this student", edit_student_path(@student), data: { turbo: false }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" %>
+      <%= link_to "Back to students", students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" %>
       <div class="inline-block ml-2">
-        <%= button_to "Delete this student", @student, data: { turbo: false }, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+        <%= button_to "Delete this student", @student, data: { turbo: false }, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200" %>
       </div>
       <div id="student-id" style="display:none"> 
             <%= @student.id %>
       </div>
-      <a id="notes-show"><div id="notes_button" class= "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" >Notes</div></a>
+      <a id="notes-show"><div id="notes_button" class= "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" >Notes</div></a>
     <%end%>
 
     </div>

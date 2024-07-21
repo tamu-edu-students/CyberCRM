@@ -1,0 +1,89 @@
+<!-- app/views/layouts/_toggle_columns_form.html.erb -->
+<div class="mb-4">
+  <button id="columns-toggle" data: { turbo: false }, class="w-full bg-gray-100 py-2 px-4 rounded-lg text-left font-medium flex items-center justify-between hover:bg-gray-200 focus:outline-none">
+    <span>Toggle Columns</span>
+    <svg id="columns-icon" data: { turbo: false }, class="w-5 h-5 transition-transform transform rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+  <div id="columns-form" data: { turbo: false }, class="mt-4 max-h-0 overflow-hidden transition-max-height duration-500 ease-in-out grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="field mt-2 flex items-center">
+      <span class="ml-2 font-bold">UIN</span>
+      <input type="checkbox" class="toggle-column ml-2" data-column="uin" checked class="form-checkbox h-4 w-4 text-gray-600">
+    </div>
+    <div class="field mt-2 flex items-center">
+      <span class="ml-2 font-bold">Grade</span>
+      <input type="checkbox" class="toggle-column ml-2" data-column="grade" checked class="form-checkbox h-4 w-4 text-gray-600">
+    </div>
+    <div class="field mt-2 flex items-center">
+      <span class="ml-2 font-bold">Gender</span>
+      <input type="checkbox" class="toggle-column ml-2" data-column="gender" checked class="form-checkbox h-4 w-4 text-gray-600">
+    </div>
+    <div class="field mt-2 flex items-center">
+      <span class="ml-2 font-bold">Ethnicity</span>
+      <input type="checkbox" class="toggle-column ml-2" data-column="ethnicity" checked class="form-checkbox h-4 w-4 text-gray-600">
+    </div>
+    <div class="field mt-2 flex items-center">
+      <span class="ml-2 font-bold">Nationality</span>
+      <input type="checkbox" class="toggle-column ml-2" data-column="nationality" checked class="form-checkbox h-4 w-4 text-gray-600">
+    </div>
+    <div class="field mt-2 flex items-center">
+      <span class="ml-2 font-bold">Expected Graduation</span>
+      <input type="checkbox" class="toggle-column ml-2" data-column="expected_graduation" checked class="form-checkbox h-4 w-4 text-gray-600">
+    </div>
+    <div class="field mt-2 flex items-center">
+      <span class="ml-2 font-bold">University Classification</span>
+      <input type="checkbox" class="toggle-column ml-2" data-column="university_classification" checked class="form-checkbox h-4 w-4 text-gray-600">
+    </div>
+    <div class="field mt-2 flex items-center">
+      <span class="ml-2 font-bold">Status</span>
+      <input type="checkbox" class="toggle-column ml-2" data-column="status" checked class="form-checkbox h-4 w-4 text-gray-600">
+    </div>
+    <div class="field mt-2 flex items-center">
+      <span class="ml-2 font-bold">Sexual Orientation</span>
+      <input type="checkbox" class="toggle-column ml-2" data-column="sexual_orientation" checked class="form-checkbox h-4 w-4 text-gray-600">
+    </div>
+    <div class="field mt-2 flex items-center">
+      <span class="ml-2 font-bold">Date of Birth</span>
+      <input type="checkbox" class="toggle-column ml-2" data-column="date_of_birth" checked class="form-checkbox h-4 w-4 text-gray-600">
+    </div>
+    <div class="field mt-2 flex items-center">
+      <span class="ml-2 font-bold">Email</span>
+      <input type="checkbox" class="toggle-column ml-2" data-column="email" checked class="form-checkbox h-4 w-4 text-gray-600">
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const columnsToggleBtn = document.getElementById("columns-toggle");
+    const columnsIcon = document.getElementById("columns-icon");
+    const columnsForm = document.getElementById("columns-form");
+
+    document.querySelectorAll('.toggle-column').forEach(checkbox => {
+      const columnClass = checkbox.dataset.column;
+      const state = localStorage.getItem('toggle-column-' + columnClass);
+      checkbox.checked = state !== null ? JSON.parse(state) : true;
+      document.querySelectorAll('.' + columnClass + '-column').forEach(cell => {
+        cell.style.display = checkbox.checked ? '' : 'none';
+      });
+    });
+
+    columnsToggleBtn.addEventListener("click", function() {
+      const isOpen = !columnsForm.classList.contains("max-h-0");
+      columnsForm.classList.toggle("max-h-0", isOpen);
+      columnsForm.classList.toggle("max-h-screen", !isOpen);
+      columnsIcon.classList.toggle("rotate-180", !isOpen);
+    });
+
+    document.querySelectorAll('.toggle-column').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const columnClass = this.dataset.column + '-column';
+        document.querySelectorAll('.' + columnClass).forEach(cell => {
+          cell.style.display = this.checked ? '' : 'none';
+        });
+        localStorage.setItem('toggle-column-' + this.dataset.column, this.checked);
+      });
+    });
+  });
+</script>

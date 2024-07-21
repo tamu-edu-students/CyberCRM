@@ -14,17 +14,18 @@
 
   <div class="my-5">
     <%= form.label :name %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", maxlength: 200 %>
+    <%= form.text_field :name, placeholder: "Enter Name", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", maxlength: 200 %>
   </div>
 
   <div class="my-5">
-    <%= form.label :uin %>
-    <%= form.number_field :uin, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", maxlength: 9 %>
+    <%= form.label :uin, name="UIN" %>
+    <%= form.number_field :uin, placeholder: "Enter UIN (Ex: 123456789)", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", maxlength: 9 %>
   </div>
 
   <div class="my-5">
     <%= form.label :grade %>
-    <select name="student[grade_ryg]" id="student_grade_ryg" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full">
+    <select name="student[grade_ryg]" id="grade_ryg" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full">
+      <option>Select Grade</option>
       <option value="G" <%= 'selected' if @student.grade_ryg == 'G' %>>G</option>
       <option value="Y" <%= 'selected' if @student.grade_ryg == 'Y' %>>Y</option>
       <option value="R" <%= 'selected' if @student.grade_ryg == 'R' %>>R</option>
@@ -33,17 +34,17 @@
 
   <div class="my-5">
     <%= form.label :gender %>
-    <%= form.select :gender, options_for_select(Student::GENDER_OPTIONS, @student.gender), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    <%= form.select :gender, options_for_select([["Select Gender", ""]] + Student::GENDER_OPTIONS, @student.gender), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :ethnicity %>
-    <%= form.select :ethnicity, options_for_select(Student::ETHNICITY_OPTIONS, @student.ethnicity), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    <%= form.select :ethnicity, options_for_select([["Select Ethnicity", ""]] + Student::ETHNICITY_OPTIONS, @student.ethnicity), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :nationality %>
-    <%= form.select :nationality, options_for_select(Student::NATIONALITY_OPTIONS, @student.nationality), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    <%= form.select :nationality, options_for_select([["Select Nationality", ""]] + Student::NATIONALITY_OPTIONS, @student.nationality), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
@@ -53,17 +54,17 @@
 
   <div class="my-5">
     <%= form.label :university_classification %>
-    <%= form.select :university_classification, options_for_select(Student::UNIVERSITY_CLASSIFICATIONS, @student.university_classification), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    <%= form.select :university_classification, options_for_select([["Select Classificiation", ""]] + Student::UNIVERSITY_CLASSIFICATIONS, @student.university_classification), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :status %>
-    <%= form.select :status, options_for_select(Student::STATUS_OPTIONS, @student.status), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    <%= form.select :status, options_for_select([["Select Status", ""]] + Student::STATUS_OPTIONS, @student.status), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :sexual_orientation %>
-    <%= form.select :sexual_orientation, options_for_select(Student::SEXUAL_ORIENTATION_OPTIONS, @student.sexual_orientation), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    <%= form.select :sexual_orientation, options_for_select([["Select Orientation", ""]] + Student::SEXUAL_ORIENTATION_OPTIONS, @student.sexual_orientation), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
@@ -73,7 +74,7 @@
 
   <div class="my-5">
     <%= form.label :email %>
-    <%= form.email_field :email, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.email_field :email, placeholder: "Enter Email (Ex: name@tamu.edu)", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">
@@ -82,32 +83,32 @@
 <% end %>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const gradeSelect = document.getElementById("student_grade_ryg");
+  document.addEventListener("DOMContentLoaded", function() {
+    const gradeSelect = document.getElementById("grade_ryg");
 
-  function updateGradeColor() {
-    const selectedOption = gradeSelect.options[gradeSelect.selectedIndex].value;
-    gradeSelect.classList.remove("bg-green-500", "bg-red-500", "bg-yellow-500", "text-white", "text-black");
+    function updateGradeColor() {
+      const selectedOption = gradeSelect.options[gradeSelect.selectedIndex].value;
+      gradeSelect.classList.remove("bg-green-500", "bg-red-500", "bg-yellow-500", "text-white", "text-black");
 
-    switch (selectedOption) {
-      case "G":
-        gradeSelect.classList.add("bg-green-500", "text-white");
-        break;
-      case "R":
-        gradeSelect.classList.add("bg-red-500", "text-white");
-        break;
-      case "Y":
-        gradeSelect.classList.add("bg-yellow-500", "text-black");
-        break;
-      default:
-        break;
+      switch (selectedOption) {
+        case "G":
+          gradeSelect.classList.add("bg-green-500", "text-white");
+          break;
+        case "R":
+          gradeSelect.classList.add("bg-red-500", "text-white");
+          break;
+        case "Y":
+          gradeSelect.classList.add("bg-yellow-500", "text-black");
+          break;
+        default:
+          break;
+      }
     }
-  }
 
-  updateGradeColor();
+    updateGradeColor();
 
-  gradeSelect.addEventListener("change", updateGradeColor);
-});
+    gradeSelect.addEventListener("change", updateGradeColor);
+  });
 </script>
 <% else %>
   <div class="mx-auto md:w-2/3 w-full">

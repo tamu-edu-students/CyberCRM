@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post :search
       post :import
       get :export_csv
+      get :inactive
     end
 
     member do

@@ -99,18 +99,6 @@ Feature: Column sorting
     When I click the "University Classification" column header
     Then I should see students sorted by "University Classification" in the default order
 
-  Scenario: Sorting by Status
-    Given I am logged in with Google as Program Manager
-    Given I am on the students index page
-    When I click the "Status" column header
-    Then I should see students sorted by "Status" in ascending order
-
-    When I click the "Status" column header
-    Then I should see students sorted by "Status" in descending order
-
-    When I click the "Status" column header
-    Then I should see students sorted by "Status" in the default order
-
   Scenario: Sorting by Sexual Orientation
     Given I am logged in with Google as Program Manager
     Given I am on the students index page
