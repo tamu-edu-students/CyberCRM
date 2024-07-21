@@ -71,7 +71,7 @@ Feature: Filtering students
   Scenario: Filter by UIN
     Given I am logged in with Google as Program Manager
     Given I am on the students index page
-    When I input "Uin" with "765656210"
+    When I input "UIN" with "765656210"
     And I press "Apply Filters"
     Then I should see "Dominique O'Connell"
     And I should not see "Felipe Spencer"
