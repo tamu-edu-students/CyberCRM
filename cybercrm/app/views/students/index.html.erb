@@ -16,6 +16,8 @@
     </div>
   </div>
 
+  <%= render 'layouts/toggle_columns_form' %>
+
   <%= render 'layouts/filter_form' %>
 
   <%= render 'layouts/import_form' %>
@@ -27,37 +29,37 @@
           <th class="border border-gray-300 px-4 py-2">
             <%= sortable "name", "Name" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2">
+          <th class="border border-gray-300 px-4 py-2 uin-column">
             <%= sortable "uin", "UIN" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2">
+          <th class="border border-gray-300 px-4 py-2 grade-column">
             <%= sortable "grade_ryg", "Grade" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2">
+          <th class="border border-gray-300 px-4 py-2 gender-column">
             <%= sortable "gender", "Gender" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2">
+          <th class="border border-gray-300 px-4 py-2 ethnicity-column">
             <%= sortable "ethnicity", "Ethnicity" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2">
+          <th class="border border-gray-300 px-4 py-2 nationality-column">
             <%= sortable "nationality", "Nationality" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2">
+          <th class="border border-gray-300 px-4 py-2 expected_graduation-column">
             <%= sortable "expected_graduation", "Expected Graduation" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2">
+          <th class="border border-gray-300 px-4 py-2 university_classification-column">
             <%= sortable "university_classification", "University Classification" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2">
+          <th class="border border-gray-300 px-4 py-2 status-column">
             <%= "Status" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2">
+          <th class="border border-gray-300 px-4 py-2 sexual_orientation-column">
             <%= sortable "sexual_orientation", "Sexual Orientation" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2">
+          <th class="border border-gray-300 px-4 py-2 date_of_birth-column">
             <%= sortable "date_of_birth", "Date of Birth" %>
           </th>
-          <th class="border border-gray-300 px-4 py-2">
+          <th class="border border-gray-300 px-4 py-2 email-column">
             <%= sortable "email", "Email" %>
           </th>
         </tr>
@@ -66,17 +68,17 @@
         <% @students.each do |student| %>
           <tr data-href="<%= student_path(student) %>" class="cursor-pointer hover:bg-gray-100">
             <td class="border border-gray-300 px-4 py-2"><%= student.name %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.uin %></td>
-            <td class="<%= grade_ryg_class(student.grade_ryg) %> border border-gray-300 px-4 py-2"><%= student.grade_ryg %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.gender %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.ethnicity %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.nationality %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.expected_graduation %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.university_classification %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.status %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.sexual_orientation %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.date_of_birth %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= student.email %></td>
+            <td class="border border-gray-300 px-4 py-2 uin-column"><%= student.uin %></td>
+            <td class="grade-column <%= grade_ryg_class(student.grade_ryg) %> border border-gray-300 px-4 py-2"><%= student.grade_ryg %></td>
+            <td class="border border-gray-300 px-4 py-2 gender-column"><%= student.gender %></td>
+            <td class="border border-gray-300 px-4 py-2 ethnicity-column"><%= student.ethnicity %></td>
+            <td class="border border-gray-300 px-4 py-2 nationality-column"><%= student.nationality %></td>
+            <td class="border border-gray-300 px-4 py-2 expected_graduation-column"><%= student.expected_graduation %></td>
+            <td class="border border-gray-300 px-4 py-2 university_classification-column"><%= student.university_classification %></td>
+            <td class="border border-gray-300 px-4 py-2 status-column"><%= student.status %></td>
+            <td class="border border-gray-300 px-4 py-2 sexual_orientation-column"><%= student.sexual_orientation %></td>
+            <td class="border border-gray-300 px-4 py-2 date_of_birth-column"><%= student.date_of_birth %></td>
+            <td class="border border-gray-300 px-4 py-2 email-column"><%= student.email %></td>
           </tr>
         <% end %>
       </tbody>
@@ -106,6 +108,16 @@
         filterIcon.style.transform = "rotate(180deg)";
       }
     });
+
+    document.querySelectorAll('.toggle-column').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const columnClass = this.dataset.column + '-column';
+        document.querySelectorAll('.' + columnClass).forEach(cell => {
+          cell.style.display = this.checked ? '' : 'none';
+        });
+      });
+    });
+
   });
 </script>
 <% else %>
