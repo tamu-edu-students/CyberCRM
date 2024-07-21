@@ -60,6 +60,15 @@
     const columnsIcon = document.getElementById("columns-icon");
     const columnsForm = document.getElementById("columns-form");
 
+    document.querySelectorAll('.toggle-column').forEach(checkbox => {
+      const columnClass = checkbox.dataset.column;
+      const state = localStorage.getItem('toggle-column-' + columnClass);
+      checkbox.checked = state !== null ? JSON.parse(state) : true;
+      document.querySelectorAll('.' + columnClass + '-column').forEach(cell => {
+        cell.style.display = checkbox.checked ? '' : 'none';
+      });
+    });
+
     columnsToggleBtn.addEventListener("click", function() {
       const isOpen = !columnsForm.classList.contains("max-h-0");
       columnsForm.classList.toggle("max-h-0", isOpen);
@@ -73,6 +82,7 @@
         document.querySelectorAll('.' + columnClass).forEach(cell => {
           cell.style.display = this.checked ? '' : 'none';
         });
+        localStorage.setItem('toggle-column-' + this.dataset.column, this.checked);
       });
     });
   });
