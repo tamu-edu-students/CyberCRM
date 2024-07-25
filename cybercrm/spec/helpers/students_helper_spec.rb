@@ -68,4 +68,28 @@ RSpec.describe StudentsHelper, type: :helper do
       expect(value).to be_nil
     end
   end
+
+  describe '#custom_value' do
+    context 'when the custom value exists for the student' do
+      it 'returns the custom value for the student' do
+        student_option # Ensure the student_option is created
+        value = helper.custom_value(student, 'gender')
+        expect(value).to eq('Male')
+      end
+    end
+
+    context 'when the custom value does not exist for the student' do
+      it 'returns an empty string' do
+        value = helper.custom_value(student, 'non_existent_field')
+        expect(value).to eq('')
+      end
+    end
+
+    context 'when the field does not exist in the options' do
+      it 'returns an empty string' do
+        value = helper.custom_value(student, 'non_existent_field')
+        expect(value).to eq('')
+      end
+    end
+  end
 end
