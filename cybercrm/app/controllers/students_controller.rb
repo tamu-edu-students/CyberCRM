@@ -23,6 +23,7 @@ class StudentsController < ApplicationController
   # GET /students or /students.json
   def index
     @students = load_students.where(status: 'Active')
+    @custom_attributes = CustomAttribute.where(active: true)
     load_filter_options
   end
 

@@ -77,8 +77,23 @@
     <%= form.email_field :email, placeholder: "Enter Email (Ex: name@tamu.edu)", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
+  <div class="mt-5">
+    <h2 class="text-xl font-medium mb-3">Custom Attributes</h2>
+    <% @custom_attributes = CustomAttribute.where(active: true) %>
+    <% @custom_attributes.each do |attribute| %>
+      <%= form_with url: update_custom_attribute_student_path(@student), method: :post, local: true do |f| %>
+        <div class="mb-3">
+          <label class="block font-normal mb-1"><%= attribute.name %></label>
+          <%= hidden_field_tag :attribute_id, attribute.id %>
+          <%= text_field_tag :value, @student.custom_attribute_value(attribute.name), class: "border border-gray-300 rounded-lg px-3 py-2 w-full" %>
+        </div>
+        <%= f.submit 'Update Custom Attributes', class: "rounded-lg py-3 px-5 bg-blue-600 hover:bg-blue-800 text-white inline-block font-medium cursor-pointer my-2" %>
+      <% end %>
+    <% end %>
+  </div>
+
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 hover:bg-blue-800 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
 
