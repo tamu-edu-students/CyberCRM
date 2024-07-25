@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# app/controllers/students_controller.rb
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[show edit update destroy]
   helper_method :sort_column, :sort_direction
@@ -22,7 +19,6 @@ class StudentsController < ApplicationController
   # GET /students or /students.json
   def index
     @students = load_students.where(status: 'Active')
-    @custom_attributes = Option.where(option_type: 'CustomAttribute')
     load_filter_options
   end
 
@@ -35,7 +31,6 @@ class StudentsController < ApplicationController
   # GET /students/1 or /students/1.json
   def show
     @student = Student.find(params[:id])
-    @custom_attributes = Option.where(option_type: 'CustomAttribute')
   end
 
   # GET /students/new
@@ -52,6 +47,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
+        save_custom_attributes(@student)
         format.html { redirect_to student_url(@student), notice: I18n.t('student_created') }
         format.json { render :show, status: :created, location: @student }
       else
@@ -63,8 +59,11 @@ class StudentsController < ApplicationController
 
   # PATCH/PUT /students/1 or /students/1.json
   def update
+    custom_attributes = params[:student].delete(:custom_attributes)
+
     respond_to do |format|
       if @student.update(student_params)
+        save_custom_attributes(@student, custom_attributes)
         format.html { redirect_to student_url(@student), notice: I18n.t('student_updated') }
         format.json { render :show, status: :ok, location: @student }
       else
@@ -95,19 +94,6 @@ class StudentsController < ApplicationController
     return if params[:file].blank?
 
     process_csv_file(params[:file])
-  end
-
-  def update_custom_attribute
-    @student = Student.find(params[:id])
-    @custom_attribute = Option.find(params[:attribute_id])
-    student_option = @student.student_options.find_or_initialize_by(option: @custom_attribute)
-    student_option.value = params[:value]
-
-    if student_option.save
-      redirect_to @student, notice: I18n.t('attr_updated')
-    else
-      render :show
-    end
   end
 
   private
@@ -197,7 +183,19 @@ class StudentsController < ApplicationController
   def student_params
     params.require(:student).permit(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality,
                                     :expected_graduation, :university_classification, :status,
-                                    :sexual_orientation, :date_of_birth, :email, custom_attributes: {})
+                                    :sexual_orientation, :date_of_birth, :email, :custom_attributes => {})
+  end
+
+  def save_custom_attributes(student, custom_attributes)
+    custom_attributes.each do |field, value|
+      option = Option.find_by(field: field)
+      next unless option
+
+      student_option = student.student_options.find_or_initialize_by(option: option)
+      student_option.value = value
+      Rails.logger.info("\n\n\n\n#{student_option.inspect}\n\n\n\n")
+      student_option.save
+    end
   end
 
   def sort_column

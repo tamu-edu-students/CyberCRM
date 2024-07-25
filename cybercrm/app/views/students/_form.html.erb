@@ -25,45 +25,45 @@
       <%= form.label :grade %>
       <select name="student[grade_ryg]" id="grade_ryg" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full">
         <option>Select Grade</option>
-        <option value="G" <%= 'selected' if @student.grade_ryg == 'G' %>>G</option>
-        <option value="Y" <%= 'selected' if @student.grade_ryg == 'Y' %>>Y</option>
-        <option value="R" <%= 'selected' if @student.grade_ryg == 'R' %>>R</option>
+        <option value="G" <%= 'selected' if student.grade_ryg == 'G' %>>G</option>
+        <option value="Y" <%= 'selected' if student.grade_ryg == 'Y' %>>Y</option>
+        <option value="R" <%= 'selected' if student.grade_ryg == 'R' %>>R</option>
       </select>
     </div>
 
     <div class="my-5">
       <%= form.label :gender %>
-      <%= form.collection_select :gender, ['Male', 'Female'] + Option.where(option_type: 'Gender').pluck(:name), :to_s, :to_s, { prompt: 'Select Gender' }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+      <%= form.collection_select :gender, ['Male', 'Female'] + Option.where(field: 'Gender').pluck(:options).flat_map { |opt| opt.split(', ') }, :to_s, :to_s, { prompt: 'Select Gender' }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
     </div>
 
     <div class="my-5">
       <%= form.label :ethnicity %>
-      <%= form.collection_select :ethnicity, ['Asian', 'Black', 'Hispanic/Latino', 'Native American', 'White', 'Other'] + Option.where(option_type: 'Ethnicity').pluck(:name), :to_s, :to_s, { prompt: 'Select Ethnicity', selected: @student.ethnicity }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+      <%= form.collection_select :ethnicity, ['Asian', 'Black', 'Hispanic/Latino', 'Native American', 'White', 'Other'] + Option.where(field: 'Ethnicity').pluck(:options).flat_map { |opt| opt.split(', ') }, :to_s, :to_s, { prompt: 'Select Ethnicity' }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
     </div>
 
     <div class="my-5">
       <%= form.label :nationality %>
-      <%= form.collection_select :nationality, ['American', 'British', 'Canadian', 'Australian', 'French', 'German', 'Japanese', 'Chinese', 'Indian', 'Other'] + Option.where(option_type: 'Nationality').pluck(:name), :to_s, :to_s, { prompt: 'Select Nationality', selected: @student.nationality }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+      <%= form.collection_select :nationality, ['American', 'British', 'Canadian', 'Australian', 'French', 'German', 'Japanese', 'Chinese', 'Indian', 'Other'] + Option.where(field: 'Nationality').pluck(:options).flat_map { |opt| opt.split(', ') }, :to_s, :to_s, { prompt: 'Select Nationality' }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :university_classification %>
+      <%= form.collection_select :university_classification, ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate'] + Option.where(field: 'University Classification').pluck(:options).flat_map { |opt| opt.split(', ') }, :to_s, :to_s, { prompt: 'Select Classification' }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :status %>
+      <%= form.collection_select :status, ['Active', 'Inactive'] + Option.where(field: 'Status').pluck(:options).flat_map { |opt| opt.split(', ') }, :to_s, :to_s, { prompt: 'Select Status' }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :sexual_orientation %>
+      <%= form.collection_select :sexual_orientation, ['Heterosexual', 'Homosexual'] + Option.where(field: 'Sexual Orientation').pluck(:options).flat_map { |opt| opt.split(', ') }, :to_s, :to_s, { prompt: 'Select Orientation' }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
     </div>
 
     <div class="my-5">
       <%= form.label :expected_graduation %>
       <%= form.date_field :expected_graduation, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-    </div>
-
-    <div class="my-5">
-      <%= form.label :university_classification %>
-      <%= form.collection_select :university_classification, ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate'] + Option.where(option_type: 'University Classification').pluck(:name), :to_s, :to_s, { prompt: 'Select Classification', selected: @student.university_classification }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
-    </div>
-
-    <div class="my-5">
-      <%= form.label :status %>
-      <%= form.collection_select :status, ['Active', 'Inactive'] + Option.where(option_type: 'Status').pluck(:name), :to_s, :to_s, { prompt: 'Select Status', selected: @student.status }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
-    </div>
-
-    <div class="my-5">
-      <%= form.label :sexual_orientation %>
-      <%= form.collection_select :sexual_orientation, ['Heterosexual', 'Homosexual'] + Option.where(option_type: 'Sexual Orientation').pluck(:name), :to_s, :to_s, { prompt: 'Select Orientation', selected: @student.sexual_orientation }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
     </div>
 
     <div class="my-5">
@@ -77,23 +77,24 @@
     </div>
 
     <div class="field">
-      <h3>Custom Attributes</h3>
-      <% Option.where(option_type: 'CustomAttribute').each do |option| %>
-        <div class="my-5">
-          <%= form.label "custom_attributes[#{option.id}]", option.name %>
-          <% case option.display_type %>
-          <% when 'dropdown' %>
-            <%= form.collection_select "custom_attributes[#{option.id}]", Option.where(option_type: option.name), :name, :name, { prompt: 'Select Option', selected: @student.custom_attribute_value(option.name) }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
-          <% when 'text' %>
-            <%= form.text_field "custom_attributes[#{option.id}]", value: @student.custom_attribute_value(option.name), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-          <% when 'date' %>
-            <%= form.date_field "custom_attributes[#{option.id}]", value: @student.custom_attribute_value(option.name), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-          <% when 'number' %>
-            <%= form.number_field "custom_attributes[#{option.id}]", value: @student.custom_attribute_value(option.name), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-          <% else %>
-            <%= form.text_field "custom_attributes[#{option.id}]", value: @student.custom_attribute_value(option.name), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-          <% end %>
-        </div>
+      <%= form.fields_for :custom_attributes do |custom_form| %>
+        <% Option.where.not(field: ['Gender', 'Ethnicity', 'Nationality', 'University Classification', 'Status', 'Sexual Orientation']).each do |option| %>
+          <div class="my-5">
+            <%= custom_form.label option.field, option.field %>
+            <% case option.display_type %>
+            <% when 'dropdown' %>
+              <%= custom_form.collection_select option.field, option.options.split(', '), :to_s, :to_s, { prompt: 'Select Option', selected: custom_attribute_value(student, option.field) }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+            <% when 'text' %>
+              <%= custom_form.text_field option.field, value: custom_attribute_value(student, option.field), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+            <% when 'date' %>
+              <%= custom_form.date_field option.field, value: custom_attribute_value(student, option.field), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+            <% when 'number' %>
+              <%= custom_form.number_field option.field, value: custom_attribute_value(student, option.field), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+            <% else %>
+              <%= custom_form.text_field option.field, value: custom_attribute_value(student, option.field), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </div>
 
@@ -101,35 +102,6 @@
       <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 hover:bg-blue-800 text-white inline-block font-medium cursor-pointer" %>
     </div>
   <% end %>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const gradeSelect = document.getElementById("grade_ryg");
-
-      function updateGradeColor() {
-        const selectedOption = gradeSelect.options[gradeSelect.selectedIndex].value;
-        gradeSelect.classList.remove("bg-green-500", "bg-red-500", "bg-yellow-500", "text-white", "text-black");
-
-        switch (selectedOption) {
-          case "G":
-            gradeSelect.classList.add("bg-green-500", "text-white");
-            break;
-          case "R":
-            gradeSelect.classList.add("bg-red-500", "text-white");
-            break;
-          case "Y":
-            gradeSelect.classList.add("bg-yellow-500", "text-black");
-            break;
-          default:
-            break;
-        }
-      }
-
-      updateGradeColor();
-
-      gradeSelect.addEventListener("change", updateGradeColor);
-    });
-  </script>
 <% else %>
   <div class="mx-auto md:w-2/3 w-full">
     <h1 class="font-bold text-4xl">Permission denied. Please return to the homepage.</h1>

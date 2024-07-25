@@ -1,32 +1,33 @@
 <%= render 'layouts/navbar' %>
-<% if current_user.role == 'super_user' %>
-<div class="container mx-auto my-8">
-  <div class="flex justify-between items-center mb-4">
-    <h1 class="text-2xl font-bold">Users</h1>
-    <%= link_to 'New User', data: { turbo: false }, new_user_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
 
-  <table class="min-w-full bg-white">
-    <thead>
-      <tr>
-        <th class="py-2 px-4 border-b-2 border-gray-300">Name</th>
-        <th class="py-2 px-4 border-b-2 border-gray-300">Email</th>
-        <th class="py-2 px-4 border-b-2 border-gray-300">Role</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
-        <tr class="hover:bg-gray-100 cursor-pointer" onclick="window.location='<%= user_path(user) %>'">
-          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= user.name %></td>
-          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= user.email %></td>
-          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= user.role %></td>
+<% if current_user.role == 'super_user' %>
+  <div class="container mx-auto my-8">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold">Users</h1>
+      <%= link_to 'New User', new_user_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    </div>
+
+    <table class="min-w-full bg-white">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 border-b-2 border-gray-300">Name</th>
+          <th class="py-2 px-4 border-b-2 border-gray-300">Email</th>
+          <th class="py-2 px-4 border-b-2 border-gray-300">Role</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr class="hover:bg-gray-100 cursor-pointer" onclick="window.location='<%= user_path(user) %>'">
+            <td class="py-2 px-4 border-b border-gray-300 text-center"><%= user.name %></td>
+            <td class="py-2 px-4 border-b border-gray-300 text-center"><%= user.email %></td>
+            <td class="py-2 px-4 border-b border-gray-300 text-center"><%= user.role %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% else %>
   <div class="mx-auto md:w-2/3 w-full">
-    <h1 class="font-bold text-4xl">Permission denied.  Please return to the homepage.</h1>
-</div>
+    <h1 class="font-bold text-4xl">Permission denied. Please return to the homepage.</h1>
+  </div>
 <% end %>

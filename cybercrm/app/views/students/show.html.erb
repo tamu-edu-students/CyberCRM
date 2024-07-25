@@ -1,14 +1,14 @@
 <%= render 'layouts/navbar' %>
-<% if (current_user.role == 'program_director') || (current_user.role == 'student_worker' && current_user.name == @student.name)%>
+<% if (current_user.role == 'program_director') || (current_user.role == 'student_worker' && current_user.name == @student.name) %>
   <div class="mx-auto md:w-2/3 w-full flex">
     <div class="mx-auto">
       <%= render @student %>
 
       <div class="mt-5">
-        <% Option.where(option_type: 'CustomAttribute').each do |attribute| %>
+        <% Option.where.not(field: ['Gender', 'Ethnicity', 'Nationality', 'University Classification', 'Status', 'Sexual Orientation']).pluck(:field).uniq.each do |field| %>
           <div class="mb-3">
-            <span class="block font-medium mb-1"><%= attribute.name %>:</span>
-            <span class="block"><%= @student.custom_attribute_value(attribute.name) %></span>
+            <span class="block font-medium mb-1"><%= field %>:</span>
+            <span class="block"><%= custom_attribute_value(@student, field) %></span>
           </div>
         <% end %>
       </div>
@@ -20,7 +20,7 @@
           <%= button_to "Delete this student", @student, data: { turbo: false }, method: :delete, class: "my-2 rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200" %>
         </div>
         <div id="student-id" style="display:none"> 
-              <%= @student.id %>
+          <%= @student.id %>
         </div>
         <a id="notes-show"><div id="notes_button" class= "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" >Notes</div></a>
       <% end %>
@@ -38,6 +38,6 @@
   </script>
 <% else %>
   <div class="mx-auto md:w-2/3 w-full">
-    <h1 class="font-bold text-4xl">Permission denied.  Please return to the homepage.</h1>
+    <h1 class="font-bold text-4xl">Permission denied. Please return to the homepage.</h1>
   </div>
 <% end %>

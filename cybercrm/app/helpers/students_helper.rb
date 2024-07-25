@@ -32,4 +32,13 @@ module StudentsHelper
 
     content_tag(:div, label_tag + input_tag)
   end
+
+  # Method to get the value of a custom attribute
+  def custom_attribute_value(student, field)
+    option = Option.find_by(field: field)
+    return nil unless option
+
+    student_option = student.student_options.find_by(option: option)
+    student_option&.value
+  end
 end

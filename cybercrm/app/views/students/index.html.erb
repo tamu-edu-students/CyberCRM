@@ -62,9 +62,9 @@
           <th class="border border-gray-300 px-4 py-2 email-column">
             <%= sortable "email", "Email" %>
           </th>
-          <% Option.where(option_type: 'CustomAttribute').each do |attribute| %>
-            <th class="border border-gray-300 px-4 py-2 custom-attribute-column <%= attribute.name.parameterize %> hidden">
-              <%= attribute.name %>
+          <% Option.pluck(:field).uniq.each do |field| %>
+            <th class="border border-gray-300 px-4 py-2 custom-attribute-column <%= field.parameterize %> hidden">
+              <%= field %>
             </th>
           <% end %>
         </tr>
@@ -84,9 +84,9 @@
             <td class="border border-gray-300 px-4 py-2 sexual_orientation-column"><%= student.sexual_orientation %></td>
             <td class="border border-gray-300 px-4 py-2 date_of_birth-column"><%= student.date_of_birth %></td>
             <td class="border border-gray-300 px-4 py-2 email-column"><%= student.email %></td>
-            <% Option.where(option_type: 'CustomAttribute').each do |attribute| %>
-              <td class="border border-gray-300 px-4 py-2 custom-attribute-column <%= attribute.name.parameterize %> hidden">
-                <%= student.custom_attribute_value(attribute.name) %>
+            <% Option.pluck(:field).uniq.each do |field| %>
+              <td class="border border-gray-300 px-4 py-2 custom-attribute-column <%= field.parameterize %> hidden">
+                <%= custom_attribute_value(student, field) %>
               </td>
             <% end %>
           </tr>
