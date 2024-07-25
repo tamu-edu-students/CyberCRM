@@ -13,6 +13,9 @@ require 'mocha/minitest'
 require 'capybara/cucumber'
 require 'rack_session_access/capybara'
 require 'factory_bot'
+require 'selenium-webdriver'
+
+Capybara.javascript_driver = :selenium_chrome
 
 World(FactoryBot::Syntax::Methods)
 

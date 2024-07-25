@@ -28,7 +28,7 @@
     <div class="relative inline-block">
       <div id="dropdown-trigger" class="flex items-center cursor-pointer">
         <span class="mr-2"><%= current_user.name %></span>
-        <%= image_tag(current_user&.image || '/assets/images/default.jpg', alt: 'User image', class: 'h-10 w-10 rounded-full') %>
+        <%= image_tag(current_user&.image || asset_path('default.jpg'), alt: 'User image', class: 'h-10 w-10 rounded-full') %>
       </div>
       <div id="dropdown-content" class="dropdown-content absolute hidden bg-gray-100 text-black min-w-[160px] shadow-lg p-3 z-10 right-0 rounded-lg">
         <%= current_user.email %>

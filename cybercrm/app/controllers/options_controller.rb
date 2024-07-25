@@ -47,6 +47,7 @@ class OptionsController < ApplicationController
         render :new
       end
     else
+      params[:option].delete(:new_field)
       @option = Option.new(option_params)
       if @option.save
         Rails.logger.info("Option created successfully: #{@option.inspect}")
@@ -139,8 +140,8 @@ class OptionsController < ApplicationController
   end
 
   def set_fields
-    @fields = %w[Gender Ethnicity Nationality University\ Classification Sexual\ Orientation]
-    + Option.distinct.pluck(:field)
+    @fields = %w[Gender Ethnicity Nationality University\ Classification Sexual\ Orientation] +
+              Option.distinct.pluck(:field)
   end
 
   def option_params
