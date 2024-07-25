@@ -21,11 +21,6 @@
     </div>
 
     <div class="mb-4">
-      <%= form.label :option_type, class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.text_field :option_type, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-    </div>
-
-    <div class="mb-4">
       <%= form.label :display_type, class: "block text-gray-700 text-sm font-bold mb-2" %>
       <%= form.select :display_type, options_for_select([['Dropdown', 'dropdown'], ['Text', 'text'], ['Date', 'date'], ['Number', 'number']], @option.display_type), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
     </div>
