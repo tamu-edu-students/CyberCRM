@@ -31,7 +31,7 @@
     </div>
 
     <div class="flex items-center justify-between">
-      <%= form.submit "Update User", class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium cursor-pointer" %>
+      <%= form.submit "Update User", data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium cursor-pointer" %>
     </div>
   <% end %>
 

@@ -1,8 +1,6 @@
-# frozen_string_literal: true
-
-# Students Controller
-# rubocop:disable Metrics/ClassLength
 class StudentsController < ApplicationController
+  include StudentsHelper
+
   before_action :set_student, only: %i[show edit update destroy]
   helper_method :sort_column, :sort_direction
 
@@ -35,7 +33,6 @@ class StudentsController < ApplicationController
   # GET /students/1 or /students/1.json
   def show
     @student = Student.find(params[:id])
-    @custom_attributes = CustomAttribute.where(active: true)
   end
 
   # GET /students/new
@@ -52,6 +49,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
+        save_custom_attributes(@student)
         format.html { redirect_to student_url(@student), notice: I18n.t('student_created') }
         format.json { render :show, status: :created, location: @student }
       else
@@ -63,8 +61,11 @@ class StudentsController < ApplicationController
 
   # PATCH/PUT /students/1 or /students/1.json
   def update
+    custom_attributes = params[:student].delete(:custom_attributes)
+
     respond_to do |format|
       if @student.update(student_params)
+        save_custom_attributes(@student, custom_attributes)
         format.html { redirect_to student_url(@student), notice: I18n.t('student_updated') }
         format.json { render :show, status: :ok, location: @student }
       else
@@ -95,20 +96,6 @@ class StudentsController < ApplicationController
     return if params[:file].blank?
 
     process_csv_file(params[:file])
-  end
-
-  def update_custom_attribute
-    @student = Student.find(params[:id])
-    @custom_attribute = CustomAttribute.find(params[:attribute_id])
-    student_custom_attribute = @student.student_custom_attributes.find_or_initialize_by(custom_attribute:
-                                                                                        @custom_attribute)
-    student_custom_attribute.value = params[:value]
-
-    if student_custom_attribute.save
-      redirect_to @student, notice: I18n.t('attr_updated')
-    else
-      render :show
-    end
   end
 
   private
@@ -152,7 +139,6 @@ class StudentsController < ApplicationController
     Student.where('LOWER(name) LIKE LOWER(?)', "%#{query}%").limit(10)
   end
 
-  # rubocop:disable Metrics/MethodLength
   def process_csv_file(file)
     errors = []
 
@@ -169,7 +155,6 @@ class StudentsController < ApplicationController
       redirect_to students_url, notice: I18n.t('student_imported')
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def extract_student_attributes(row)
     row.to_hash.slice(
@@ -179,17 +164,22 @@ class StudentsController < ApplicationController
   end
 
   def generate_csv(students)
+    custom_fields = Option.where.not(field: ['Gender', 'Ethnicity', 'Nationality', 'University Classification',
+                                             'Status', 'Sexual Orientation']).pluck(:field).uniq
+
     CSV.generate(headers: true) do |csv|
-      csv << %w[name uin grade_ryg gender ethnicity nationality expected_graduation
-                university_classification status sexual_orientation date_of_birth email]
+      csv << (%w[name uin grade_ryg gender ethnicity nationality expected_graduation
+                 university_classification status sexual_orientation date_of_birth email] + custom_fields)
 
       students.each do |student|
-        csv << [student.name, student.uin, student.grade_ryg, student.gender, student.ethnicity,
-                student.nationality, student.expected_graduation, student.university_classification,
-                student.status, student.sexual_orientation, student.date_of_birth, student.email]
+        custom_values = custom_fields.map { |field| custom_value(student, field) }
+        csv << ([student.name, student.uin, student.grade_ryg, student.gender, student.ethnicity,
+                 student.nationality, student.expected_graduation, student.university_classification,
+                 student.status, student.sexual_orientation, student.date_of_birth, student.email] + custom_values)
       end
     end
   end
+
 
   # Use callbacks to share common setup or constraints between actions.
   def set_student
@@ -200,7 +190,21 @@ class StudentsController < ApplicationController
   def student_params
     params.require(:student).permit(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality,
                                     :expected_graduation, :university_classification, :status,
-                                    :sexual_orientation, :date_of_birth, :email)
+                                    :sexual_orientation, :date_of_birth, :email, :custom_attributes => {})
+  end
+
+  def save_custom_attributes(student, custom_attributes = nil)
+    return if custom_attributes.nil?
+
+    custom_attributes.each do |field, value|
+      option = Option.find_by(field: field)
+      next unless option
+
+      student_option = student.student_options.find_or_initialize_by(option: option)
+      student_option.value = value
+      Rails.logger.info("\n\n\n\n#{student_option.inspect}\n\n\n\n")
+      student_option.save
+    end
   end
 
   def sort_column
@@ -211,4 +215,3 @@ class StudentsController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : nil
   end
 end
-# rubocop:enable Metrics/ClassLength

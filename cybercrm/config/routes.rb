@@ -3,6 +3,11 @@
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   resources :notes
+
+  resources :options do
+    post :add_option_to_field, on: :collection
+  end
+
   resources :students do
     collection do
       post :search
