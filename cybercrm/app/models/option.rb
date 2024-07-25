@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # app/models/option.rb
 class Option < ApplicationRecord
-  has_many :student_options
+  has_many :student_options, dependent: :destroy
   has_many :students, through: :student_options
 
   validates :field, presence: true, uniqueness: true
@@ -12,8 +14,8 @@ class Option < ApplicationRecord
   private
 
   def validate_options
-    if display_type == 'dropdown' && options.blank?
-      errors.add(:options, "can't be blank for dropdown display type")
-    end
+    return unless display_type == 'dropdown' && options.blank?
+
+    errors.add(:options, "can't be blank for dropdown display type")
   end
 end

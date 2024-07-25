@@ -186,7 +186,9 @@ class StudentsController < ApplicationController
                                     :sexual_orientation, :date_of_birth, :email, :custom_attributes => {})
   end
 
-  def save_custom_attributes(student, custom_attributes)
+  def save_custom_attributes(student, custom_attributes = nil)
+    return if custom_attributes.nil?
+
     custom_attributes.each do |field, value|
       option = Option.find_by(field: field)
       next unless option
