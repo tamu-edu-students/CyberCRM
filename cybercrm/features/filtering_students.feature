@@ -12,10 +12,9 @@ Feature: Filtering students
       | Rogelio Ortiz       | 189259688  | R         | Male   | Hispanic/Latino | Other       | 2026-10-10          | Junior                    | Active   | Heterosexual       | 1999-05-14    | rortiz@tamu.edu     |
       | Elwood King         | 536964095  | G         | Male   | Native American | Japanese    | 2026-09-12          | Sophomore                 | Active   | Heterosexual       | 1997-12-22    | eking@tamu.edu      |
       | Diego Emmerich      | 640147240  | R         | Male   | Native American | British     | 2026-10-23          | Graduate                  | Active   | Heterosexual       | 2002-11-22    | demmerich@tamu.edu  |
+    Given I am on the students page
 
   Scenario: Filter by nationality
-    Given I am logged in with Google as Program Manager
-    Given I am on the students index page
     When I select "Canadian" from "Nationality"
     And I press "Apply Filters"
     Then I should see "Dominique O'Connell"
@@ -25,8 +24,6 @@ Feature: Filtering students
     And I should not see "Diego Emmerich"
 
   Scenario: Filter by university classification
-    Given I am logged in with Google as Program Manager
-    Given I am on the students index page
     When I select "Graduate" from "University Classification"
     And I press "Apply Filters"
     Then I should see "Dominique O'Connell"
@@ -36,8 +33,6 @@ Feature: Filtering students
     And I should not see "Elwood King"
 
   Scenario: Filter by sexual orientation
-    Given I am logged in with Google as Program Manager
-    Given I am on the students index page
     When I select "Homosexual" from "Sexual Orientation"
     And I press "Apply Filters"
     Then I should see "Felipe Spencer"
@@ -47,8 +42,6 @@ Feature: Filtering students
     And I should not see "Diego Emmerich"
 
   Scenario: Filter by email
-    Given I am logged in with Google as Program Manager
-    Given I am on the students index page
     When I input "Email" with "fspencer@tamu.edu"
     And I press "Apply Filters"
     Then I should see "Felipe Spencer"
@@ -58,8 +51,6 @@ Feature: Filtering students
     And I should not see "Diego Emmerich"
 
   Scenario: Filter by name
-    Given I am logged in with Google as Program Manager
-    Given I am on the students index page
     When I input "Name" with "Dominique O'Connell"
     And I press "Apply Filters"
     Then I should see "Dominique O'Connell"
@@ -69,8 +60,6 @@ Feature: Filtering students
     And I should not see "Diego Emmerich"
 
   Scenario: Filter by UIN
-    Given I am logged in with Google as Program Manager
-    Given I am on the students index page
     When I input "UIN" with "765656210"
     And I press "Apply Filters"
     Then I should see "Dominique O'Connell"
@@ -80,8 +69,6 @@ Feature: Filtering students
     And I should not see "Diego Emmerich"
 
   Scenario: Filter by grade
-    Given I am logged in with Google as Program Manager
-    Given I am on the students index page
     When I select "G" from "grade_ryg"
     And I press "Apply Filters"
     Then I should see "Dominique O'Connell"
@@ -91,8 +78,6 @@ Feature: Filtering students
     And I should not see "Diego Emmerich"
 
   Scenario: Filter by gender
-    Given I am logged in with Google as Program Manager
-    Given I am on the students index page
     When I select "Male" from "Gender"
     And I press "Apply Filters"
     Then I should see "Dominique O'Connell"
@@ -102,8 +87,6 @@ Feature: Filtering students
     And I should see "Diego Emmerich"
 
   Scenario: Filter by ethnicity
-    Given I am logged in with Google as Program Manager
-    Given I am on the students index page
     When I select "Black" from "Ethnicity"
     And I press "Apply Filters"
     Then I should see "Dominique O'Connell"

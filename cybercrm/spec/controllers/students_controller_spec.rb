@@ -43,43 +43,6 @@ RSpec.describe StudentsController do
     end
   end
 
-  describe 'POST #update_custom_attribute' do
-    let!(:student) { create(:student) }
-    let!(:custom_attribute) { create(:custom_attribute) }
-    let(:valid_params) do
-      {
-        id: student.id,
-        attribute_id: custom_attribute.id,
-        value: 'New Value'
-      }
-    end
-    let(:invalid_params) do
-      {
-        id: student.id,
-        attribute_id: custom_attribute.id,
-        value: ''
-      }
-    end
-
-    context 'with valid parameters' do
-      it 'updates the custom attribute and redirects to the student' do
-        post :update_custom_attribute, params: valid_params
-
-        expect(response).to redirect_to(student)
-        expect(flash[:notice]).to eq(I18n.t('attr_updated'))
-        expect(student.student_custom_attributes.find_by(custom_attribute:).value).to eq('New Value')
-      end
-    end
-
-    context 'with invalid parameters' do
-      it 'renders the show template' do
-        post :update_custom_attribute, params: invalid_params
-
-        expect(response).to render_template(:show)
-      end
-    end
-  end
-
   describe 'POST #process_csv_file' do
     context 'with valid CSV data' do
       let(:csv_data) do

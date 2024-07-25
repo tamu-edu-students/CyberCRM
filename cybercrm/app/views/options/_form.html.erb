@@ -1,0 +1,76 @@
+<%= form_with(model: @option, local: true) do |form| %>
+  <% if @option.errors.any? %>
+    <div id="error_explanation" class="my-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700">
+      <h2 class="font-bold"><%= pluralize(@option.errors.count, "error") %> prohibited this option from being saved:</h2>
+      <ul class="list-disc pl-5">
+        <% @option.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :field, class: "block font-medium text-gray-700" %>
+    <%= form.select :field, options_for_select(@fields + ['New Field'], @option.field), {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_field :new_field, placeholder: "Enter New Field", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", style: "display: none;" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :display_type, class: "block font-medium text-gray-700" %>
+    <%= form.select :display_type, options_for_select(%w[dropdown text date number], @option.display_type), {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5" id="options-input" style="display: none;">
+    <%= form.label :options, "Options (comma-separated)", class: "block font-medium text-gray-700" %>
+    <%= form.text_field :options, placeholder: "Enter options separated by commas", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <div id="options-error" class="text-red-500 mt-2" style="display: none;">Options cannot be empty or whitespace only.</div>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 hover:bg-blue-800 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const fieldSelect = document.querySelector("select[name='option[field]']");
+    const newFieldInput = document.querySelector("input[name='option[new_field]']");
+    const displayTypeSelect = document.querySelector("select[name='option[display_type]']");
+    const optionsInput = document.getElementById("options-input");
+    const optionsField = document.querySelector("input[name='option[options]']");
+    const optionsError = document.getElementById("options-error");
+
+    fieldSelect.addEventListener("change", function() {
+      if (this.value === "New Field") {
+        newFieldInput.style.display = "block";
+      } else {
+        newFieldInput.style.display = "none";
+      }
+    });
+
+    displayTypeSelect.addEventListener("change", function() {
+      if (this.value === "dropdown") {
+        optionsInput.style.display = "block";
+      } else {
+        optionsInput.style.display = "none";
+      }
+    });
+
+    // Initialize options input visibility
+    if (displayTypeSelect.value === "dropdown") {
+      optionsInput.style.display = "block";
+    } else {
+      optionsInput.style.display = "none";
+    }
+
+    optionsField.addEventListener("input", function() {
+      const value = optionsField.value.trim();
+      if (!value || value.split(',').some(option => !option.trim())) {
+        optionsError.style.display = "block";
+      } else {
+        optionsError.style.display = "none";
+      }
+    });
+  });
+</script>

@@ -1,0 +1,47 @@
+<%= render 'layouts/navbar' %>
+<div class="container mx-auto my-8">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-2xl font-bold">Manage Options</h1>
+    <%= link_to 'New Option', new_option_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium", data: { turbo: false } %>
+  </div>
+
+  <h2 class="text-xl font-bold mb-4">All Fields and Options</h2>
+  <table class="min-w-full bg-white mb-8">
+    <thead>
+      <tr>
+        <th class="py-2 px-4 border-b-2 border-gray-300">Field</th>
+        <th class="py-2 px-4 border-b-2 border-gray-300">Display Type</th>
+        <th class="py-2 px-4 border-b-2 border-gray-300">Current Options</th>
+        <th class="py-2 px-4 border-b-2 border-gray-300">Add Option</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @student_fields.each do |field, options| %>
+        <tr class="hover:bg-gray-100">
+          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= field %></td>
+          <td class="py-2 px-4 border-b border-gray-300 text-center">dropdown</td>
+          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= options.join(', ') %></td>
+          <td class="py-2 px-4 border-b border-gray-300 text-center">
+            <%= form_with url: add_option_to_field_options_path, method: :post, local: true do |form| %>
+              <%= form.hidden_field :field, value: field, name: "option[field]" %>
+              <%= form.text_field :options, placeholder: "New Option", name: "option[options]", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+              <%= form.submit "Add", class: "ml-2 rounded-lg py-2 px-4 bg-green-100 inline-block font-medium cursor-pointer" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+
+      <% @options.reject { |o| @student_fields.keys.include?(o.field) }.each do |option| %>
+        <tr class="hover:bg-gray-100">
+          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= option.field %></td>
+          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= option.display_type %></td>
+          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= option.options %></td>
+          <td class="py-2 px-4 border-b border-gray-300 text-center">
+            <%= link_to 'Edit', edit_option_path(option), class: 'ml-2 rounded-lg py-2 px-4 bg-blue-100 inline-block font-medium', data: { turbo: false } %>
+            <%= button_to 'Destroy', option, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ml-2 rounded-lg py-2 px-4 bg-red-100 inline-block font-medium' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

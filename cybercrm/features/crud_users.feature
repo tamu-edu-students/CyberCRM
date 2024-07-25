@@ -1,14 +1,15 @@
 Feature: Manage users
 
-  Scenario: User creates a new user
+  Background:
     Given I am logged in with Google
+
+  Scenario: User creates a new user
     And I am on the new user page
     When I fill in the user form with valid data
     And I submit the user create form
     Then I should see the user has been created
 
   Scenario: User updates a user
-    Given I am logged in with Google
     And a user exists
     When I visit the users list page
     And I click the user row
@@ -18,7 +19,6 @@ Feature: Manage users
     Then I should see the user has been updated
 
   Scenario: User deletes a user
-    Given I am logged in with Google
     And a user exists
     When I visit the users list page
     And I click the user row
