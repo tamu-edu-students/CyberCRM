@@ -13,6 +13,7 @@
       <%= link_to "Export CSV", export_csv_students_path, data: { turbo: false }, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200" %>
       <%= link_to "Archives", inactive_students_path, data: { turbo: false }, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200" %>
       <%= link_to "New student", new_student_path, data: { turbo: false }, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200" %>
+      <button id="toggle-custom-attributes" class="rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200">Toggle Custom Attributes</button>
     </div>
   </div>
 
@@ -51,7 +52,7 @@
             <%= sortable "university_classification", "University Classification" %>
           </th>
           <th class="border border-gray-300 px-4 py-2 status-column">
-            <%= "Status" %>
+            <%= sortable "status", "Status" %>
           </th>
           <th class="border border-gray-300 px-4 py-2 sexual_orientation-column">
             <%= sortable "sexual_orientation", "Sexual Orientation" %>
@@ -62,9 +63,9 @@
           <th class="border border-gray-300 px-4 py-2 email-column">
             <%= sortable "email", "Email" %>
           </th>
-          <% Option.pluck(:field).uniq.each do |field| %>
+          <% Option.where.not(field: ['Gender', 'Ethnicity', 'Nationality', 'University Classification', 'Status', 'Sexual Orientation']).pluck(:field).uniq.each do |field| %>
             <th class="border border-gray-300 px-4 py-2 custom-attribute-column <%= field.parameterize %> hidden">
-              <%= field %>
+              <%= sortable "custom_#{field.parameterize}", field %>
             </th>
           <% end %>
         </tr>
@@ -84,9 +85,9 @@
             <td class="border border-gray-300 px-4 py-2 sexual_orientation-column"><%= student.sexual_orientation %></td>
             <td class="border border-gray-300 px-4 py-2 date_of_birth-column"><%= student.date_of_birth %></td>
             <td class="border border-gray-300 px-4 py-2 email-column"><%= student.email %></td>
-            <% Option.pluck(:field).uniq.each do |field| %>
+            <% Option.where.not(field: ['Gender', 'Ethnicity', 'Nationality', 'University Classification', 'Status', 'Sexual Orientation']).pluck(:field).uniq.each do |field| %>
               <td class="border border-gray-300 px-4 py-2 custom-attribute-column <%= field.parameterize %> hidden">
-                <%= custom_attribute_value(student, field) %>
+                <%= custom_value(student, field) %>
               </td>
             <% end %>
           </tr>
@@ -125,6 +126,14 @@
         document.querySelectorAll('.' + columnClass).forEach(cell => {
           cell.style.display = this.checked ? '' : 'none';
         });
+      });
+    });
+
+    // Toggle custom attribute columns
+    const toggleCustomAttributesButton = document.getElementById('toggle-custom-attributes');
+    toggleCustomAttributesButton.addEventListener('click', () => {
+      document.querySelectorAll('.custom-attribute-column').forEach(column => {
+        column.classList.toggle('hidden');
       });
     });
   });

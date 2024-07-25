@@ -41,4 +41,9 @@ module StudentsHelper
     student_option = student.student_options.find_by(option:)
     student_option&.value
   end
+
+  def custom_value(student, field)
+    student_option = student.student_options.joins(:option).find_by(options: { field: })
+    student_option ? student_option.value : ''
+  end
 end

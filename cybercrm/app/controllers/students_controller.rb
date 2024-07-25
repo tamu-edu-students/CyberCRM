@@ -1,4 +1,6 @@
 class StudentsController < ApplicationController
+  include StudentsHelper
+
   before_action :set_student, only: %i[show edit update destroy]
   helper_method :sort_column, :sort_direction
 
@@ -162,17 +164,22 @@ class StudentsController < ApplicationController
   end
 
   def generate_csv(students)
+    custom_fields = Option.where.not(field: ['Gender', 'Ethnicity', 'Nationality', 'University Classification',
+                                             'Status', 'Sexual Orientation']).pluck(:field).uniq
+
     CSV.generate(headers: true) do |csv|
-      csv << %w[name uin grade_ryg gender ethnicity nationality expected_graduation
-                university_classification status sexual_orientation date_of_birth email]
+      csv << (%w[name uin grade_ryg gender ethnicity nationality expected_graduation
+                 university_classification status sexual_orientation date_of_birth email] + custom_fields)
 
       students.each do |student|
-        csv << [student.name, student.uin, student.grade_ryg, student.gender, student.ethnicity,
-                student.nationality, student.expected_graduation, student.university_classification,
-                student.status, student.sexual_orientation, student.date_of_birth, student.email]
+        custom_values = custom_fields.map { |field| custom_value(student, field) }
+        csv << ([student.name, student.uin, student.grade_ryg, student.gender, student.ethnicity,
+                 student.nationality, student.expected_graduation, student.university_classification,
+                 student.status, student.sexual_orientation, student.date_of_birth, student.email] + custom_values)
       end
     end
   end
+
 
   # Use callbacks to share common setup or constraints between actions.
   def set_student
