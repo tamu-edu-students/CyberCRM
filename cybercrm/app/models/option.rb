@@ -2,7 +2,6 @@
 
 # app/models/option.rb
 class Option < ApplicationRecord
-  validates :name, presence: true, uniqueness: { scope: :option_type }
-  validates :option_type, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :display_type, presence: true
 end

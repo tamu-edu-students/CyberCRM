@@ -21,7 +21,7 @@
           <td class="py-2 px-4 border-b border-gray-300 text-center"><%= options.join(', ') %></td>
           <td class="py-2 px-4 border-b border-gray-300 text-center">
             <%= form_with url: options_path, method: :post, local: true do |form| %>
-              <%= form.hidden_field 'option[option_type]', value: field %>
+              <%= form.hidden_field 'option[display_type]', value: 'dropdown' %>
               <%= form.text_field 'option[name]', placeholder: "New Option", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
               <%= form.submit "Add", class: "ml-2 rounded-lg py-2 px-4 bg-green-100 inline-block font-medium cursor-pointer" %>
             <% end %>
@@ -31,21 +31,19 @@
     </tbody>
   </table>
 
-  <h2 class="text-xl font-bold mb-4">Custom Options</h2>
+  <h2 class="text-xl font-bold mb-4">All Options</h2>
   <table class="min-w-full bg-white">
     <thead>
       <tr>
         <th class="py-2 px-4 border-b-2 border-gray-300">Name</th>
-        <th class="py-2 px-4 border-b-2 border-gray-300">Type</th>
         <th class="py-2 px-4 border-b-2 border-gray-300">Display Type</th>
         <th class="py-2 px-4 border-b-2 border-gray-300" colspan="2"></th>
       </tr>
     </thead>
     <tbody>
-      <% @custom_attributes.each do |option| %>
+      <% @options.each do |option| %>
         <tr class="hover:bg-gray-100">
           <td class="py-2 px-4 border-b border-gray-300 text-center"><%= option.name %></td>
-          <td class="py-2 px-4 border-b border-gray-300 text-center"><%= option.option_type %></td>
           <td class="py-2 px-4 border-b border-gray-300 text-center"><%= option.display_type %></td>
           <td class="py-2 px-4 border-b border-gray-300 text-center">
             <%= link_to 'Edit', edit_option_path(option), class: 'ml-2 rounded-lg py-2 px-4 bg-blue-100 inline-block font-medium', data: { turbo: false } %>
