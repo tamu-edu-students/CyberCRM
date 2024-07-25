@@ -12,6 +12,14 @@
 
 require 'faker'
 
+# Clear existing data
+Program.destroy_all
+
+# Create programs
+Program.create(name: 'SFS', description: 'Scholarship for Service Program')
+Program.create(name: 'CLDP', description: 'Community Leadership Development Program')
+Program.create(name: 'VICEROY', description: 'VICEROY Program')
+
 Rails.logger.debug 'Student table reset'
 Student.destroy_all
 
