@@ -51,6 +51,9 @@
           <th class="border border-gray-300 px-4 py-2 university_classification-column">
             <%= sortable "university_classification", "University Classification" %>
           </th>
+          <th class="border border-gray-300 px-4 py-2 status-column">
+            <%= sortable "status", "Status" %>
+          </th>
           <th class="border border-gray-300 px-4 py-2 sexual_orientation-column">
             <%= sortable "sexual_orientation", "Sexual Orientation" %>
           </th>
@@ -78,6 +81,7 @@
             <td class="border border-gray-300 px-4 py-2 nationality-column"><%= student.nationality %></td>
             <td class="border border-gray-300 px-4 py-2 expected_graduation-column"><%= student.expected_graduation %></td>
             <td class="border border-gray-300 px-4 py-2 university_classification-column"><%= student.university_classification %></td>
+            <td class="border border-gray-300 px-4 py-2 status-column"><%= student.status %></td>
             <td class="border border-gray-300 px-4 py-2 sexual_orientation-column"><%= student.sexual_orientation %></td>
             <td class="border border-gray-300 px-4 py-2 date_of_birth-column"><%= student.date_of_birth %></td>
             <td class="border border-gray-300 px-4 py-2 email-column"><%= student.email %></td>
