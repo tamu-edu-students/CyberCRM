@@ -96,7 +96,3 @@ Then('I should see the student has been deleted') do
   expect(page).to have_content 'Student was successfully deleted'
   expect(Student.count).to eq 0
 end
-
-Given('I am on the students index page') do
-  visit students_path
-end
