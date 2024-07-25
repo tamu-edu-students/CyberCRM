@@ -20,7 +20,7 @@ Capybara.register_driver :selenium_headless do |app|
   options.add_argument('--headless')
   options.add_argument('--disable-gpu')
   options.add_argument('--window-size=1280,1024')
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
 end
 
 Capybara.javascript_driver = :selenium_headless

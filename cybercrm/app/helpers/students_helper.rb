@@ -2,18 +2,18 @@
 
 # Student Helper
 module StudentsHelper
-  def form_fields
+  def form_fields(student)
     {
       name: { type: :text },
       uin: { type: :text },
-      grade_ryg: { type: :select, options: Student::GRADE_OPTIONS },
-      gender: { type: :select, options: Student::GENDER_OPTIONS },
-      ethnicity: { type: :select, options: Student::ETHNICITY_OPTIONS },
-      nationality: { type: :select, options: Student::NATIONALITY_OPTIONS },
+      grade_ryg: { type: :select, options: %w[G Y R] },
+      gender: { type: :select, options: student.dynamic_genders },
+      ethnicity: { type: :select, options: student.dynamic_ethnicities },
+      nationality: { type: :select, options: student.dynamic_nationalities },
       expected_graduation: { type: :date },
-      university_classification: { type: :select, options: Student::UNIVERSITY_CLASSIFICATIONS },
-      status: { type: :select, options: Student::STATUS_OPTIONS },
-      sexual_orientation: { type: :select, options: Student::SEXUAL_ORIENTATION_OPTIONS },
+      university_classification: { type: :select, options: student.dynamic_classifications },
+      status: { type: :select, options: student.dynamic_statuses },
+      sexual_orientation: { type: :select, options: student.dynamic_orientations },
       date_of_birth: { type: :date },
       email: { type: :text }
     }
