@@ -21,8 +21,8 @@
           <td class="py-2 px-4 border-b border-gray-300 text-center"><%= options.join(', ') %></td>
           <td class="py-2 px-4 border-b border-gray-300 text-center">
             <%= form_with url: options_path, method: :post, local: true do |form| %>
-              <%= form.hidden_field :option_type, value: field %>
-              <%= form.text_field :name, placeholder: "New Option", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+              <%= form.hidden_field 'option[option_type]', value: field %>
+              <%= form.text_field 'option[name]', placeholder: "New Option", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
               <%= form.submit "Add", class: "ml-2 rounded-lg py-2 px-4 bg-green-100 inline-block font-medium cursor-pointer" %>
             <% end %>
           </td>

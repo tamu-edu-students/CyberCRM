@@ -29,9 +29,11 @@ class OptionsController < ApplicationController
 
   def create
     @option = Option.new(option_params)
+    @option.display_type ||= 'dropdown'
     if @option.save
       redirect_to options_path, notice: 'Option was successfully created.'
     else
+      Rails.logger.debug "Option not created: #{@option.errors.full_messages.join(', ')}"
       render :new
     end
   end
