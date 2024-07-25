@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/controllers/options_controller.rb
 class OptionsController < ApplicationController
   before_action :set_option, only: %i[edit update destroy]
@@ -6,18 +8,24 @@ class OptionsController < ApplicationController
     @options = Option.where.not(option_type: 'CustomAttribute')
     @custom_attributes = Option.where(option_type: 'CustomAttribute')
     @student_fields = {
-      'Gender' => ['Male', 'Female'] + Option.where(option_type: 'Gender').pluck(:name),
-      'Ethnicity' => ['Asian', 'Black', 'Hispanic/Latino', 'Native American', 'White', 'Other'] + Option.where(option_type: 'Ethnicity').pluck(:name),
-      'Nationality' => ['American', 'British', 'Canadian', 'Australian', 'French', 'German', 'Japanese', 'Chinese', 'Indian', 'Other'] + Option.where(option_type: 'Nationality').pluck(:name),
-      'University Classification' => ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate'] + Option.where(option_type: 'University Classification').pluck(:name),
-      'Status' => ['Active', 'Inactive'] + Option.where(option_type: 'Status').pluck(:name),
-      'Sexual Orientation' => ['Heterosexual', 'Homosexual'] + Option.where(option_type: 'Sexual Orientation').pluck(:name)
+      'Gender' => %w[Male Female] + Option.where(option_type: 'Gender').pluck(:name),
+      'Ethnicity' => ['Asian', 'Black', 'Hispanic/Latino', 'Native American', 'White',
+                      'Other'] + Option.where(option_type: 'Ethnicity').pluck(:name),
+      'Nationality' => %w[American British Canadian Australian French German Japanese Chinese
+                          Indian Other] + Option.where(option_type: 'Nationality').pluck(:name),
+      'University Classification' => %w[Freshman Sophomore Junior Senior
+                                        Graduate] + Option.where(option_type: 'University Classification').pluck(:name),
+      'Status' => %w[Active Inactive] + Option.where(option_type: 'Status').pluck(:name),
+      'Sexual Orientation' => %w[Heterosexual
+                                 Homosexual] + Option.where(option_type: 'Sexual Orientation').pluck(:name)
     }
   end
 
   def new
     @option = Option.new
   end
+
+  def edit; end
 
   def create
     @option = Option.new(option_params)
@@ -27,8 +35,6 @@ class OptionsController < ApplicationController
       render :new
     end
   end
-
-  def edit; end
 
   def update
     if @option.update(option_params)
