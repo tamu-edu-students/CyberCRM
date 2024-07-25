@@ -14,9 +14,11 @@ When('I visit the new option page') do
   visit new_option_path
 end
 
+# rubocop:disable Capybara/VisibilityMatcher
 When('I wait for the options input to be visible') do
   expect(page).to have_css('#options-input', visible: true)
 end
+# rubocop:enable Capybara/VisibilityMatcher
 
 Then('I should see {string} in the options list') do |option|
   within('tbody') do
