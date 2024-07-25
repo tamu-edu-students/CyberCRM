@@ -78,7 +78,7 @@
 
     <div class="field">
       <%= form.fields_for :custom_attributes do |custom_form| %>
-        <% Option.where.not(field: ['Gender', 'Ethnicity', 'Nationality', 'University Classification', 'Status', 'Sexual Orientation']).each do |option| %>
+        <% Option.where.not(field: ['Gender', 'Ethnicity', 'Nationality', 'University Classification', 'Sexual Orientation']).each do |option| %>
           <div class="my-5">
             <%= custom_form.label option.field, option.field %>
             <% case option.display_type %>

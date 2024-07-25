@@ -6,11 +6,14 @@ class OptionsController < ApplicationController
     @options = Option.all
     @student_fields = {
       'Gender' => %w[Male Female] + Option.where(field: 'Gender').pluck(:options),
-      'Ethnicity' => ['Asian', 'Black', 'Hispanic/Latino', 'Native American', 'White', 'Other'] + Option.where(field: 'Ethnicity').pluck(:options),
-      'Nationality' => %w[American British Canadian Australian French German Japanese Chinese Indian Other] + Option.where(field: 'Nationality').pluck(:options),
-      'University Classification' => %w[Freshman Sophomore Junior Senior Graduate] + Option.where(field: 'University Classification').pluck(:options),
-      'Status' => %w[Active Inactive] + Option.where(field: 'Status').pluck(:options),
-      'Sexual Orientation' => %w[Heterosexual Homosexual] + Option.where(field: 'Sexual Orientation').pluck(:options)
+      'Ethnicity' => ['Asian', 'Black', 'Hispanic/Latino', 'Native American', 'White', 'Other'] +
+                     Option.where(field: 'Ethnicity').pluck(:options),
+      'Nationality' => %w[American British Canadian Australian French German Japanese Chinese Indian Other] +
+                       Option.where(field: 'Nationality').pluck(:options),
+      'University Classification' => %w[Freshman Sophomore Junior Senior Graduate] +
+                                     Option.where(field: 'University Classification').pluck(:options),
+      'Sexual Orientation' => %w[Heterosexual Homosexual] +
+                              Option.where(field: 'Sexual Orientation').pluck(:options)
     }
   end
 
@@ -136,7 +139,8 @@ class OptionsController < ApplicationController
   end
 
   def set_fields
-    @fields = %w[Gender Ethnicity Nationality University\ Classification Status Sexual\ Orientation] + Option.distinct.pluck(:field)
+    @fields = %w[Gender Ethnicity Nationality University\ Classification Sexual\ Orientation]
+    + Option.distinct.pluck(:field)
   end
 
   def option_params
