@@ -15,8 +15,6 @@ RSpec.describe OptionsController, type: :controller do
       it "creates a new Option" do
         expect {
           post :create, params: { option: valid_attributes }
-          puts "Response status: #{response.status}"
-          puts "Response body: #{response.body}"
           expect(response.status).to eq(302) # ensure the response status is a redirect
           expect(response).to redirect_to(options_path) # ensure it redirects to the options list
         }.to change(Option, :count).by(1)
