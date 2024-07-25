@@ -13,7 +13,6 @@
       <%= link_to "Export CSV", export_csv_students_path, data: { turbo: false }, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200" %>
       <%= link_to "Archives", inactive_students_path, data: { turbo: false }, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200" %>
       <%= link_to "New student", new_student_path, data: { turbo: false }, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200" %>
-      <button id="toggle-custom-attributes" class="rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200">Toggle Custom Attributes</button>
     </div>
   </div>
 
@@ -63,7 +62,7 @@
           <th class="border border-gray-300 px-4 py-2 email-column">
             <%= sortable "email", "Email" %>
           </th>
-          <% @custom_attributes.each do |attribute| %>
+          <% Option.where(option_type: 'CustomAttribute').each do |attribute| %>
             <th class="border border-gray-300 px-4 py-2 custom-attribute-column <%= attribute.name.parameterize %> hidden">
               <%= attribute.name %>
             </th>
@@ -85,7 +84,7 @@
             <td class="border border-gray-300 px-4 py-2 sexual_orientation-column"><%= student.sexual_orientation %></td>
             <td class="border border-gray-300 px-4 py-2 date_of_birth-column"><%= student.date_of_birth %></td>
             <td class="border border-gray-300 px-4 py-2 email-column"><%= student.email %></td>
-            <% @custom_attributes.each do |attribute| %>
+            <% Option.where(option_type: 'CustomAttribute').each do |attribute| %>
               <td class="border border-gray-300 px-4 py-2 custom-attribute-column <%= attribute.name.parameterize %> hidden">
                 <%= student.custom_attribute_value(attribute.name) %>
               </td>
@@ -101,8 +100,8 @@
   document.addEventListener("DOMContentLoaded", function() {
     const rows = document.querySelectorAll("tr[data-href]");
     rows.forEach(row => {
-      row.addEventListener("click", () => {
-        window.location.href = row.dataset.href;
+      row.addEventListener("click", function() {
+        window.location.href = this.dataset.href;
       });
     });
 
@@ -126,15 +125,6 @@
         document.querySelectorAll('.' + columnClass).forEach(cell => {
           cell.style.display = this.checked ? '' : 'none';
         });
-      });
-    });
-
-    const toggleCustomAttributesButton = document.getElementById("toggle-custom-attributes");
-    const customAttributesColumns = document.querySelectorAll(".custom-attribute-column");
-
-    toggleCustomAttributesButton.addEventListener("click", () => {
-      customAttributesColumns.forEach(column => {
-        column.classList.toggle("hidden");
       });
     });
   });

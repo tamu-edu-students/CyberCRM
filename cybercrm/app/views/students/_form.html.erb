@@ -1,132 +1,137 @@
 <% if current_user.role == 'program_director' %>
-<%= form_with(model: student, class: "contents") do |form| %>
-  <% if student.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+  <%= form_with(model: student, local: true) do |form| %>
+    <% if student.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+        <ul>
+          <% student.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-        <% student.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="my-5">
+      <%= form.label :name %>
+      <%= form.text_field :name, placeholder: "Enter Name", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", maxlength: 200 %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :uin, name: "UIN" %>
+      <%= form.number_field :uin, placeholder: "Enter UIN (Ex: 123456789)", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", maxlength: 9 %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :grade %>
+      <select name="student[grade_ryg]" id="grade_ryg" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full">
+        <option>Select Grade</option>
+        <option value="G" <%= 'selected' if @student.grade_ryg == 'G' %>>G</option>
+        <option value="Y" <%= 'selected' if @student.grade_ryg == 'Y' %>>Y</option>
+        <option value="R" <%= 'selected' if @student.grade_ryg == 'R' %>>R</option>
+      </select>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :gender %>
+      <%= form.collection_select :gender, ['Male', 'Female'] + Option.where(option_type: 'Gender').pluck(:name), :to_s, :to_s, { prompt: 'Select Gender' }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :ethnicity %>
+      <%= form.collection_select :ethnicity, ['Asian', 'Black', 'Hispanic/Latino', 'Native American', 'White', 'Other'] + Option.where(option_type: 'Ethnicity').pluck(:name), :to_s, :to_s, { prompt: 'Select Ethnicity', selected: @student.ethnicity }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :nationality %>
+      <%= form.collection_select :nationality, ['American', 'British', 'Canadian', 'Australian', 'French', 'German', 'Japanese', 'Chinese', 'Indian', 'Other'] + Option.where(option_type: 'Nationality').pluck(:name), :to_s, :to_s, { prompt: 'Select Nationality', selected: @student.nationality }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :expected_graduation %>
+      <%= form.date_field :expected_graduation, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :university_classification %>
+      <%= form.collection_select :university_classification, ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate'] + Option.where(option_type: 'University Classification').pluck(:name), :to_s, :to_s, { prompt: 'Select Classification', selected: @student.university_classification }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :status %>
+      <%= form.collection_select :status, ['Active', 'Inactive'] + Option.where(option_type: 'Status').pluck(:name), :to_s, :to_s, { prompt: 'Select Status', selected: @student.status }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :sexual_orientation %>
+      <%= form.collection_select :sexual_orientation, ['Heterosexual', 'Homosexual'] + Option.where(option_type: 'Sexual Orientation').pluck(:name), :to_s, :to_s, { prompt: 'Select Orientation', selected: @student.sexual_orientation }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :date_of_birth %>
+      <%= form.date_field :date_of_birth, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :email %>
+      <%= form.email_field :email, placeholder: "Enter Email (Ex: name@tamu.edu)", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="field">
+      <h3>Custom Attributes</h3>
+      <% Option.where(option_type: 'CustomAttribute').each do |option| %>
+        <div class="my-5">
+          <%= form.label "custom_attributes[#{option.id}]", option.name %>
+          <% case option.display_type %>
+          <% when 'dropdown' %>
+            <%= form.collection_select "custom_attributes[#{option.id}]", Option.where(option_type: option.name), :name, :name, { prompt: 'Select Option', selected: @student.custom_attribute_value(option.name) }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+          <% when 'text' %>
+            <%= form.text_field "custom_attributes[#{option.id}]", value: @student.custom_attribute_value(option.name), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+          <% when 'date' %>
+            <%= form.date_field "custom_attributes[#{option.id}]", value: @student.custom_attribute_value(option.name), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+          <% when 'number' %>
+            <%= form.number_field "custom_attributes[#{option.id}]", value: @student.custom_attribute_value(option.name), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+          <% else %>
+            <%= form.text_field "custom_attributes[#{option.id}]", value: @student.custom_attribute_value(option.name), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="inline">
+      <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 hover:bg-blue-800 text-white inline-block font-medium cursor-pointer" %>
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, placeholder: "Enter Name", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", maxlength: 200 %>
-  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const gradeSelect = document.getElementById("grade_ryg");
 
-  <div class="my-5">
-    <%= form.label :uin, name="UIN" %>
-    <%= form.number_field :uin, placeholder: "Enter UIN (Ex: 123456789)", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", maxlength: 9 %>
-  </div>
+      function updateGradeColor() {
+        const selectedOption = gradeSelect.options[gradeSelect.selectedIndex].value;
+        gradeSelect.classList.remove("bg-green-500", "bg-red-500", "bg-yellow-500", "text-white", "text-black");
 
-  <div class="my-5">
-    <%= form.label :grade %>
-    <select name="student[grade_ryg]" id="grade_ryg" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full">
-      <option>Select Grade</option>
-      <option value="G" <%= 'selected' if @student.grade_ryg == 'G' %>>G</option>
-      <option value="Y" <%= 'selected' if @student.grade_ryg == 'Y' %>>Y</option>
-      <option value="R" <%= 'selected' if @student.grade_ryg == 'R' %>>R</option>
-    </select>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :gender %>
-    <%= form.select :gender, options_for_select([["Select Gender", ""]] + Student::GENDER_OPTIONS, @student.gender), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :ethnicity %>
-    <%= form.select :ethnicity, options_for_select([["Select Ethnicity", ""]] + Student::ETHNICITY_OPTIONS, @student.ethnicity), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :nationality %>
-    <%= form.select :nationality, options_for_select([["Select Nationality", ""]] + Student::NATIONALITY_OPTIONS, @student.nationality), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :expected_graduation %>
-    <%= form.date_field :expected_graduation, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :university_classification %>
-    <%= form.select :university_classification, options_for_select([["Select Classificiation", ""]] + Student::UNIVERSITY_CLASSIFICATIONS, @student.university_classification), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :status %>
-    <%= form.select :status, options_for_select([["Select Status", ""]] + Student::STATUS_OPTIONS, @student.status), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :sexual_orientation %>
-    <%= form.select :sexual_orientation, options_for_select([["Select Orientation", ""]] + Student::SEXUAL_ORIENTATION_OPTIONS, @student.sexual_orientation), {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :date_of_birth %>
-    <%= form.date_field :date_of_birth, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :email %>
-    <%= form.email_field :email, placeholder: "Enter Email (Ex: name@tamu.edu)", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="mt-5">
-    <h2 class="text-xl font-medium mb-3">Custom Attributes</h2>
-    <% @custom_attributes = CustomAttribute.where(active: true) %>
-    <% @custom_attributes.each do |attribute| %>
-      <%= form_with url: update_custom_attribute_student_path(@student), method: :post, local: true do |f| %>
-        <div class="mb-3">
-          <label class="block font-normal mb-1"><%= attribute.name %></label>
-          <%= hidden_field_tag :attribute_id, attribute.id %>
-          <%= text_field_tag :value, @student.custom_attribute_value(attribute.name), class: "border border-gray-300 rounded-lg px-3 py-2 w-full" %>
-        </div>
-        <%= f.submit 'Update Custom Attributes', class: "rounded-lg py-3 px-5 bg-blue-600 hover:bg-blue-800 text-white inline-block font-medium cursor-pointer my-2" %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 hover:bg-blue-800 text-white inline-block font-medium cursor-pointer" %>
-  </div>
-<% end %>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const gradeSelect = document.getElementById("grade_ryg");
-
-    function updateGradeColor() {
-      const selectedOption = gradeSelect.options[gradeSelect.selectedIndex].value;
-      gradeSelect.classList.remove("bg-green-500", "bg-red-500", "bg-yellow-500", "text-white", "text-black");
-
-      switch (selectedOption) {
-        case "G":
-          gradeSelect.classList.add("bg-green-500", "text-white");
-          break;
-        case "R":
-          gradeSelect.classList.add("bg-red-500", "text-white");
-          break;
-        case "Y":
-          gradeSelect.classList.add("bg-yellow-500", "text-black");
-          break;
-        default:
-          break;
+        switch (selectedOption) {
+          case "G":
+            gradeSelect.classList.add("bg-green-500", "text-white");
+            break;
+          case "R":
+            gradeSelect.classList.add("bg-red-500", "text-white");
+            break;
+          case "Y":
+            gradeSelect.classList.add("bg-yellow-500", "text-black");
+            break;
+          default:
+            break;
+        }
       }
-    }
 
-    updateGradeColor();
+      updateGradeColor();
 
-    gradeSelect.addEventListener("change", updateGradeColor);
-  });
-</script>
+      gradeSelect.addEventListener("change", updateGradeColor);
+    });
+  </script>
 <% else %>
   <div class="mx-auto md:w-2/3 w-full">
-    <h1 class="font-bold text-4xl">Permission denied.  Please return to the homepage.</h1>
-</div>
+    <h1 class="font-bold text-4xl">Permission denied. Please return to the homepage.</h1>
+  </div>
 <% end %>

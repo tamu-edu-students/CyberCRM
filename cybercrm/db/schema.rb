@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_14_075108) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_25_062408) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,6 +37,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_14_075108) do
     t.index ["student_id"], name: "index_notes_on_student_id"
   end
 
+  create_table "options", force: :cascade do |t|
+    t.string "name"
+    t.string "option_type"
+    t.string "display_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "student_custom_attributes", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "custom_attribute_id", null: false
@@ -45,6 +53,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_14_075108) do
     t.datetime "updated_at", null: false
     t.index ["custom_attribute_id"], name: "index_student_custom_attributes_on_custom_attribute_id"
     t.index ["student_id"], name: "index_student_custom_attributes_on_student_id"
+  end
+
+  create_table "student_options", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.bigint "option_id", null: false
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["option_id"], name: "index_student_options_on_option_id"
+    t.index ["student_id"], name: "index_student_options_on_student_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -82,4 +100,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_14_075108) do
   add_foreign_key "notes", "students"
   add_foreign_key "student_custom_attributes", "custom_attributes"
   add_foreign_key "student_custom_attributes", "students"
+  add_foreign_key "student_options", "options"
+  add_foreign_key "student_options", "students"
 end

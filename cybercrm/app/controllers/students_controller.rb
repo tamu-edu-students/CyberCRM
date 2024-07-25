@@ -1,7 +1,4 @@
-# frozen_string_literal: true
-
-# Students Controller
-# rubocop:disable Metrics/ClassLength
+# app/controllers/students_controller.rb
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[show edit update destroy]
   helper_method :sort_column, :sort_direction
@@ -23,7 +20,7 @@ class StudentsController < ApplicationController
   # GET /students or /students.json
   def index
     @students = load_students.where(status: 'Active')
-    @custom_attributes = CustomAttribute.where(active: true)
+    @custom_attributes = Option.where(option_type: 'CustomAttribute')
     load_filter_options
   end
 
@@ -36,7 +33,7 @@ class StudentsController < ApplicationController
   # GET /students/1 or /students/1.json
   def show
     @student = Student.find(params[:id])
-    @custom_attributes = CustomAttribute.where(active: true)
+    @custom_attributes = Option.where(option_type: 'CustomAttribute')
   end
 
   # GET /students/new
@@ -100,12 +97,11 @@ class StudentsController < ApplicationController
 
   def update_custom_attribute
     @student = Student.find(params[:id])
-    @custom_attribute = CustomAttribute.find(params[:attribute_id])
-    student_custom_attribute = @student.student_custom_attributes.find_or_initialize_by(custom_attribute:
-                                                                                        @custom_attribute)
-    student_custom_attribute.value = params[:value]
+    @custom_attribute = Option.find(params[:attribute_id])
+    student_option = @student.student_options.find_or_initialize_by(option: @custom_attribute)
+    student_option.value = params[:value]
 
-    if student_custom_attribute.save
+    if student_option.save
       redirect_to @student, notice: I18n.t('attr_updated')
     else
       render :show
@@ -153,7 +149,6 @@ class StudentsController < ApplicationController
     Student.where('LOWER(name) LIKE LOWER(?)', "%#{query}%").limit(10)
   end
 
-  # rubocop:disable Metrics/MethodLength
   def process_csv_file(file)
     errors = []
 
@@ -170,7 +165,6 @@ class StudentsController < ApplicationController
       redirect_to students_url, notice: I18n.t('student_imported')
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def extract_student_attributes(row)
     row.to_hash.slice(
@@ -201,7 +195,7 @@ class StudentsController < ApplicationController
   def student_params
     params.require(:student).permit(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality,
                                     :expected_graduation, :university_classification, :status,
-                                    :sexual_orientation, :date_of_birth, :email)
+                                    :sexual_orientation, :date_of_birth, :email, custom_attributes: {})
   end
 
   def sort_column
@@ -212,4 +206,3 @@ class StudentsController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : nil
   end
 end
-# rubocop:enable Metrics/ClassLength
