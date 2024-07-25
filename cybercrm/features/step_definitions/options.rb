@@ -15,7 +15,7 @@ When('I visit the new option page') do
 end
 
 When('I wait for the options input to be visible') do
-  expect(page).to have_css('#options-input', :visible)
+  expect(page).to have_css('#options-input', visible: true)
 end
 
 Then('I should see {string} in the options list') do |option|
