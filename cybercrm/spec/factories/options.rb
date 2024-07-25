@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :option do
-    sequence(:field) { |n| "field_#{n}" }
-    display_type { 'select' }
+    field { "Gender" }
+    display_type { "dropdown" }
+    options { "Male, Female" }
   end
 end
