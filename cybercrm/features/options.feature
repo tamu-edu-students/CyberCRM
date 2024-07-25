@@ -14,7 +14,7 @@ Feature: Options Management
   @javascript
   Scenario: Creating a new option
     When I visit the new option page
-    And I select "Gender" from "Field"
+    And I select "Ethnicity" from "Field"
     And I select "dropdown" from "Display type"
     And I wait for the options input to be visible
     And I fill in "Options (comma-separated)" with "Non-binary"
