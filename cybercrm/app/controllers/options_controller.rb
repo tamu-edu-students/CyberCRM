@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OptionsController < ApplicationController
   before_action :set_option, only: %i[edit update destroy]
   before_action :set_fields, only: %i[new edit create update]
