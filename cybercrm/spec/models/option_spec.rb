@@ -102,4 +102,3 @@ RSpec.describe OptionsController, type: :controller do
     end
   end
 end
-
