@@ -41,14 +41,22 @@
       <h2 class="text-2xl mb-4">Welcome, <span class="mr-2"><%= current_user.name %></span></h2>
       <p>
         As a <b>super user</b> you will have access to all users on the website. <br>
-        You will note be able to view students. However you can add, delete, or update users on the site. <br>
+        You will not be able to view students. However you can add, delete, or update users on the site. <br>
         Additionally, you can change the roles for any given user <br>
         If you change your own role out of super user access you will not be able to go back unless another super
         user gives you access to do so.
       </p>
       </section>
     <% end %>
-
+    
+    <p>
+        You may also switch your current viewing role among those you are authorized for:
+        <%= form_with url: update_role_path, method: :post, local: true do |form| %>
+          <%= form.label :role, 'Select Role' %>
+          <%= form.select :role, options_for_select(current_user.role_list.map { |role| [User.display_role_name(role), role] }, current_user.role) %>
+          <%= form.submit 'Change Role', class: 'btn btn-primary' %>
+        <% end %>
+    </p>
   </main>
 </body>
 </html>

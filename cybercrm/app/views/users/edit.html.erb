@@ -26,8 +26,14 @@
     </div>
 
     <div class="mb-4">
-      <%= form.label :role, class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.select :role, options_for_select(['super_user', 'program_director', 'student_worker']), class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      <%= form.label :role, "Role", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.select :role, options_for_select(User::ROLE_DISPLAY_NAMES.map { |internal, display| [display, internal] }, @user.role), class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+
+    <div class="mb-4">
+      <%= form.label :role_list, "Available Roles", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.select :role_list, options_for_select(User::ROLE_DISPLAY_NAMES.map { |k, v| [v, k] }, @user.role_list), multiple: true, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
     </div>
 
     <div class="flex items-center justify-between">
