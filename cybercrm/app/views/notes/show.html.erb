@@ -1,10 +1,10 @@
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
-  <%= render 'layouts/navbar' %>
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <%= render 'layouts/navbar' %>
+      <% if notice.present? %>
+        <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %>
+        </p>
     <% end %>
-
     <div style="font-weight:600; font-size: 3.5vh;text-decoration: underline;"> 
       <%= @student.name %>
     </div>
@@ -15,8 +15,11 @@
       <div>
         <%= @student.uin %>
       <div>
+      <div id="student-id" style="display:none"> 
+            <%= @student.id %>
+      </div>
     </div>
-    <div id="students" class="mt-4 overflow-x-auto">
+  <div id="students" class="mt-4 overflow-x-auto">
     <table class="min-w-full border-collapse border border-gray-300">
       <thead>
         <tr>
@@ -35,6 +38,9 @@
           <th class="border border-gray-300 px-4 py-2" style="width: 2vw;">
             <%= sortable "action_completed", "Done?" %>
           </th>
+          <th class="border border-gray-300 px-4 py-2" style="width: 2vw;">
+            <%= sortable "action_completed", "Actions" %>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -45,13 +51,17 @@
             <td class="border border-gray-300 px-4 py-2"><%= note.followup_date %></td>
             <td class="border border-gray-300 px-4 py-2"><%= note.followup_action %></td>
             <td class="border border-gray-300 px-4 py-2"><%= note.action_completed %></td>
+            <td class="border border-gray-300 px-4 py-2">
+              <%= link_to "Edit this note", edit_note_path(@note), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
-</ul>
+  <!--</ul> -->
 
     
     <%= link_to "Back to student", student_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "New note", new_note_path %>
   </div>
 </div>
