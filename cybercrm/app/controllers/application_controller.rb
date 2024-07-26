@@ -2,6 +2,7 @@
 
 # This is application controller
 class ApplicationController < ActionController::Base
+  before_action :set_audited_user
   helper_method :current_user
 
   def current_user
@@ -12,4 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   protect_from_forgery with: :exception
+
+  private
+
+  def set_audited_user
+    Audited.current_user_method = :current_user
+  end
 end

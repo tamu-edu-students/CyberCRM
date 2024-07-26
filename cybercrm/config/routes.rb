@@ -2,6 +2,13 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
+  get 'audit_logs', to: 'audit_logs#index', as: 'audit_logs'
+  get 'audit_logs/users', to: 'audit_logs#users', as: 'user_audit_logs'
+  get 'audit_logs/students', to: 'audit_logs#students', as: 'student_audit_logs'
+  get 'audit_logs/options', to: 'audit_logs#options', as: 'option_audit_logs'
+  get 'audit_logs/notes', to: 'audit_logs#notes', as: 'note_audit_logs'
+  get 'audit_logs/student_options', to: 'audit_logs#student_options', as: 'student_option_audit_logs'
+
   resources :notes
 
   resources :options do

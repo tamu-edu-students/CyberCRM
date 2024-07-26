@@ -2,6 +2,8 @@
 
 # student option model
 class StudentOption < ApplicationRecord
+  audited
+
   belongs_to :student
   belongs_to :option
 

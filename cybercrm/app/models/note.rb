@@ -2,6 +2,8 @@
 
 # Note is dependent on student class. Student is the main class the builds and returns notes
 class Note < ApplicationRecord
+  audited
+
   belongs_to :student
 
   validates :note_created_date, presence: true

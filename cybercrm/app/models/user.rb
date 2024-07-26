@@ -2,6 +2,7 @@
 
 # This is user < application record
 class User < ApplicationRecord
+  audited
   # Validations
   # https://guides.rubyonrails.org/testing.html
 
