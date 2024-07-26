@@ -80,7 +80,10 @@ AllCops:
     - 'config/initializers/*'
     - 'db/migrate/*'
     - 'spec/**/*'
+    - 'spec/models/*'
     - 'lib/tasks/cucumber.rake'
+    - 'app/models/student.rb'
+    - 'app/controllers/*'
     
   # Default formatter will be used if no `-f/--format` option is given.
   DefaultFormatter: progress

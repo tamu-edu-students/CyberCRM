@@ -20,6 +20,7 @@ module Cybercrm
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    config.active_record.yaml_column_permitted_classes = [BigDecimal, Symbol, Date, Time]
     config.middleware.use RackSessionAccess::Middleware if Rails.env.test?
 
     # Configuration for the application, engines, and railties goes here.

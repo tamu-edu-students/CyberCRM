@@ -1,0 +1,22 @@
+<h2 class="font-bold text-3xl mb-4">Note Audit Logs</h2>
+
+<table class="min-w-full border-collapse border border-gray-300">
+  <thead>
+    <tr>
+      <th class="border border-gray-300 px-4 py-2">Action</th>
+      <th class="border border-gray-300 px-4 py-2">Changes</th>
+      <th class="border border-gray-300 px-4 py-2">User</th>
+      <th class="border border-gray-300 px-4 py-2">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @audits.each do |audit| %>
+      <tr class="cursor-pointer hover:bg-gray-100">
+        <td class="border border-gray-300 px-4 py-2"><%= audit.action %></td>
+        <td class="border border-gray-300 px-4 py-2"><%= audit.audited_changes %></td>
+        <td class="border border-gray-300 px-4 py-2"><%= audit.user.try(:name) || 'System' %></td>
+        <td class="border border-gray-300 px-4 py-2"><%= audit.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

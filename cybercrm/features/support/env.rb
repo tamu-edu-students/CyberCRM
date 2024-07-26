@@ -13,6 +13,17 @@ require 'mocha/minitest'
 require 'capybara/cucumber'
 require 'rack_session_access/capybara'
 require 'factory_bot'
+require 'selenium-webdriver'
+
+Capybara.register_driver :selenium_headless do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.add_argument('--headless')
+  options.add_argument('--disable-gpu')
+  options.add_argument('--window-size=1280,1024')
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
+end
+
+Capybara.javascript_driver = :selenium_headless
 
 World(FactoryBot::Syntax::Methods)
 

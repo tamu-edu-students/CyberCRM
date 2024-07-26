@@ -24,6 +24,7 @@ class User < ApplicationRecord
     self.role_list = role_list.compact_blank
   end
 
+  audited
   # Validations
   # https://guides.rubyonrails.org/testing.html
 

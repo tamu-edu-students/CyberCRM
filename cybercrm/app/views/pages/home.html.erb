@@ -42,8 +42,8 @@
       <p>
         As a <b>super user</b> you will have access to all users on the website. <br>
         You will not be able to view students. However you can add, delete, or update users on the site. <br>
-        Additionally, you can change the roles for any given user <br>
-        If you change your own role out of super user access you will not be able to go back unless another super
+        Additionally, you can change the roles for any given user. <br>
+        If you change your own role out of super user access (via the editing user's page, not your current view as below) you will not be able to go back unless another super
         user gives you access to do so.
       </p>
       </section>
@@ -57,6 +57,41 @@
           <%= form.submit 'Change Role', class: 'btn btn-primary' %>
         <% end %>
     </p>
+
+    <br>
+    <section>
+      <h2 class="text-2xl mb-4">Select Data Attribute and Chart Type</h2>
+      <%= form_with url: pages_home_path, method: :get, local: true do %>
+        <div class="mb-4">
+          <%= label_tag :attribute, "Select Attribute:", class: "block text-sm font-medium text-gray-700" %>
+          <%= select_tag :attribute, options_for_select(@attributes, @attribute), class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" %>
+        </div>
+        <div class="mb-4">
+          <%= label_tag :chart_type, "Select Chart Type:", class: "block text-sm font-medium text-gray-700" %>
+          <%= select_tag :chart_type, options_for_select(@chart_types, @chart_type), class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" %>
+        </div>
+        <div>
+          <%= submit_tag "Generate Chart", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:cursor-pointer" %>
+        </div>
+      <% end %>
+    </section>
+
+    <br>
+    <section class="border rounded-lg p-4">
+      <h2 class="text-2xl mb-4">Chart: <%= @attribute.humanize %> - <%= @chart_type.humanize %> Chart</h2>
+      <% case @chart_type
+         when 'bar'
+           concat(bar_chart @chart_data)
+         when 'line'
+           concat(line_chart @chart_data)
+         when 'pie'
+           concat(pie_chart @chart_data)
+         when 'column'
+           concat(column_chart @chart_data)
+         else
+           concat(bar_chart @chart_data)
+         end %>
+    </section>
   </main>
 </body>
 </html>

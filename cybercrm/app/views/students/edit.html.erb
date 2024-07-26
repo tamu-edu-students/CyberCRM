@@ -5,11 +5,11 @@
 
     <%= render "form", student: @student %>
 
-    <%= link_to "Show this student", @student, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" %>
-    <%= link_to "Back to students", students_path, data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" %>
+    <%= link_to "Show this student", @student, data: { turbo: false }, class: "my-2 ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" %>
+    <%= link_to "Back to students", students_path, data: { turbo: false }, class: "my-2 ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" %>
   </div>
 <% else %>
   <div class="mx-auto md:w-2/3 w-full">
     <h1 class="font-bold text-4xl">Permission denied.  Please return to the homepage.</h1>
-</div>
+  </div>
 <% end %>

@@ -4,10 +4,13 @@ source 'https://rubygems.org'
 
 ruby '3.3.2'
 
+gem 'audited'
 gem 'brakeman', require: false
 gem 'bundler-audit', require: false
+gem 'chartkick'
 gem 'csv'
 gem 'dotenv', groups: %i[development test]
+gem 'groupdate'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'

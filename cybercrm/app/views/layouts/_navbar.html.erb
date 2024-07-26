@@ -13,10 +13,11 @@
             <i class="fas fa-search"></i>
           <% end %>
           <%= link_to 'Students', students_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
-        <%elsif current_user.role == 'super_user'%>
+          <%= link_to 'Options', options_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+        <% elsif current_user.role == 'super_user' %>
           <%= link_to 'Users', users_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
-          <%= link_to 'Attributes', custom_attributes_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
-        <%end%>
+          <%= link_to 'Audit Logs', audit_logs_path, data: { turbo: false }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
+        <% end %>
       <% else %>
         <%= button_to 'Login', '/auth/google_oauth2', data: { turbo: "false" }, class: 'text-white hover:opacity-80 hover:text-yellow-500 text-2xl' %>
       <% end %>
@@ -26,7 +27,7 @@
     <div class="relative inline-block">
       <div id="dropdown-trigger" class="flex items-center cursor-pointer">
         <span class="mr-2"><%= current_user.name %></span>
-        <%= image_tag(current_user&.image || '/assets/images/default.jpg', alt: 'User image', class: 'h-10 w-10 rounded-full') %>
+        <%= image_tag(current_user&.image || asset_path('default.jpg'), alt: 'User image', class: 'h-10 w-10 rounded-full') %>
       </div>
       <div id="dropdown-content" class="dropdown-content absolute hidden bg-gray-100 text-black min-w-[160px] shadow-lg p-3 z-10 right-0 rounded-lg">
         <%= current_user.email %>
