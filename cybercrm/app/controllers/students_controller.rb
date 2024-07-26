@@ -180,7 +180,6 @@ class StudentsController < ApplicationController
     end
   end
 
-
   # Use callbacks to share common setup or constraints between actions.
   def set_student
     @student = Student.find(params[:id])
@@ -202,7 +201,6 @@ class StudentsController < ApplicationController
 
       student_option = student.student_options.find_or_initialize_by(option: option)
       student_option.value = value
-      Rails.logger.info("\n\n\n\n#{student_option.inspect}\n\n\n\n")
       student_option.save
     end
   end

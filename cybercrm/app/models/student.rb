@@ -2,6 +2,8 @@
 
 # app/models/student.rb
 class Student < ApplicationRecord
+  audited
+
   has_many :student_options, dependent: :destroy
   has_many :options, through: :student_options
   has_many :notes, dependent: :destroy

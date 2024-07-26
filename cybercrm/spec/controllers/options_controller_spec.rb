@@ -39,7 +39,8 @@ RSpec.describe OptionsController, type: :controller do
     context "with valid params and new option" do
       it "creates a new Option" do
         expect {
-          post :create, params: { option: { field: 'New Field', new_field: 'Age', display_type: 'dropdown', options: '18-25' } }
+          post :create, params: { option: { field: 'New Field', new_field: 'Age', display_type: 'dropdown',
+                                            options: '18-25' } }
         }.to change(Option, :count).by(1)
         expect(response).to redirect_to(options_path)
         expect(flash[:notice]).to eq('Option was successfully created.')

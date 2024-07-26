@@ -24,26 +24,20 @@ class OptionsController < ApplicationController
   end
 
   def create
-    # Rails.logger.info("Create action called with params: #{params.inspect}")
-
     if params[:option][:field] == 'New Field'
       params[:option][:field] = params[:option][:new_field]
       params[:option].delete(:new_field)
     end
 
     existing_option = Option.find_by(field: params[:option][:field], display_type: params[:option][:display_type])
-    # Rails.logger.info("Existing option found: #{existing_option.inspect}") if existing_option
 
     if existing_option
       new_options = params[:option][:options].split(',').map(&:strip)
       updated_options = (existing_option.options.split(',').map(&:strip) + new_options).uniq.join(', ')
-      # Rails.logger.info("Updated options: #{updated_options}")
 
       if existing_option.update(options: updated_options)
-        # Rails.logger.info("Option updated successfully: #{existing_option.inspect}")
         redirect_to options_path, notice: 'Option was successfully updated.'
       else
-        # Rails.logger.error("Failed to update option: #{existing_option.errors.full_messages.to_sentence}")
         @option = existing_option
         flash.now[:alert] = existing_option.errors.full_messages.to_sentence
         render :new
@@ -52,10 +46,8 @@ class OptionsController < ApplicationController
       params[:option].delete(:new_field)
       @option = Option.new(option_params)
       if @option.save
-        # Rails.logger.info("Option created successfully: #{@option.inspect}")
         redirect_to options_path, notice: 'Option was successfully created.'
       else
-        # Rails.logger.error("Failed to create option: #{@option.errors.full_messages.to_sentence}")
         render :new
       end
     end
@@ -85,6 +77,7 @@ class OptionsController < ApplicationController
         render :edit
       end
     else
+      params[:option].delete(:new_field)
       if @option.update(option_params)
         redirect_to options_path, notice: 'Option was successfully updated.'
       else
@@ -110,10 +103,8 @@ class OptionsController < ApplicationController
         unless existing_options.include?(new_option)
           updated_options = (existing_options + [new_option]).join(', ')
           if option.update(options: updated_options)
-            # Rails.logger.info("Option updated: #{option.inspect}")
             redirect_to options_path, notice: 'Option was successfully updated.'
           else
-            # Rails.logger.error("Failed to update option: #{option.errors.full_messages.to_sentence}")
             redirect_to options_path, alert: option.errors.full_messages.to_sentence
           end
         else
@@ -122,15 +113,12 @@ class OptionsController < ApplicationController
       else
         option = Option.new(field: field, display_type: 'dropdown', options: new_option)
         if option.save
-          # Rails.logger.info("Option created: #{option.inspect}")
           redirect_to options_path, notice: 'Option was successfully created.'
         else
-          # Rails.logger.error("Failed to create option: #{option.errors.full_messages.to_sentence}")
           redirect_to options_path, alert: option.errors.full_messages.to_sentence
         end
       end
     else
-      # Rails.logger.error("Field and new option must be present. Params: #{params.inspect}")
       redirect_to options_path, alert: 'Field and new option must be present.'
     end
   end
