@@ -1,6 +1,6 @@
 # app/controllers/audit_logs_controller.rb
 class AuditLogsController < ApplicationController
-  # before_action :authorize_super_user
+  before_action :authorize_super_user
 
   def index
   end
