@@ -11,6 +11,16 @@ class PagesController < ApplicationController
     # logger.debug "Params: #{params.inspect}"  # Add this line to debug parameters
     new_role = params[:role]
     sanitized_role_list = current_user.role_list.compact_blank # Remove any empty strings
+    
+    if sanitized_role_list.include?(new_role)
+      if current_user.update(role: new_role)
+        flash[:notice] = t('role_updated')
+      else
+        flash[:alert] = t('role_alert')
+      end
+    else
+      flash[:alert] = t('role_invalid')
+    end
 
     if sanitized_role_list.include?(new_role)
       current_user.update(role: new_role)
