@@ -1,57 +1,92 @@
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
-  <%= render 'layouts/navbar' %>
+    <%= render 'layouts/navbar' %>
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
-    <div style="font-weight:600; font-size: 3.5vh;text-decoration: underline;"> 
+    <div style="font-weight:600; font-size: 3.5vh;text-decoration: underline;">
       <%= @student.name %>
     </div>
-    <div style="font-weight:400; font-size: 2vh;display:flex;"> 
-      <div>
-        UIN:
-      </div>
-      <div>
-        <%= @student.uin %>
-      <div>
+    <div style="font-weight:400; font-size: 2vh;display:flex;">
+      <div>UIN:</div>
+      <div><%= @student.uin %></div>
     </div>
-    <div id="students" class="mt-4 overflow-x-auto">
-    <table class="min-w-full border-collapse border border-gray-300">
-      <thead>
-        <tr>
-          <th class="border border-gray-300 px-4 py-2" >
-            <%= sortable "note_created_date", "Date Entered" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2" >
-            <%= sortable "note", "Note" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2" >
-            <%= sortable "follow_up_date", "Follow Up Date" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2" >
-            <%= sortable "followup_action", "Follow Up Action" %>
-          </th>
-          <th class="border border-gray-300 px-4 py-2" style="width: 2vw;">
-            <%= sortable "action_completed", "Done?" %>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @notes.each do |note| %>
-          <tr>
-            <td class="border border-gray-300 px-4 py-2"><%= note.note_created_date %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= note.note %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= note.followup_date %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= note.followup_action %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= note.action_completed %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-</ul>
 
-    
+    <%= form_with(url: note_path(@student), method: :get, local: true) do |f| %>
+      <div class="flex flex-wrap mb-4">
+        <div class="w-full md:w-1/3 px-2">
+          <%= f.label :note_created_date, "Date Entered" %>
+          <%= f.date_field :note_created_date, class: "form-input mt-1 block w-full" %>
+        </div>
+        <div class="w-full md:w-1/3 px-2">
+          <%= f.label :note, "Note" %>
+          <%= f.text_field :note, class: "form-input mt-1 block w-full" %>
+        </div>
+        <div class="w-full md:w-1/3 px-2">
+          <%= f.label :followup_date, "Follow Up Date" %>
+          <%= f.date_field :followup_date, class: "form-input mt-1 block w-full" %>
+        </div>
+        <div class="w-full md:w-1/3 px-2">
+          <%= f.label :followup_action, "Follow Up Action" %>
+          <%= f.text_field :followup_action, class: "form-input mt-1 block w-full" %>
+        </div>
+        <div class="w-full md:w-1/3 px-2">
+          <%= f.label :action_completed, "Done?" %>
+          <%= f.select :action_completed, options_for_select([['Yes', true], ['No', false]]), include_blank: true, class: "form-select mt-1 block w-full" %>
+        </div>
+      </div>
+      <div class="flex justify-end">
+        <%= f.submit "Filter", class: "rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200" %>
+      </div>
+    <% end %>
+
+    <div id="students" class="mt-4 overflow-x-auto">
+      <table class="min-w-full border-collapse border border-gray-300">
+        <thead>
+          <tr>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "note_created_date", "Date Entered" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "note", "Note" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "followup_date", "Follow Up Date" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <%= sortable "followup_action", "Follow Up Action" %>
+            </th>
+            <th class="border border-gray-300 px-4 py-2" style="width: 2vw;">
+              <%= sortable "action_completed", "Done?" %>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @notes.each do |note| %>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2"><%= note.note_created_date %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= note.note %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= note.followup_date %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= note.followup_action %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= note.action_completed %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
     <%= link_to "Back to student", student_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const rows = document.querySelectorAll("tr[data-href]");
+    rows.forEach(row => {
+      row.addEventListener("click", function() {
+        window.location.href = this.dataset.href;
+      });
+    });
+  });
+</script>
