@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe StudentsHelper, type: :helper do
+RSpec.describe StudentsHelper do
   let(:student) { create(:student) }
   let(:option) { create(:option, field: 'gender', display_type: 'select', options: 'Male, Female, Non-binary') }
-  let(:student_option) { create(:student_option, student: student, option: option, value: 'Male') }
+  let(:student_option) { create(:student_option, student:, option:, value: 'Male') }
 
   before do
     # Ensure options are loaded before each test
@@ -32,12 +34,17 @@ RSpec.describe StudentsHelper, type: :helper do
     let(:form) { double('form') }
 
     before do
-      allow(form).to receive(:label).with(:name, "Name:").and_return('<label for="name">Name:</label>'.html_safe)
-      allow(form).to receive(:label).with(:gender, "Gender:").and_return('<label for="gender">Gender:</label>'.html_safe)
-      allow(form).to receive(:label).with(:expected_graduation, "Expected Graduation:").and_return('<label for="expected_graduation">Expected Graduation:</label>'.html_safe)
-      allow(form).to receive(:text_field).with(:name, class: 'rounded-lg').and_return('<input type="text" id="name" class="rounded-lg">'.html_safe)
-      allow(form).to receive(:select).with(:gender, ['All'] + student.dynamic_genders, include_blank: true, class: 'rounded-lg').and_return('<select id="gender" class="rounded-lg"><option value="All">All</option><option value="Male">Male</option><option value="Female">Female</option><option value="Non-binary">Non-binary</option></select>'.html_safe)
-      allow(form).to receive(:date_field).with(:expected_graduation, class: 'rounded-lg').and_return('<input type="date" id="expected_graduation" class="rounded-lg">'.html_safe)
+      allow(form).to receive(:label).with(:name, 'Name:').and_return('<label for="name">Name:</label>'.html_safe)
+      allow(form).to receive(:label).with(:gender,
+                                          'Gender:').and_return('<label for="gender">Gender:</label>'.html_safe)
+      allow(form).to receive(:label).with(:expected_graduation,
+                                          'Expected Graduation:').and_return('<label for="expected_graduation">Expected Graduation:</label>'.html_safe)
+      allow(form).to receive(:text_field).with(:name,
+                                               class: 'rounded-lg').and_return('<input type="text" id="name" class="rounded-lg">'.html_safe)
+      allow(form).to receive(:select).with(:gender, ['All'] + student.dynamic_genders, include_blank: true,
+                                                                                       class: 'rounded-lg').and_return('<select id="gender" class="rounded-lg"><option value="All">All</option><option value="Male">Male</option><option value="Female">Female</option><option value="Non-binary">Non-binary</option></select>'.html_safe)
+      allow(form).to receive(:date_field).with(:expected_graduation,
+                                               class: 'rounded-lg').and_return('<input type="date" id="expected_graduation" class="rounded-lg">'.html_safe)
     end
 
     it 'renders a text field' do

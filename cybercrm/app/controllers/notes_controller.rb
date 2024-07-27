@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Controls notes. params[:id] is the id of the student
+# Controls notes. params[:id] is the id of the student
 class NotesController < ApplicationController
   # GET /notes/1 or /notes/1.json
   def show
@@ -35,59 +36,56 @@ class NotesController < ApplicationController
   end
 end
 
+# GET /notes/1/edit
+# def edit; end
 
+# POST /notes or /notes.json
+# def create
+#   @note = Note.new(note_params)
 
-  # GET /notes/1/edit
-  # def edit; end
+#   respond_to do |format|
+#     if @note.save
+#       format.html { redirect_to note_url(@note), notice: 'Note was successfully created.' }
+#       format.json { render :show, status: :created, location: @note }
+#     else
+#       format.html { render :new, status: :unprocessable_entity }
+#       format.json { render json: @note.errors, status: :unprocessable_entity }
+#     end
+#   end
+# end
 
-  # POST /notes or /notes.json
-  # def create
-  #   @note = Note.new(note_params)
+# PATCH/PUT /notes/1 or /notes/1.json
+# def update
+#   respond_to do |format|
+#     if @note.update(note_params)
+#       format.html { redirect_to note_url(@note), notice: 'Note was successfully updated.' }
+#       format.json { render :show, status: :ok, location: @note }
+#     else
+#       format.html { render :edit, status: :unprocessable_entity }
+#       format.json { render json: @note.errors, status: :unprocessable_entity }
+#     end
+#   end
+# end
 
-  #   respond_to do |format|
-  #     if @note.save
-  #       format.html { redirect_to note_url(@note), notice: 'Note was successfully created.' }
-  #       format.json { render :show, status: :created, location: @note }
-  #     else
-  #       format.html { render :new, status: :unprocessable_entity }
-  #       format.json { render json: @note.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+# DELETE /notes/1 or /notes/1.json
+# def destroy
+#   @note.destroy!
 
-  # PATCH/PUT /notes/1 or /notes/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @note.update(note_params)
-  #       format.html { redirect_to note_url(@note), notice: 'Note was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @note }
-  #     else
-  #       format.html { render :edit, status: :unprocessable_entity }
-  #       format.json { render json: @note.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+#   respond_to do |format|
+#     format.html { redirect_to notes_url, notice: 'Note was successfully destroyed.' }
+#     format.json { head :no_content }
+#   end
+# end
 
-  # DELETE /notes/1 or /notes/1.json
-  # def destroy
-  #   @note.destroy!
+# private
 
-  #   respond_to do |format|
-  #     format.html { redirect_to notes_url, notice: 'Note was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
+# Use callbacks to share common setup or constraints between actions.
+# def set_note
+#   @student = Student.find(params[:id])
+#   puts @student.name
+# end
 
-  # private
-
-  # Use callbacks to share common setup or constraints between actions.
-  # def set_note
-  #   @student = Student.find(params[:id])
-  #   puts @student.name
-  # end
-
-  # Only allow a list of trusted parameters through.
-  # def note_params
-  #   params.fetch(:note, {})
-  # end
-
+# Only allow a list of trusted parameters through.
+# def note_params
+#   params.fetch(:note, {})
+# end
