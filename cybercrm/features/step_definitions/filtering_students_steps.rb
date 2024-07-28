@@ -1,8 +1,20 @@
 # frozen_string_literal: true
 
 Given('the following students exist for filtering tests:') do |table|
-  table.hashes.each do |student|
-    Student.create!(student)
+  table.hashes.each do |student_attributes|
+    student_attributes.merge!(
+      grade_ryg: 'G',
+      gender: 'Male',
+      ethnicity: 'Asian',
+      nationality: 'American',
+      expected_graduation: '2025-05-15',
+      university_classification: 'Senior',
+      status: 'Active',
+      sexual_orientation: 'Heterosexual',
+      date_of_birth: '2000-01-01',
+      email: "#{student_attributes['name'].parameterize}@example.com"
+    )
+    Student.create!(student_attributes)
   end
 end
 

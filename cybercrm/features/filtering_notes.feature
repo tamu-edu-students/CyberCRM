@@ -5,7 +5,6 @@ Feature: Filtering notes
 
   Background:
     Given I am logged in with Google as Program Manager
-    Given I am on the notes page
     And the following students exist for filtering tests:
       | name                | uin        |
       | Dominique O'Connell | 765656210  |
@@ -19,17 +18,17 @@ Feature: Filtering notes
     Given I am on the notes page for "Dominique O'Connell"
 
   Scenario: Filter by note content
-    When I input "Note" with "Follow up note 1"
-    And I press "Filter"
-    Then I should see "Follow up note 1"
-    And I should not see "Follow up note 2"
-    And I should not see "Follow up note 3"
-    And I should not see "Follow up note 4"
+    When I filter notes by inputting "Note" with "Follow up note 1"
+    And I filter notes by pressing "Filter"
+    Then I should see the note with content "Follow up note 1"
+    And I should not see the note with content "Follow up note 2"
+    And I should not see the note with content "Follow up note 3"
+    And I should not see the note with content "Follow up note 4"
 
   Scenario: Filter by action completed
-    When I select "Yes" from "Done?"
-    And I press "Filter"
-    Then I should see "Follow up note 1"
-    And I should not see "Follow up note 2"
-    And I should not see "Follow up note 3"
-    And I should not see "Follow up note 4"
+    When I filter notes by selecting "Yes" from "Done?"
+    And I filter notes by pressing "Filter"
+    Then I should see the note with content "Follow up note 1"
+    And I should not see the note with content "Follow up note 2"
+    And I should not see the note with content "Follow up note 3"
+    And I should not see the note with content "Follow up note 4"
