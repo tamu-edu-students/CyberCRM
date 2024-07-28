@@ -44,4 +44,3 @@ en:
   attr_updated:     "Custom attribute was successfully updated."
   role_updated:     "Role updated successfully."
   role_alert:       "There was an error updating your role."
-  role_invalid:     "The selected role is invalid."
