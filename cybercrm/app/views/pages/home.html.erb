@@ -54,7 +54,7 @@
         <%= form_with url: update_role_path, method: :post, local: true do |form| %>
           <%= form.label :role, 'Select Role' %>
           <%= form.select :role, options_for_select(current_user.role_list.map { |role| [User.display_role_name(role), role] }, current_user.role) %>
-          <%= form.submit 'Change Role', class: 'btn btn-primary' %>
+          <%= form.submit 'Change Role', data: { turbo: false }, class: 'btn btn-primary' %>
         <% end %>
     </p>
 
