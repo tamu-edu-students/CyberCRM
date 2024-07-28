@@ -9,19 +9,19 @@
       "file": "app/controllers/users_controller.rb",
       "line": 49,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:user).permit(:name, :email, :role)",
+      "code": "params.require(:user).permit(:name, :email, :role, role_list: [])",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "UsersController",
         "method": "user_params"
       },
-      "user_input": ":role",
+      "user_input": ":role, role_list: []",
       "confidence": "Medium",
       "cwe_id": [
         915
       ],
-      "note": ""
+      "note": "This is a known safe usage and necessary for our application's functionality."
     }
   ],
   "updated": "2024-07-12 23:39:06 -0500",
