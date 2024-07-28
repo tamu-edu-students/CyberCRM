@@ -99,6 +99,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_123724) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "role"
+    t.string "role_list", default: ["student_worker"], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

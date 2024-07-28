@@ -19,6 +19,7 @@ class PreloadSuperUsers < ActiveRecord::Migration[6.0]
       User.create!(
         email: user_data[:email],
         role: user_data[:role],
+        role_list: ['super_user', 'program_director', 'student_worker'],
         provider: 'preloaded',
         uid: SecureRandom.uuid,
         name: 'preloaded'
