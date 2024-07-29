@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Note belongs to student
 class Note < ApplicationRecord
   audited
 

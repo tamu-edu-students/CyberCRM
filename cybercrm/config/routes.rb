@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'audit_logs/notes', to: 'audit_logs#notes', as: 'note_audit_logs'
   get 'audit_logs/student_options', to: 'audit_logs#student_options', as: 'student_option_audit_logs'
 
-  resources :notes 
+  resources :notes
 
   resources :options do
     post :add_option_to_field, on: :collection
@@ -35,8 +35,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: %i[index show edit update destroy new create]
-
-
 
   root 'pages#login'
 

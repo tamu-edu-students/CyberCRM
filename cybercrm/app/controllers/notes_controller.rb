@@ -1,28 +1,12 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: %i[ show edit update destroy ]
-
-  @Student
-  # GET /notes or /notes.json
-  def index
-    @notes = Note.first(5)
-    tmp = @notes.first
-    puts "TMP NOTE= " + tmp.note
-    @Student = tmp.student
-    puts "TMP STUDENT= " + @Student.name
-  end
-
-  def index_student
-    @notes = Note.all
-  end
+  before_action :set_note, only: %i[ show edit update  ] #destroy
 
   # GET /notes/1 or /notes/1.json
   def show
-    puts "----> IN SHOW"
     @student = Student.find(params[:id])
     Rails.logger.debug @student.name
     @notes = @student.notes.where(status: "Active")
     Rails.logger.debug @notes
-    puts "-----> " + current_user.email
 
   end
 
@@ -32,17 +16,10 @@ class NotesController < ApplicationController
     @note = Note.new
   end
 
-
-
   # GET /notes/1/edit
   def edit
     @note = Note.find(params[:note_id])
-    puts " -----> " + @note.student_id.to_s
-    @student = Student.find(@note.student_id)
-    #@student = Student.find(params[:id])
-    puts "------> " + @student.name
-    
-
+    @student = Student.find(@note.student_id) 
   end
 
   # POST /notes or /notes.json
@@ -55,11 +32,9 @@ class NotesController < ApplicationController
     if @note.private_note_user == ""
       @note.private_note_user = nil
     end
-    puts "---------> " + @student.name
     respond_to do |format|
       if @note.save
-        format.html { redirect_to "/notes/" + @note.student_id.to_s} #note_url(@note) #
-        # redirect_to note_path(:id => @student.id)
+        format.html { redirect_to "/notes/" + @note.student_id.to_s} 
         format.json { render :show, status: :created, location: @note }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -73,24 +48,12 @@ class NotesController < ApplicationController
   def update
     respond_to do |format|
       if @note.update(note_params)
-        #redirect_to "/notes/2/"
         format.html { redirect_to "/notes/" + @note.student_id.to_s, notice: "Note was successfully updated." }
-        #format.html { redirect_to note_url(@note), notice: "Note was successfully updated." }
         format.json { render :show, status: :ok, location: @note }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /notes/1 or /notes/1.json
-  def destroy
-    @note.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to notes_url, notice: "Note was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
