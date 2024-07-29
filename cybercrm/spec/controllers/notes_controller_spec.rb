@@ -2,6 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe NotesController, type: :controller do
+  
   let(:student) { create(:student) }
   let(:note) { create(:note, student: student) }
 
@@ -29,5 +30,5 @@ RSpec.describe NotesController, type: :controller do
     end
   end
 
-  # Add more tests for other actions if needed
+ 
 end
