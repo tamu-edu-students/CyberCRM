@@ -32,3 +32,45 @@ Feature: Filtering notes
     And I should not see "Follow up note 2" in the notes table
     And I should not see "Follow up note 3" in the notes table
     And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by Date Entered
+    When I input "Date Entered" with "2023-01-01" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by Follow Up Date
+    When I input "Follow Up Date" with "2023-01-02" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by Follow Up Action
+    When I input "Follow Up Action" with "Action 1" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by multiple attributes
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I input "Follow Up Date" with "2023-01-02" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by Date Entered and Follow Up Date
+    When I input "Date Entered" with "2023-01-01" in the notes filter
+    And I input "Follow Up Date" with "2023-01-02" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
