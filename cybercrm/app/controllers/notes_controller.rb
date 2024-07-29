@@ -20,43 +20,62 @@ class NotesController < ApplicationController
     puts "----> IN SHOW"
     @student = Student.find(params[:id])
     Rails.logger.debug @student.name
-    @notes = @student.notes
+    @notes = @student.notes.where(status: "Active")
     Rails.logger.debug @notes
+    puts "-----> " + current_user.email
+
   end
 
   # GET /notes/new
   def new
+    @student = Student.find(params[:student_id])
     @note = Note.new
   end
 
-  def new2
-    render html: 'Hello World!'
-  end
+
 
   # GET /notes/1/edit
   def edit
+    @note = Note.find(params[:note_id])
+    puts " -----> " + @note.student_id.to_s
+    @student = Student.find(@note.student_id)
+    #@student = Student.find(params[:id])
+    puts "------> " + @student.name
+    
+
   end
 
   # POST /notes or /notes.json
   def create
     @note = Note.new(note_params)
-
+    @note.status = "Active"
+    @note.note_created_date = Date.today
+    puts @note.status
+    @student = @note.student
+    if @note.private_note_user == ""
+      @note.private_note_user = nil
+    end
+    puts "---------> " + @student.name
     respond_to do |format|
       if @note.save
-        format.html { redirect_to note_url(@note), notice: "Note was successfully created." }
+        format.html { redirect_to "/notes/" + @note.student_id.to_s} #note_url(@note) #
+        # redirect_to note_path(:id => @student.id)
         format.json { render :show, status: :created, location: @note }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
+    
   end
 
   # PATCH/PUT /notes/1 or /notes/1.json
   def update
     respond_to do |format|
       if @note.update(note_params)
-        format.html { redirect_to note_url(@note), notice: "Note was successfully updated." }
+        #redirect_to "/notes/2/"
+        format.html { redirect_to "/notes/" + @note.student_id.to_s, notice: "Note was successfully updated." }
+        #format.html { redirect_to note_url(@note), notice: "Note was successfully updated." }
         format.json { render :show, status: :ok, location: @note }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -79,7 +98,6 @@ class NotesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_note
       @note = Note.find(params[:id])
-      @student = Student.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

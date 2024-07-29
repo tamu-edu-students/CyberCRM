@@ -10,10 +10,16 @@
       </ul>
     </div>
   <% end %>
-  <h1> <%= @student.name %> </h1>
-  <div class="my-5">
-    <%= form.label :student_id %>
-    <%= form.text_field :student_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+
+  <div class="my-5" style="">
+    <%= form.label :student_id %> <!-- params[:student_id]--> 
+    <%  @student_id_value
+        if params[:student_id] != nil
+          @student_id_value = params[:student_id]
+        else
+          @student_id_value = @note.student_id
+        end %>
+    <%= form.text_field :student_id, :value => @student_id_value, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -21,9 +27,9 @@
     <%= form.text_field :note, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
+  <div class="my-5" style="display:none">
     <%= form.label :note_created_date %>
-    <%= form.date_field :note_created_date, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.date_field :note_created_date,class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -43,20 +49,56 @@
 
   <div class="my-5">
     <%= form.label :is_private %>
-    <%= form.check_box :is_private, class: "block mt-2 h-5 w-5" %>
+    <div id=private_div" >
+      <%= form.check_box :is_private, class: "block mt-2 h-5 w-5", :id => "private_checkbox" %>
+    </div>
+    
   </div>
 
-  <div class="my-5">
+  <div class="my-5"  id="private_user"  style="display:none;">
     <%= form.label :private_note_user %>
-    <%= form.text_field :private_note_user, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_field :private_note_user, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", :id => "private_user_input" %>
   </div>
 
-  <div class="my-5">
+  <div class="my-5" style="">
     <%= form.label :status %>
-    <%= form.text_field :status, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :status, ['Active', 'Inactive'], :value => "Active", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <a id="notes-show"><div id="notes_button" class= "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" >Back to Notes</div></a>
   </div>
 <% end %>
+<script>
+/* SHOW NOTES HYPERLINK */
+ 
+
+  var notes_show_hyperlink = "/notes/";
+  notes_show_hyperlink += <%= @student_id_value %>;
+  console.log(notes_show_hyperlink)
+  var notes_show_button = document.getElementById("notes-show");
+  notes_show_button.setAttribute('href', notes_show_hyperlink);
+  
+  var private_checkbox = document.getElementById("private_checkbox");
+
+  private_checkbox.addEventListener("click", function(e){
+    var private_checkbox = document.getElementById("private_checkbox");
+    var private_user = document.getElementById("private_user");
+    var private_user_input = document.getElementById("private_user_input");
+    if(private_checkbox.checked == false){
+        private_user.setAttribute("style", "display:none;");
+        private_user_input.removeAttribute('required');
+        private_user_input.value = null;
+      } else{
+        private_user.setAttribute("style", "display:inline;");
+        private_user_input.required = true;
+      }
+  });
+
+      <%  if @note.is_private == true
+          puts "IS PRIVATE" %>
+          document.getElementById("private_user").setAttribute("style", "display:inline;");
+       <% end %>
+
+</script>
