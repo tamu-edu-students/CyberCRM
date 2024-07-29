@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-# spec/controllers/audit_logs_controller_spec.rb
+# spec/spec_helper.rb or spec/rails_helper.rb
 require 'rails_helper'
 
 RSpec.describe AuditLogsController do
