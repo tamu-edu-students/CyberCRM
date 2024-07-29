@@ -74,3 +74,224 @@ Feature: Filtering notes
     And I should not see "Follow up note 2" in the notes table
     And I should not see "Follow up note 3" in the notes table
     And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by student name and note
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by student name and note created date
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Date Entered" with "2023-01-01" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by note and follow up date
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I input "Follow Up Date" with "2023-01-02" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by note and follow up action
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I input "Follow Up Action" with "Action 1" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by note and action completed
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I select "Yes" from "Done?" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by three attributes: student name, note, and note created date
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I input "Date Entered" with "2023-01-01" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by three attributes: student name, note, and follow up date
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I input "Follow Up Date" with "2023-01-02" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by three attributes: note, note created date, and follow up date
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I input "Date Entered" with "2023-01-01" in the notes filter
+    And I input "Follow Up Date" with "2023-01-02" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by student name and follow up action
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Follow Up Action" with "Action 1" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by student name and action completed
+    Given I am on the notes page for "Dominique O'Connell"
+    When I select "Yes" from "Done?" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by note created date and follow up action
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Date Entered" with "2023-01-01" in the notes filter
+    And I input "Follow Up Action" with "Action 1" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by follow up action and action completed
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Follow Up Action" with "Action 1" in the notes filter
+    And I select "Yes" from "Done?" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by follow up date and action completed
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Follow Up Date" with "2023-01-02" in the notes filter
+    And I select "Yes" from "Done?" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by student name, follow up date, and action completed
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Follow Up Date" with "2023-01-02" in the notes filter
+    And I select "Yes" from "Done?" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by note, follow up date, and action completed
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I input "Follow Up Date" with "2023-01-02" in the notes filter
+    And I select "Yes" from "Done?" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by student name, note, and follow up action
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I input "Follow Up Action" with "Action 1" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by student name, note created date, and action completed
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Date Entered" with "2023-01-01" in the notes filter
+    And I select "Yes" from "Done?" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by student name, follow up date, and follow up action
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Follow Up Date" with "2023-01-02" in the notes filter
+    And I input "Follow Up Action" with "Action 1" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by note, note created date, and follow up action
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I input "Date Entered" with "2023-01-01" in the notes filter
+    And I input "Follow Up Action" with "Action 1" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by follow up date, follow up action, and action completed
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Follow Up Date" with "2023-01-02" in the notes filter
+    And I input "Follow Up Action" with "Action 1" in the notes filter
+    And I select "Yes" from "Done?" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by student name, follow up action, and action completed
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Follow Up Action" with "Action 1" in the notes filter
+    And I select "Yes" from "Done?" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
+
+  Scenario: Filter by note, follow up action, and action completed
+    Given I am on the notes page for "Dominique O'Connell"
+    When I input "Note" with "Follow up note 1" in the notes filter
+    And I input "Follow Up Action" with "Action 1" in the notes filter
+    And I select "Yes" from "Done?" in the notes filter
+    And I press "Filter" in the notes filter
+    Then I should see "Follow up note 1" in the notes table
+    And I should not see "Follow up note 2" in the notes table
+    And I should not see "Follow up note 3" in the notes table
+    And I should not see "Follow up note 4" in the notes table
