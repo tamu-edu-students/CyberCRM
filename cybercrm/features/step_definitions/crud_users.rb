@@ -41,7 +41,7 @@ When('I click the user delete button') do
 end
 
 When('I update the user form with valid data') do
-  select 'program_director', from: 'Role'
+  select 'Program Director', from: 'Role'
 end
 
 When('I submit the user edit form') do

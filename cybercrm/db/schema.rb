@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_25_123724) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_27_193052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_123724) do
     t.index ["field"], name: "index_options_on_field", unique: true
   end
 
+  create_table "programs_students", id: false, force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.bigint "program_id", null: false
+  end
+
   create_table "student_options", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "option_id", null: false
@@ -99,6 +104,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_123724) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "role"
+    t.string "role_list", default: ["student_worker"], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

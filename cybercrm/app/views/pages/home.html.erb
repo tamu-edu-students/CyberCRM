@@ -43,11 +43,20 @@
         As a <b>super user</b> you will have access to all users on the website. <br>
         You will not be able to view students. However you can add, delete, or update users on the site. <br>
         Additionally, you can change the roles for any given user. <br>
-        If you change your own role out of super user access you will not be able to go back unless another super
+        If you change your own role out of super user access (via the editing user's page, not your current view as below) you will not be able to go back unless another super
         user gives you access to do so.
       </p>
       </section>
     <% end %>
+    
+    <p>
+        You may also switch your current viewing role among those you are authorized for:
+        <%= form_with url: update_role_path, method: :post, local: true do |form| %>
+          <%= form.label :role, 'Select Role' %>
+          <%= form.select :role, options_for_select(current_user.role_list.map { |role| [User.display_role_name(role), role] }, current_user.role) %>
+          <%= form.submit 'Change Role', data: { turbo: false }, class: 'btn btn-primary' %>
+        <% end %>
+    </p>
 
     <br>
     <section>
@@ -83,7 +92,6 @@
            concat(bar_chart @chart_data)
          end %>
     </section>
-
   </main>
 </body>
 </html>

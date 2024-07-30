@@ -23,6 +23,10 @@ class OptionsController < ApplicationController
     @option = Option.new
   end
 
+  def edit
+    @option = Option.find(params[:id])
+  end
+
   def create
     if params[:option][:field] == 'New Field'
       params[:option][:field] = params[:option][:new_field]
@@ -51,10 +55,6 @@ class OptionsController < ApplicationController
         render :new
       end
     end
-  end
-
-  def edit
-    @option = Option.find(params[:id])
   end
 
   def update
@@ -96,22 +96,22 @@ class OptionsController < ApplicationController
     new_option = params[:option][:options].strip
 
     if field.present? && new_option.present?
-      option = Option.find_by(field: field, display_type: 'dropdown')
+      option = Option.find_by(field:, display_type: 'dropdown')
 
       if option
         existing_options = option.options.split(',').map(&:strip)
-        unless existing_options.include?(new_option)
+        if existing_options.include?(new_option)
+          redirect_to options_path, alert: 'Option already exists.'
+        else
           updated_options = (existing_options + [new_option]).join(', ')
           if option.update(options: updated_options)
             redirect_to options_path, notice: 'Option was successfully updated.'
           else
             redirect_to options_path, alert: option.errors.full_messages.to_sentence
           end
-        else
-          redirect_to options_path, alert: 'Option already exists.'
         end
       else
-        option = Option.new(field: field, display_type: 'dropdown', options: new_option)
+        option = Option.new(field:, display_type: 'dropdown', options: new_option)
         if option.save
           redirect_to options_path, notice: 'Option was successfully created.'
         else
@@ -130,7 +130,7 @@ class OptionsController < ApplicationController
   end
 
   def set_fields
-    @fields = %w[Gender Ethnicity Nationality University\ Classification Sexual\ Orientation] +
+    @fields = ['Gender', 'Ethnicity', 'Nationality', 'University Classification', 'Sexual Orientation'] +
               Option.distinct.pluck(:field)
   end
 

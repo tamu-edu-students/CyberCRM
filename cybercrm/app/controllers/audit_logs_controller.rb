@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 # app/controllers/audit_logs_controller.rb
 class AuditLogsController < ApplicationController
   before_action :authorize_super_user
 
-  def index
-  end
+  def index; end
 
   def users
     @audits = Audited::Audit.where(auditable_type: 'User').order(created_at: :desc)

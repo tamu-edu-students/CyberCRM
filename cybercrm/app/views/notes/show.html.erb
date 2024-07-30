@@ -1,3 +1,4 @@
+<!-- app/views/notes/show.html.erb -->
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
     <%= render 'layouts/navbar' %>
@@ -8,13 +9,9 @@
     <div style="font-weight:600; font-size: 3.5vh;text-decoration: underline;"> 
       <%= @student.name %>
     </div>
-    <div style="font-weight:400; font-size: 2vh;display:flex;"> 
-      <div>
-        UIN:
-      </div>
-      <div>
-        <%= @student.uin %>
-      <div>
+    <div style="font-weight:400; font-size: 2vh;display:flex;">
+      <div>UIN:</div>
+      <div><%= @student.uin %></div>
     </div>
   <div id="students" class="mt-4 overflow-x-auto">
     <table class="min-w-full border-collapse border border-gray-300">
@@ -74,4 +71,12 @@ notes_new_hyperlink += <%= @student.id %>;
 var notes_new_anchor = document.getElementById("notes-new");
 notes_new_anchor.setAttribute('href', notes_new_hyperlink);
 
+  document.addEventListener("DOMContentLoaded", function() {
+    const rows = document.querySelectorAll("tr[data-href]");
+    rows.forEach(row => {
+      row.addEventListener("click", function() {
+        window.location.href = this.dataset.href;
+      });
+    });
+  });
 </script>
