@@ -44,9 +44,9 @@
         <% @notes.each do |note| %>
           <% if note.private_note_user == nil || note.private_note_user == "" || ((note.private_note_user != nil || note.private_note_user != "") && note.private_note_user == current_user.email) %>
             <tr >
-              <td class="border border-gray-300 px-4 py-2"><%= note.note_created_date %></td>
+              <td class="border border-gray-300 px-4 py-2"><%=  note.note_created_date %></td>
               <td class="border border-gray-300 px-4 py-2"><%= note.note %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= note.followup_date %></td>
+              <td class="border border-gray-300 px-4 py-2"><%=  note.followup_date%></td>
               <td class="border border-gray-300 px-4 py-2"><%= note.followup_action %></td>
               <td class="border border-gray-300 px-4 py-2"><%= note.action_completed %></td>
               <td class="border border-gray-300 px-4 py-2">
@@ -68,10 +68,9 @@
 </div>
 
 <script>
-/* SHOW NOTES HYPERLINK */
-var notes_new_hyperlink = "/notes/new?student_id=";
-notes_new_hyperlink += <%= @student.id %>;
-var notes_new_anchor = document.getElementById("notes-new");
-notes_new_anchor.setAttribute('href', notes_new_hyperlink);
-
+  /* SHOW NOTES HYPERLINK */
+  var notes_new_hyperlink = "/notes/new?student_id=";
+  notes_new_hyperlink += <%= @student.id %>;
+  var notes_new_anchor = document.getElementById("notes-new");
+  notes_new_anchor.setAttribute('href', notes_new_hyperlink);
 </script>
