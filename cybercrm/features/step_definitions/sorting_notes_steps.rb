@@ -12,7 +12,6 @@ When('I click the {string} column header in notes table') do |column_name|
   click_on column_name
 end
 
-
 Then('I should see notes sorted by {string} in ascending order in notes table') do |column_name|
   Note.order(column_name.parameterize.underscore.to_sym)
   expect(find('th', text: column_name)).to have_content('↑')
