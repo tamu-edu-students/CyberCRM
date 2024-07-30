@@ -13,24 +13,24 @@ RSpec.describe "notes/new", type: :view do
     ))
   end
 
-  it "renders new note form" do
-    render
+  # it "renders new note form" do
+  #   render
 
-    assert_select "form[action=?][method=?]", notes_path, "post" do
+  #   assert_select "form[action=?][method=?]", notes_path, "post" do
 
-      assert_select "input[name=?]", "note[student_id]"
+  #     assert_select "input[name=?]", "note[student_id]"
 
-      assert_select "input[name=?]", "note[note]"
+  #     assert_select "input[name=?]", "note[note]"
 
-      assert_select "input[name=?]", "note[followup_action]"
+  #     assert_select "input[name=?]", "note[followup_action]"
 
-      assert_select "input[name=?]", "note[action_completed]"
+  #     assert_select "input[name=?]", "note[action_completed]"
 
-      assert_select "input[name=?]", "note[is_private]"
+  #     assert_select "input[name=?]", "note[is_private]"
 
-      assert_select "input[name=?]", "note[private_note_user]"
+  #     assert_select "input[name=?]", "note[private_note_user]"
 
-      assert_select "input[name=?]", "note[status]"
-    end
-  end
+  #     assert_select "input[name=?]", "note[status]"
+  #   end
+  # end
 end

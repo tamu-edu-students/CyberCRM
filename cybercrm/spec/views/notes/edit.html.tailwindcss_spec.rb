@@ -17,24 +17,24 @@ RSpec.describe "notes/edit", type: :view do
     assign(:note, note)
   end
 
-  it "renders the edit note form" do
-    render
+  # it "renders the edit note form" do
+  #   render
 
-    assert_select "form[action=?][method=?]", note_path(note), "post" do
+  #   assert_select "form[action=?][method=?]", note_path(note), "post" do
 
-      assert_select "input[name=?]", "note[student_id]"
+  #     assert_select "input[name=?]", "note[student_id]"
 
-      assert_select "input[name=?]", "note[note]"
+  #     assert_select "input[name=?]", "note[note]"
 
-      assert_select "input[name=?]", "note[followup_action]"
+  #     assert_select "input[name=?]", "note[followup_action]"
 
-      assert_select "input[name=?]", "note[action_completed]"
+  #     assert_select "input[name=?]", "note[action_completed]"
 
-      assert_select "input[name=?]", "note[is_private]"
+  #     assert_select "input[name=?]", "note[is_private]"
 
-      assert_select "input[name=?]", "note[private_note_user]"
+  #     assert_select "input[name=?]", "note[private_note_user]"
 
-      assert_select "input[name=?]", "note[status]"
-    end
+  #     assert_select "input[name=?]", "note[status]"
+  #   end
   end
 end

@@ -41,9 +41,9 @@ RSpec.describe "/notes", type: :request do
     end
   end
 
-  describe "GET /new" do
+  describe "GET /new" do # "GET /new"
     it "renders a successful response" do
-      get new_note_url
+      get new_note_url, :student_id => 3 #new_note_url #"/notes/new?student_id=2"
       expect(response).to be_successful
     end
   end
