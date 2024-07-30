@@ -1,7 +1,7 @@
-# spec/controllers/audit_logs_controller_spec.rb
+# spec/spec_helper.rb or spec/rails_helper.rb
 require 'rails_helper'
 
-RSpec.describe AuditLogsController, type: :controller do
+RSpec.describe AuditLogsController do
   let(:super_user) { create(:user, role: 'super_user') }
   let(:regular_user) { create(:user, role: 'student_worker') }
 

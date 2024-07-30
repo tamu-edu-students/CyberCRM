@@ -15,82 +15,82 @@ Feature: Filtering students
     Given I am on the students page
 
   Scenario: Filter by nationality
-    When I select "Canadian" from "Nationality"
-    And I press "Apply Filters"
-    Then I should see "Dominique O'Connell"
-    And I should not see "Felipe Spencer"
-    And I should not see "Rogelio Ortiz"
-    And I should not see "Elwood King"
-    And I should not see "Diego Emmerich"
+    When I select "Canadian" from "Nationality" in the students filter
+    And I press "Apply Filters" in the students filter
+    Then I should see "Dominique O'Connell" in the students table
+    And I should not see "Felipe Spencer" in the students table
+    And I should not see "Rogelio Ortiz" in the students table
+    And I should not see "Elwood King" in the students table
+    And I should not see "Diego Emmerich" in the students table
 
   Scenario: Filter by university classification
-    When I select "Graduate" from "University Classification"
-    And I press "Apply Filters"
-    Then I should see "Dominique O'Connell"
-    And I should see "Diego Emmerich"
-    And I should not see "Felipe Spencer"
-    And I should not see "Rogelio Ortiz"
-    And I should not see "Elwood King"
+    When I select "Graduate" from "University Classification" in the students filter
+    And I press "Apply Filters" in the students filter
+    Then I should see "Dominique O'Connell" in the students table
+    And I should see "Diego Emmerich" in the students table
+    And I should not see "Felipe Spencer" in the students table
+    And I should not see "Rogelio Ortiz" in the students table
+    And I should not see "Elwood King" in the students table
 
   Scenario: Filter by sexual orientation
-    When I select "Homosexual" from "Sexual Orientation"
-    And I press "Apply Filters"
-    Then I should see "Felipe Spencer"
-    And I should not see "Dominique O'Connell"
-    And I should not see "Rogelio Ortiz"
-    And I should not see "Elwood King"
-    And I should not see "Diego Emmerich"
+    When I select "Homosexual" from "Sexual Orientation" in the students filter
+    And I press "Apply Filters" in the students filter
+    Then I should see "Felipe Spencer" in the students table
+    And I should not see "Dominique O'Connell" in the students table
+    And I should not see "Rogelio Ortiz" in the students table
+    And I should not see "Elwood King" in the students table
+    And I should not see "Diego Emmerich" in the students table
 
   Scenario: Filter by email
-    When I input "Email" with "fspencer@tamu.edu"
-    And I press "Apply Filters"
-    Then I should see "Felipe Spencer"
-    And I should not see "Dominique O'Connell"
-    And I should not see "Rogelio Ortiz"
-    And I should not see "Elwood King"
-    And I should not see "Diego Emmerich"
+    When I input "Email" with "fspencer@tamu.edu" in the students filter
+    And I press "Apply Filters" in the students filter
+    Then I should see "Felipe Spencer" in the students table
+    And I should not see "Dominique O'Connell" in the students table
+    And I should not see "Rogelio Ortiz" in the students table
+    And I should not see "Elwood King" in the students table
+    And I should not see "Diego Emmerich" in the students table
 
   Scenario: Filter by name
-    When I input "Name" with "Dominique O'Connell"
-    And I press "Apply Filters"
-    Then I should see "Dominique O'Connell"
-    And I should not see "Felipe Spencer"
-    And I should not see "Rogelio Ortiz"
-    And I should not see "Elwood King"
-    And I should not see "Diego Emmerich"
+    When I input "Name" with "Dominique O'Connell" in the students filter
+    And I press "Apply Filters" in the students filter
+    Then I should see "Dominique O'Connell" in the students table
+    And I should not see "Felipe Spencer" in the students table
+    And I should not see "Rogelio Ortiz" in the students table
+    And I should not see "Elwood King" in the students table
+    And I should not see "Diego Emmerich" in the students table
 
   Scenario: Filter by UIN
-    When I input "UIN" with "765656210"
-    And I press "Apply Filters"
-    Then I should see "Dominique O'Connell"
-    And I should not see "Felipe Spencer"
-    And I should not see "Rogelio Ortiz"
-    And I should not see "Elwood King"
-    And I should not see "Diego Emmerich"
+    When I input "UIN" with "765656210" in the students filter
+    And I press "Apply Filters" in the students filter
+    Then I should see "Dominique O'Connell" in the students table
+    And I should not see "Felipe Spencer" in the students table
+    And I should not see "Rogelio Ortiz" in the students table
+    And I should not see "Elwood King" in the students table
+    And I should not see "Diego Emmerich" in the students table
 
   Scenario: Filter by grade
-    When I select "G" from "grade_ryg"
-    And I press "Apply Filters"
-    Then I should see "Dominique O'Connell"
-    And I should see "Felipe Spencer"
-    And I should not see "Rogelio Ortiz"
-    And I should see "Elwood King"
-    And I should not see "Diego Emmerich"
+    When I select "G" from "grade_ryg" in the students filter
+    And I press "Apply Filters" in the students filter
+    Then I should see "Dominique O'Connell" in the students table
+    And I should see "Felipe Spencer" in the students table
+    And I should not see "Rogelio Ortiz" in the students table
+    And I should see "Elwood King" in the students table
+    And I should not see "Diego Emmerich" in the students table
 
   Scenario: Filter by gender
-    When I select "Male" from "Gender"
-    And I press "Apply Filters"
-    Then I should see "Dominique O'Connell"
-    And I should see "Felipe Spencer"
-    And I should see "Rogelio Ortiz"
-    And I should see "Elwood King"
-    And I should see "Diego Emmerich"
+    When I select "Male" from "Gender" in the students filter
+    And I press "Apply Filters" in the students filter
+    Then I should see "Dominique O'Connell" in the students table
+    And I should see "Felipe Spencer" in the students table
+    And I should see "Rogelio Ortiz" in the students table
+    And I should see "Elwood King" in the students table
+    And I should see "Diego Emmerich" in the students table
 
   Scenario: Filter by ethnicity
-    When I select "Black" from "Ethnicity"
-    And I press "Apply Filters"
-    Then I should see "Dominique O'Connell"
-    And I should not see "Felipe Spencer"
-    And I should not see "Rogelio Ortiz"
-    And I should not see "Elwood King"
-    And I should not see "Diego Emmerich"
+    When I select "Black" from "Ethnicity" in the students filter
+    And I press "Apply Filters" in the students filter
+    Then I should see "Dominique O'Connell" in the students table
+    And I should not see "Felipe Spencer" in the students table
+    And I should not see "Rogelio Ortiz" in the students table
+    And I should not see "Elwood King" in the students table
+    And I should not see "Diego Emmerich" in the students table

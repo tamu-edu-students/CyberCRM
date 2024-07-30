@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/factories/student_options.rb
 
 FactoryBot.define do
