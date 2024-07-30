@@ -1,78 +1,56 @@
-# frozen_string_literal: true
-
-# Controls notes. params[:id] is the id of the student
+# app/controllers/notes_controller.rb
 class NotesController < ApplicationController
-  # before_action :set_note, only: %i[show edit update destroy]
+  before_action :set_student
+  before_action :set_note, only: [:show, :edit, :update, :destroy]
 
-  # GET /notes or /notes.json
-  # def index
-  #   @notes = Note.all
-  # end
-
-  # GET /notes/1 or /notes/1.json
-  def show
-    @student = Student.find(params[:id])
-    Rails.logger.debug @student.name
+  def index
     @notes = @student.notes
-    Rails.logger.debug @notes
   end
 
-  # GET /notes/new
   def new
-    @note = Note.new
+    @note = @student.notes.new
   end
 
-  # GET /notes/1/edit
-  # def edit; end
+  def create
+    @note = @student.notes.new(note_params)
 
-  # POST /notes or /notes.json
-  # def create
-  #   @note = Note.new(note_params)
+    if @note.save
+      redirect_to student_note_path(@student, @note), notice: 'Note was successfully created.'
+    else
+      render :new
+    end
+  end
 
-  #   respond_to do |format|
-  #     if @note.save
-  #       format.html { redirect_to note_url(@note), notice: 'Note was successfully created.' }
-  #       format.json { render :show, status: :created, location: @note }
-  #     else
-  #       format.html { render :new, status: :unprocessable_entity }
-  #       format.json { render json: @note.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def show
+  end
 
-  # PATCH/PUT /notes/1 or /notes/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @note.update(note_params)
-  #       format.html { redirect_to note_url(@note), notice: 'Note was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @note }
-  #     else
-  #       format.html { render :edit, status: :unprocessable_entity }
-  #       format.json { render json: @note.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def edit
+  end
 
-  # DELETE /notes/1 or /notes/1.json
-  # def destroy
-  #   @note.destroy!
+  def update
+    if @note.update(note_params)
+      redirect_to student_note_path(@student, @note), notice: 'Note was successfully updated.'
+    else
+      render :edit
+    end
+  end
 
-  #   respond_to do |format|
-  #     format.html { redirect_to notes_url, notice: 'Note was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
+  def destroy
+    @note.destroy
+    redirect_to student_notes_path(@student), notice: 'Note was successfully destroyed.'
+  end
 
-  # private
+  private
 
-  # Use callbacks to share common setup or constraints between actions.
-  # def set_note
-  #   @student = Student.find(params[:id])
-  #   puts @student.name
-  # end
+  def set_student
+    @student = Student.find(params[:student_id])
+  end
 
-  # Only allow a list of trusted parameters through.
-  # def note_params
-  #   params.fetch(:note, {})
-  # end
+  def set_note
+    @note = @student.notes.find(params[:id])
+  end
+
+  def note_params
+    params.require(:note).permit(:note, :note_created_date, :followup_action, :followup_date, :action_completed, :is_private, :private_note_user, :status)
+  end
 end

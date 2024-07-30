@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   get 'audit_logs/notes', to: 'audit_logs#notes', as: 'note_audit_logs'
   get 'audit_logs/student_options', to: 'audit_logs#student_options', as: 'student_option_audit_logs'
 
-  resources :notes
-
   resources :options do
     post :add_option_to_field, on: :collection
   end
@@ -23,14 +21,10 @@ Rails.application.routes.draw do
       get :inactive
     end
 
+    resources :notes, except: %i[index]
+
     member do
       post :update_custom_attribute
-    end
-  end
-
-  resources :custom_attributes, except: :show do
-    member do
-      post :toggle_active
     end
   end
 
@@ -40,10 +34,8 @@ Rails.application.routes.draw do
 
   get 'pages/home'
   get 'pages/form'
+  get 'students/:student_id/notes', to: 'notes#index'
 
-  get 'custom_attributes/index'
-  get 'custom_attributes/new'
-  get 'custom_attributes/edit'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: redirect('/')

@@ -19,23 +19,14 @@
         <div class="inline-block ml-2">
           <%= button_to "Delete this student", @student, data: { turbo: false }, method: :delete, class: "my-2 rounded-lg py-3 px-5 bg-gray-100 font-medium hover:bg-gray-200" %>
         </div>
-        <div id="student-id" style="display:none"> 
-          <%= @student.id %>
-        </div>
-        <a id="notes-show"><div id="notes_button" class= "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" >Notes</div></a>
       <% end %>
+
+      <div class="mt-5">
+        <a href="<%= student_notes_path(@student) %>" class="mt-3 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200">Notes</a>
+      </div>
+
     </div>
   </div>
-
-  <script>
-    /* START NOTES HYPERLINK */
-    var notes_show_hyperlink = "/notes/";
-    var student_id = document.getElementById("student-id").innerHTML.trim();
-    notes_show_hyperlink = notes_show_hyperlink + student_id;
-    var notes_show_button = document.getElementById("notes-show");
-    notes_show_button.setAttribute('href', notes_show_hyperlink);
-    /* END NOTES HYPERLINK */
-  </script>
 <% else %>
   <div class="mx-auto md:w-2/3 w-full">
     <h1 class="font-bold text-4xl">Permission denied. Please return to the homepage.</h1>

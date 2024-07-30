@@ -1,0 +1,31 @@
+<!-- app/views/notes/new.html.erb -->
+<h1>New Note</h1>
+<%= form_with model: [@student, @note] do |f| %>
+  <%= f.label :note %>
+  <%= f.text_area :note %>
+
+  <%= f.label :note_created_date %>
+  <%= f.date_select :note_created_date %>
+
+  <%= f.label :followup_action %>
+  <%= f.text_field :followup_action %>
+
+  <%= f.label :followup_date %>
+  <%= f.date_select :followup_date %>
+
+  <%= f.label :action_completed %>
+  <%= f.check_box :action_completed %>
+
+  <%= f.label :is_private %>
+  <%= f.check_box :is_private %>
+
+  <%= f.label :private_note_user %>
+  <%= f.text_field :private_note_user %>
+
+  <%= f.label :status %>
+  <%= f.select :status, options_for_select(['Open', 'Closed']) %>
+
+  <%= f.submit 'Save Note' %>
+<% end %>
+
+<%= link_to 'Back', student_path(@student) %>

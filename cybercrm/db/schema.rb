@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_25_123724) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_30_014004) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,7 +37,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_123724) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.bigint "student_id", null: false
     t.string "note"
     t.date "note_created_date"
     t.string "followup_action"
@@ -46,6 +45,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_25_123724) do
     t.boolean "is_private"
     t.string "private_note_user"
     t.string "status"
+    t.bigint "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_notes_on_student_id"

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-# NotesHelper not user
+# notes helper
 module NotesHelper
 end
