@@ -15,8 +15,14 @@
 
   <p class="mb-4">
     <strong>Role:</strong>
-    <%= @user.role %>
+    <%= User::ROLE_DISPLAY_NAMES[@user.role] || @user.role %>
   </p>
+
+  <p>
+    <strong>Roles:</strong>
+    <%= @user.display_roles %>
+  </p>
+
 
   <div class="mt-4">
     <%= link_to 'Edit', edit_user_path(@user), data: { turbo: false }, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

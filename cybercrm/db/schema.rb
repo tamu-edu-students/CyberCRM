@@ -60,6 +60,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_014004) do
     t.index ["field"], name: "index_options_on_field", unique: true
   end
 
+  create_table "programs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "student_options", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "option_id", null: false
@@ -99,6 +104,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_014004) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "role"
+    t.string "role_list", default: ["student_worker"], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

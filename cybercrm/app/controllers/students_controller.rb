@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StudentsController < ApplicationController
   include StudentsHelper
 
@@ -189,17 +191,17 @@ class StudentsController < ApplicationController
   def student_params
     params.require(:student).permit(:name, :uin, :grade_ryg, :gender, :ethnicity, :nationality,
                                     :expected_graduation, :university_classification, :status,
-                                    :sexual_orientation, :date_of_birth, :email, :custom_attributes => {})
+                                    :sexual_orientation, :date_of_birth, :email, custom_attributes: {})
   end
 
   def save_custom_attributes(student, custom_attributes = nil)
     return if custom_attributes.nil?
 
     custom_attributes.each do |field, value|
-      option = Option.find_by(field: field)
+      option = Option.find_by(field:)
       next unless option
 
-      student_option = student.student_options.find_or_initialize_by(option: option)
+      student_option = student.student_options.find_or_initialize_by(option:)
       student_option.value = value
       student_option.save
     end

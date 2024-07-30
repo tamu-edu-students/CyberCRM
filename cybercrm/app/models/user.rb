@@ -2,6 +2,28 @@
 
 # This is user < application record
 class User < ApplicationRecord
+  before_save :sanitize_role_list
+
+  ROLE_DISPLAY_NAMES = {
+    'super_user' => 'Super User',
+    'program_director' => 'Program Director',
+    'student_worker' => 'Employee'
+  }.freeze
+
+  def self.display_role_name(role)
+    ROLE_DISPLAY_NAMES[role] || role
+  end
+
+  def display_roles
+    role_list.map do |role|
+      self.class.display_role_name(role)
+    end.join(', ')
+  end
+
+  def sanitize_role_list
+    self.role_list = role_list.compact_blank
+  end
+
   audited
   # Validations
   # https://guides.rubyonrails.org/testing.html
