@@ -2,13 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "notes/edit", type: :view do
   let(:note) {
+    @student = Student.find(3)
     Note.create!(
-      student: nil,
+      student: @student.id,
       note: "MyString",
       followup_action: "MyString",
       action_completed: false,
       is_private: false,
-      private_note_user: "MyString",
+      private_note_user: nil,
       status: "MyString"
     )
   }
@@ -19,8 +20,8 @@ RSpec.describe "notes/edit", type: :view do
 
   it "renders the edit note form" do
     render
-
-    assert_select "form[action=?][method=?]", note_path(note), "post" do
+    #params = {:note_id=>note.id}
+    assert_select "form[action=?][method=?]", note_path(note), "post" do #/notes/2/
 
       assert_select "input[name=?]", "note[student_id]"
 
