@@ -133,6 +133,20 @@ Note: From Ruby homework.
 
 ## How to run Rails
 
-This is with WSL.
+Make sure the right version of ruby is installed.
 
-`bin/rails server`
+This is with Linux or WSL:
+
+`rails s`
+
+Before running that command you might have to run this sequence if you haven't already:
+
+`rails db:drop`
+
+`rails db:create`
+
+`rails db:migrate`
+
+`rails db:seed`
+
+Then try running `rails s` again
